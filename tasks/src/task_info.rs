@@ -672,8 +672,8 @@ make_test_info!(
 make_test_info!(
     task4_4_info, "Constructors",
     describe_type("Structure Constructors",
-        "Constructors are functions that can are attached to the strucure Type,
-        These are used to build or constructor the structure often limiting or providing
+        "Constructors are functions that are attached to the strucure Type,
+        These are used to build or construct the structure often limiting or providing
         data for the structure.",
         (false, &[
             "Constructors always go at the top of the impl block.",
@@ -762,9 +762,9 @@ make_test_info!(
             "Cloning is creating an exact duplicate and is best avoided unless necessary",
             "Borrowing is taking the value for a short period of time and then giving it back",
             "&str are always borrowed so they can be passed around without trouble but never stored",
-            "Strings are not able to be copied and are not borrowed so they can be stored",
+            "Strings are not able to be copied but they are not borrowed so they can be stored",
             "Strings can be borrowed by puting the & symbol behind it basically turning it
-            back into a &str. This is useful when you want to print the value but not move it."
+            back into a &str. This is useful when you want to read/print the value but not move it."
         ]),
         &[
             (
@@ -887,187 +887,3 @@ make_test_info!(
     None,
     None
 );
-
-
-  //Some("Because formal_hello requires &str as parameters instead of String,
-  //    You must borrow the fields by adding & before them in the function call.
-  //    If this is confusing ignore this and run 'cargo clippy' and it will show you what todo.
-  //")
-
-
-
-
-//  make_test_info!(
-//      task4_1_info, "Vectors",
-//      describe_type("Vector Vec<T>",
-//          "Vectors are like lists, they can contain a bunch of values all of the same Type.",
-//          (false, &[
-//              "Vectors can be created with a set of items or items can be push on later",
-//              "Items in a vector can be accessed by poping items off or 'Indexing'",
-//              "Vectors cannot be printed like all previous Types, Instead they can
-//              only be printed using the debug formater",
-//          ]),
-//          &[
-//              ("The Type of a Vector of u8s", "Vec<u8>"),
-//          ],
-//      )+TYPE_SEP+
-//      &describe_type("Debug Formatter '?'",
-//          "Previously we spoke of Formatting Strings, and you have extensivly used the
-//          place holder '{}' to print values. But not all Types can be printed with the
-//          default formatting, to change the formatting you can put a ':' followed by
-//          a symbol to tell it what formatter to use. In this case '?' denotes the debug formatter.",
-//          (false, &[
-//              "Most types that can be formatted with the default formatter can also be printed
-//              with the debug formatter, such as &str, and u8s"
-//          ]),
-//          &[(
-//              "To print a value with the debug formatter",
-//              "print!(\"The debug placeholder {:?}\", my_value);"
-//          )],
-//      ),
-//      describe_function("say_numbers", &["numbers: &[u8]"], None,
-//          "use the debug placeholder '{:?}' and print the slice of numbers.",
-//      ),
-//      None,
-//      None
-//  );
-
-
-//  //          "Vectors belong to a group of types called collections",
-//  //          "Collections can be a pain to",
-
-//  make_test_info!(
-//      task4_2_info, "&str Slice",
-//      describe_type("Type Parameters",
-//          "Type Parameters are inputs that certian Types can accept in order to define it self.",
-//          (false, &[
-//              "For example the slice has no Type until you tell it what it is a silce of",
-//              "Type Parameters are often denoted 'T' where you must replace it with an actual Type"
-//          ]),
-//          &[
-//              ("The slice type is properly denoted", "&[T]"),
-//              ("For a slice of u8s", "let numbers: &[u8] = [1, 4, 3];"),
-//              ("For a slice of &str", "let strings: &[&str] = [\"hi\", \"hello\", \"goodbye\"];"),
-//          ],
-//      ),
-//      describe_function("get_names", &[], Some("&[&str]"),
-//          "Create and return a slice of &str filled with exactly 3 names",
-//      ),
-//      None,
-//      None
-//  );
-
-/*
-
-+TYPE_SEP+
-    &,
-
-make_test_info!(
-    task4_1_info, "NOT FUNCTIONING YET. DO NOT TRY TO COMPLETE.
-    Global Variables",
-    describe_type("Global Variables",
-        "A global variable is a variable that is accessible throughout your entire program.",
-        (true, &[
-        "Global variables are declared (created) using the 'const' keyword.",
-        "Global variables are not created inside functions, but instead just inside your script/file",
-        "Global variables names are always UPPERCASE",
-        "Global variables need to be defined with their Type stated"
-        ]),
-        &[
-            ("To define a global u8 using 'const':",
-            "const MY_AGE: u8 = 21;"),
-        ],
-    ),
-    describe_function(
-        "say_global", &[], None,
-        "Declare a global &str called 'MY_NAME', setting the value to your name.
-        Then, inside say_global, print this: 'My global name is ' followed by My_NAME"
-    ),
-    None, // Restrictions
-    None  // Hints
-);
-
-make_test_info!(
-    task4_2_info, "Enumerators",
-    describe_type("Enumerators",
-        "An enum or enumerator is a way to define a type that can be one of several variants.
-        It is particularly useful for defining data that can only have a limited set of options.",
-        (true, &[]),
-        &[
-            ("To define (create) an Enum",
-            "enum EnumName {
-                FirstVariant,
-                SecondVariant,
-                ThirdVariant,
-                ...
-            }"),
-            ("For example",
-            "enum Fruit {
-                Apple,
-                Banana,
-                Orange,
-            }"),
-        ],
-    ),
-    describe_function(
-        "describe_weather", &[], None,
-        "Create a global enum called Weather with the variants: 'Sunny', 'Cloudy', 'Raining', 'Snowing'.
-        Then, inside describe_weather, print: 'This weeks weather could be : ' followed by your Weather enum"
-    ),
-    None, // Restrictions
-    None  // Hints
-);
-
-make_test_info!(
-    task4_3_info, "Getting Variant Of Enum",
-    describe_type("Enum Variants",
-        "",
-        (true, &[]),
-        &[
-            ("To get a variant out of an Enumerator and print it",
-            "print!(\"{:?}\", Fruit::Apple)"),
-        ],
-    ),
-    describe_function(
-        "say_sunny", 
-        &[], 
-        None,
-        "print: 'Todays weather is gonna be ' followed by the Sunny variant of your global Weather enum"
-    ),
-    None, // Restrictions
-    None  // Hints
-);
-
-make_test_info!(
-    task4_4_info, "Matching for Enum Variant",
-    describe_type("Matching Enum Variant",
-        "A common use of Enums is matching their variants to a variable or parameter.",
-        (true, &[]),
-        &[
-            ("To match for Enum variants:",
-            "let fruit = Fruit::Banana;
-            match fruit {
-                Fruit::Apple => println!(\"Apple\"),
-                Fruit::Banana => println!(\"Banana\"),
-                Fruit::Orange => println!(\"Orange\"),
-            }");
-        ],
-    ),
-    describe_function(
-        "match_weather", 
-        &["todays_weather: Weather"], 
-        None,
-        "Use a match statement on the given parameter:
-            - Sunny: Print \"Yay, it's gonna be sunny today!\"
-            - Cloudy: Print \"Aw, it's gonna be cloudy today.\"
-            - Raining: Print \"What? It's gonna be rain all day today.\"
-            - Snowing: Print \"Hooray! It's a snow day!\""
-    ),
-    None, // Restrictions
-    None  // Hints
-);
-
-
-
-
-*/

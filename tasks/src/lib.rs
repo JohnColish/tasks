@@ -469,7 +469,7 @@ test_setup::make_test!(task4_7, {
 test_setup::make_test!(task4_8, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_7_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
     assert_stdout_eq!(
         tasks::examine_tombstone(tasks::Tombstone{birth_year: 12, death_year: 92}),
