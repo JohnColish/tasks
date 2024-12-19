@@ -405,7 +405,7 @@ test_setup::make_test!(task4_2, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
 
     assert_stdout_eq!(
-        tasks::print_tombstone(tasks::Tombstone{birth_year: 34, death_year: 76}),
+        tasks::print_tombstone(&tasks::Tombstone{birth_year: 34, death_year: 76}),
         "34-76"
     );
     //----------------------------------------------------------------------
@@ -472,27 +472,27 @@ test_setup::make_test!(task4_8, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
     assert_stdout_eq!(
-        tasks::examine_tombstone(tasks::Tombstone{birth_year: 12, death_year: 92}),
+        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 12, death_year: 92}),
         "He was born in the year '12 and lived 80 years!"
     );
 
     assert_stdout_eq!(
-        tasks::examine_tombstone(tasks::Tombstone{birth_year: 49, death_year: 30}),
+        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 49, death_year: 30}),
         "I don't know when they were born but they died in the year '30"
     );
 
     assert_stdout_eq!(
-        tasks::examine_tombstone(tasks::Tombstone{birth_year: 20, death_year: 30}),
+        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 30}),
         "I don't know when they were born but they died in the year '30"
     );
 
     assert_stdout_eq!(
-        tasks::examine_tombstone(tasks::Tombstone{birth_year: 20, death_year: 120}),
+        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 120}),
         "I don't know when they were born but they died in the year '120"
     );
 
     assert_stdout_eq!(
-        tasks::examine_tombstone(tasks::Tombstone{birth_year: 20, death_year: 56}),
+        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 56}),
         "I don't know when they were born but they died in the year '56"
     );
     //----------------------------------------------------------------------

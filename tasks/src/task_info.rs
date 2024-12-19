@@ -627,7 +627,7 @@ make_test_info!(
             }
 
             impl Name {
-                pub fn my_method(self, parameter_name: Type) -> ReturnType {
+                pub fn my_method(self: &Name, parameter_name: Type) -> ReturnType {
                     //Function body
                 }
             }
@@ -645,7 +645,7 @@ make_test_info!(
             }
 
             impl Date {
-                pub fn print(&self) {
+                pub fn print(self: &Date) {
                     print!(\"{}/{}/{}\", self.month, self.day, self.year);
                 }
             }
@@ -743,7 +743,7 @@ make_test_info!(
         &[describe_function("new", &["first: &str", "last: &str"], Some("FullName"),
             "Create a new FullName by runing .to_string() on the parameters"
         )],
-        &[describe_function("print", &["&self"], None,
+        &[describe_function("print", &["self: &FullName"], None,
             "print the first and last name with a space between them"
         )]
     ),
@@ -763,7 +763,7 @@ make_test_info!(
             "Borrowing is taking the value for a short period of time and then giving it back",
             "&str are always borrowed so they can be passed around without trouble but never stored",
             "Strings are not able to be copied but they are not borrowed so they can be stored",
-            "Strings can be borrowed by puting the & symbol behind it basically turning it
+            "Strings can be borrowed by putting the & symbol behind it basically turning it
             back into a &str. This is useful when you want to read/print the value but not move it."
         ]),
         &[
@@ -776,7 +776,7 @@ make_test_info!(
         ],
     ),
     "Add a method to the bottom of the impl for FullName:\n        ".to_string()
-    +&describe_function("hello", &["&self"], None,
+    +&describe_function("hello", &["self: &FullName"], None,
         "Use 'formal_hello' to print the first and last name. Don't forget to borrow
         the fields as you pass them to formal_hello"
     ).replace("\n", "\n    "),
@@ -876,7 +876,7 @@ make_test_info!(
             ),
         ],
     ),
-    describe_function("examine_tombstone", &["tombstone: Tombstone"], None,
+    describe_function("examine_tombstone", &["tombstone: &Tombstone"], None,
         "Use a match statement on the Tombstone structure to print:
             If the birth_year is 12 and the death_year 92 print
                 \"He was born in the year '12 and lived 80 years!\",

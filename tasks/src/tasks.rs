@@ -108,7 +108,7 @@ pub struct Tombstone {
     pub death_year: u8,
 }
 
-pub fn print_tombstone(tombstone: Tombstone) {
+pub fn print_tombstone(tombstone: &Tombstone) {
     print!("{}-{}", tombstone.birth_year, tombstone.death_year);
 }
 
@@ -121,7 +121,7 @@ impl DriversLicense {
     pub fn new(issued: u8) -> DriversLicense {
         DriversLicense{issued: issued, expires: issued+8}
     }
-    pub fn print(&self) {
+    pub fn print(self: &DriversLicense) {
         print!("Issued on {}, Expires on {}", self.issued, self.expires);
     }
 }
@@ -135,10 +135,10 @@ impl FullName {
     pub fn new(first: &str, last: &str) -> FullName {
         FullName{first: first.to_string(), last: last.to_string()}
     }
-    pub fn print(&self) {
+    pub fn print(self: &FullName) {
         print!("{} {}", self.first, self.last);
     }
-    pub fn hello(&self) {
+    pub fn hello(self: &FullName) {
         formal_hello(&self.first, &self.last);
     }
 }
@@ -151,7 +151,7 @@ pub fn print_age(age: u8) {
     }
 }
 
-pub fn examine_tombstone(tombstone: Tombstone) {
+pub fn examine_tombstone(tombstone: &Tombstone) {
     match tombstone {
         Tombstone{birth_year: 12, death_year: 92} => {
             print!("He was born in the year '12 and lived 80 years!");
