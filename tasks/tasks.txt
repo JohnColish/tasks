@@ -1,0 +1,38 @@
+SECTION 1:
+
+-----------------------------------------------------------------
+
+To enter the project run: cd tasks
+
+To build your project:
+	Run: 'cargo clippy'
+	Make sure there are no warnings
+
+To test your tasks and ensure you got the correct result:
+	Run: cargo test --features=task1_1
+	The first number is the section the second is the task number
+	task{section}_{task_number}
+
+To learn about your task:
+	Run: cargo test --features=task1_1_info
+	Suffixing the same command to test with '_info'
+
+To complete the task edit the file src/tasks.rs:
+        Run: vim src/tasks.rs
+
+Vim Quick Cheatsheet:
+    To move around use the arrow keys.
+    To save(write) the file
+        :w
+    To exit(quit) vim
+        :q
+    To enter insert mode, This is where you can type and delete
+        i
+    To exit insert mode
+        esc
+    To undo
+        u
+    To redo
+        Ctrl + r
+
+-----------------------------------------------------------------

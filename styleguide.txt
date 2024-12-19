@@ -1,0 +1,20 @@
+#Style Restrictions
+1. Never write a function thats more than 10-15 lines long
+2. Never accept mutable paramaters in a function with the exception of &mut self
+3. Never write a function that is not a Method(exception for tasks)
+4. Never write a struct that has more than 5 fields
+5. Originize your code:
+    1. Imports(use statemnts)
+    2. Const/Static statements
+    2. Type aliases
+    3. Traits
+    4. Structure definitions
+        3. impl Structure
+        4. impl Trait for Structure
+    5. Main Function
+6. Never have any warnings after running cargo clippy
+7. Write a comment above every function describing what its inputs are and what its outputs are and why it exists in english
+8. Object cannot access methods that are above them
+
+
+These need clarity bad so please ask questions, you have an exception to 3 when writing tasks
