@@ -252,9 +252,10 @@ make_test_info!(
 make_test_info!(
     task2_4_info, "First Operator: +",
     describe_type("Operators",
-        "Operators are special kinds of functions that take two parameters one before
-        and one after a symbol and turns them into the result of the operation.
-        like functions after declaring an operator it is turned into the value",
+        "Operators are special functions that take two inputs: one before and
+        one after the operator symbol. They perform a specific task and give back a result.
+        Like functions, when you use an operator, it processes the inputs and
+        produces the final result of the operation.",
         (false, &[
             "Operators work with many different types but the first and second
             parameter must be the exact same Type",
@@ -289,6 +290,14 @@ make_test_info!(
         &[(
             "To declare (create) a variable",
             "let name: Type = value;",
+        ),
+        (
+            "Example",
+            "let my_age: u8 = 19;",
+        ),
+        (
+            "To declare (create) a variable using the value returned by a function",
+            "let name: Type = my_function();",
         )],
     ),
     describe_function("say_add", &["a: u8", "b: u8"], None,
@@ -323,17 +332,17 @@ make_test_info!(
         "add all three parameters together and return the result"
     ),
     Some("Do not use + directly instead use your 'add()' function"),
-    Some("You can call 'add()' more than once and store the result in a variable")
+    Some("You can call 'add()' more than once. You can store the result of add() inside a variable")
 );
 
 make_test_info!(
     task2_8_info, "Put It All Together!",
     "",
     describe_function("formal_greet", &["first_name: &str", "last_name: &str", "a: u8", "b: u8"], None,
-        "use 'formal_hello()' to print the two strings.
-        add the u8s together and print them using 'say_age()'"
+        "use 'formal_hello()' to print 'first_name' and 'last_name'.
+        Then, add the u8s together and print the result using your 'say_age()' function"
     ),
-    Some("Do not use print! or + in 'formal_greet' directly use 'add'"),
+    Some("Do not use print! or + in 'formal_greet' directly. Use 'add'"),
     None
 );
 
@@ -342,12 +351,11 @@ make_test_info!(
 make_test_info!(
     task3_1_info, "First Boolean",
     describe_type("Booleans",
-        "Booleans: Can only store one of two values: true or false.
-        They are often used in conditions and comparisons.",
+        "Booleans (bool) can only store one of two values: true or false.",
         (true, &[]),
         &[
-            ("To declare a false boolean", "false"),
-            ("To declare a true boolean", "true"),
+            ("To declare a false boolean", "let my_bool: bool = false"),
+            ("To declare a true boolean", "let my_bool: bool = true"),
         ],
     ),
     describe_function("say_bool", &["a: bool"], None,
@@ -361,8 +369,8 @@ make_test_info!(
 make_test_info!(
     task3_2_info, "Equals Operator",
     describe_type("'==' Operator",
-        "The == (equals) operator is used check if two values are equal
-        and return a boolean (true or false)",
+        "The == (equals) operator is used to check if two values are the same
+        and gives back true if they match or false if they don’t.",
         (true, &[]),
         &[
             ("(5 == 5) becomes", "true"),
@@ -379,18 +387,18 @@ make_test_info!(
 make_test_info!(
     task3_3_info, "Using Match Statements",
     describe_type("Match Statement",
-        "A match statement is an expression that takes a value and compares
-        it against a series of patterns. If a pattern matches, the code after the
-        corosponding \"=>\" is ran. A pattern matches if the value == pattern",
+        "A match statement is a tool that checks a value against a series of patterns.
+        If a pattern matches the value, the code after the => runs. A pattern matches 
+        when the value is the same as the pattern's result.",
         (true, &[]),
         &[
             ("Match statements follow this format",
             "match value {
                 pattern => {
-                    //function body
+                    // Function body
                 },
                 pattern => {
-                    //function body
+                    // Function body
                 }
             }"),
             ("For example",
@@ -529,15 +537,15 @@ make_test_info!(
 make_test_info!(
     task4_1_info, "First Structure",
     describe_type("Structures",
-        "Structures are exactly like Types but they can be constructed by anyone. All
-        Structures consist of 5 parts",
+        "Structures (Struct) are similar to Types, but they are custom-built by the programmer. 
+        A Structure is made up of 5 parts",
         (true, &[
-            "pub struct: Is the keyword to declare a structure",
-            "Name: The name of a structure is always CammelCase, Meaning the first letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.",
-            "Constructors: These are functions that may accept parameters but always
-            return the structure",
-            "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
+            "pub struct: This the keyword combination to declare a structure",
+            "Name: This is the name of your structure. Structure names are always CamelCase, 
+            meaning the first letter of every word is capitalized and there are no spaces or underscores.",
+            "fields: Fields are the variables or data stored inside the structure.",
+            "Constructors: Constructors are special functions that may take parameters and return an instance of the structure.",
+            "Methods: Methods are functions defined for a structure. They can take parameters, and they have access to all the fields within the structure."
         ]),
         &[
             (
@@ -547,7 +555,7 @@ make_test_info!(
                 pub field_name: FieldType,
             }
 
-            //Constructors and Methods go in an implmentation shown later
+            //Constructors and Methods go in an implementation shown later
             "
             ),
             (
@@ -573,8 +581,8 @@ make_test_info!(
 make_test_info!(
     task4_2_info, "Using Fields",
     describe_type("Structure Fields",
-        "Structure fields are exactly like variables contained inside of the structure.
-        To access them you need to .field_name on the variable containing your structure.",
+        "Structure fields are like variables stored inside the structure. 
+        To access them, you use '.' followed by the field name on a variable that is holding the structure. (my_struct_var.field_name)",
         (true, &[]),
         &[
             (
@@ -614,10 +622,9 @@ make_test_info!(
 make_test_info!(
     task4_3_info, "Methods",
     describe_type("Structure Methods",
-        "Methods are functions that can be run on a structure, Methods have a special
-        parameter called self that allows you to access the fields of the structure.
-        Methods go in a seperate block called an implementation. A structure can have
-        only one implementation. All your methods and constructors must be placed inside.",
+        "Methods are functions that operate on a structure. They include a special parameter called self, 
+        which allows them to access the structure's fields. Methods are placed inside a separate block called an implementation (impl). 
+        Each structure can have only one implementation, and all its methods and constructors must be included there.",
         (true, &[]),
         &[
             (
@@ -672,12 +679,12 @@ make_test_info!(
 make_test_info!(
     task4_4_info, "Constructors",
     describe_type("Structure Constructors",
-        "Constructors are functions that are attached to the strucure Type,
-        These are used to build or construct the structure often limiting or providing
-        data for the structure.",
+        "Constructors are functions attached to a structure type. 
+        They are used to create or initialize the structure, often by providing or 
+        limiting the data that the structure will contain.",
         (false, &[
             "Constructors always go at the top of the impl block.",
-            "Constructors are almost always named 'new' and sometimes 'from'",
+            "Constructors are almost usually named 'new' but sometimes 'from'",
             "Constructors must be called on the Structure TypeName using '::' to call it"
         ]),
         &[
@@ -757,14 +764,14 @@ make_test_info!(
         "Previously we spoke of reusing a parameter in 'hello_twice'. This was possible because
         the parameter was a &str (borrowed str).",
         (false, &[
-            "Values can only be used once unless they are (Copy)ied, (Clone)d, or Borrowed(&)",
-            "Copying is availble for certian types that are not very big like numbers u8 etc",
-            "Cloning is creating an exact duplicate and is best avoided unless necessary",
+            "Values can only be used once unless they are copied (Copy), cloned (Clone), or borrowed (&)",
+            "Copying is an option available for certain types that are not very big. Like, numbers (u8)",
+            "Cloning is creating an exact duplicate. This should be avoided unless absolutely necessary",
             "Borrowing is taking the value for a short period of time and then giving it back",
-            "&str are always borrowed so they can be passed around without trouble but never stored",
-            "Strings are not able to be copied but they are not borrowed so they can be stored",
-            "Strings can be borrowed by putting the & symbol behind it basically turning it
-            back into a &str. This is useful when you want to read/print the value but not move it."
+            "&str are always borrowed. They can be passed around without trouble, but never stored",
+            "Strings cannot be copied, but since they are not borrowed (&str), they can be stored",
+            "Strings can be borrowed by putting the & symbol behind it. Turning it back into a &str. 
+            This is useful when you want to read or print the value but not move it."
         ]),
         &[
             (
@@ -788,18 +795,19 @@ make_test_info!(
     task4_7_info, "Matching on Types",
     describe_type("More Matching",
         "In section 3 we matched on the 'bool' type which only had to values 'true' or 'false'.
-        But the match statement can be used on any Type. But if you were to match on the u8
-        that would be 128 branches of the match statement, because a u8 can be 0 to 127.
-        There are two solutions:",
+        But the match statement can be used on any Type. 
+        But, if you were to match on the u8 that would be 128 branches of the match statement, 
+        because a u8 can be 0 to 127. There are two solutions:",
         (true, &[
-            "WildCard(_): The wild card allows you to ignore the value and execute some code
-            as a fall back",
-            "Catching it in a Varibale: You can specify a variable name and no matter what it is
-            it will be stored there and you can use it in a seperate way."
+            "Wildcard (_): The wildcard (_) is used to ignore a value and execute 
+            some code as a fallback when no other patterns match.",
+            "Catching it in a variable: You can specify a variable name 
+            and no matter what the value is, it will be stored inside this variable. 
+            You can use this variable in a separate way."
         ]),
         &[
             (
-            "Using WildCard(_)",
+            "Using Wildcard(_)",
             "let my_age: u8 = 18;
 
             match my_age {
@@ -810,7 +818,7 @@ make_test_info!(
                     print!(\"18 years old!\");
                 },
                 _ => {
-                    print!(\"I don't know how old I am but I am not 3 or 8 years old.\");
+                    print!(\"I don't know how old I am, but I am not 3 or 18 years old.\");
                 }
             }"
             ),
@@ -839,14 +847,14 @@ make_test_info!(
             Otherwise print \"I don't know how old you are but you are alive!\""
     ),
     None,
-    Some("Make sure when checking your age its the same age you return in my_age()")
+    Some("Make sure that the age you check for matches the age returned by my_age().")
 );
 
 make_test_info!(
     task4_8_info, "Matching on Structures",
     describe_type("Advanced Matching",
         "Not only can you match on regular types but you can also match on Structures.
-        WildCard(_) and Variable Matching are possible too!",
+        Wildcard(_) and Variable Matching are possible too!",
         (true, &[]),
         &[
             (
