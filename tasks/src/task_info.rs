@@ -229,7 +229,7 @@ make_test_info!(
         "When defining (creating) a function, follow the parentheses () with an arrow ->,
             followed by the type of the return value (e.g., u8, &str, etc.).",
         "The return value can be specified with the return keyword, but this
-            is only needed when you trying to return a vaule before the function
+            is only needed when you trying to return a value before the function
             is finished running. The proper way to return a value is to have it
             be on the last line of your function with out a ';'"
         ]),
