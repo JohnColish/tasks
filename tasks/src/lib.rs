@@ -390,141 +390,137 @@ test_setup::make_test!(task3_8, {
     //----------------------------------------------------------------------
 });
 
-//  test_setup::make_test!(task4_1, {
+test_setup::make_test!(task4_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
+
+    let _test = tasks::DriversLicense{issued: 34, expires: 76};
+    //----------------------------------------------------------------------
+});
+
+test_setup::make_test!(task4_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
+    let test = tasks::my_new_dl();
+    assert_eq!(test.issued, 4);
+    assert_eq!(test.expires, 12);
+    //----------------------------------------------------------------------
+});
+
+test_setup::make_test!(task4_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
+    assert_stdout_eq!(
+        tasks::print_drivers_license(tasks::DriversLicense{issued: 34, expires: 42}),
+        "34-42"
+    );
+    assert_stdout_eq!(
+        tasks::print_drivers_license(tasks::DriversLicense{issued: 72, expires: 80}),
+        "72-80"
+    );
+    //----------------------------------------------------------------------
+});
+
+
+test_setup::make_test!(task4_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
+    let test = tasks::DriversLicense::new(34);
+    assert_eq!(test.issued, 34);
+    assert_eq!(test.expires, 42);
+
+    let test = tasks::DriversLicense::new(57);
+    assert_eq!(test.issued, 57);
+    assert_eq!(test.expires, 65);
+    //----------------------------------------------------------------------
+});
+
+
+test_setup::make_test!(task4_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
+    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(33), false);
+    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(34), true);
+    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(40), true);
+    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(42), false);
+    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(45), false);
+
+    //----------------------------------------------------------------------
+});
+
+test_setup::make_test!(task4_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_6_info'
+    assert_stdout_eq!(tasks::print_apples(1), "One apple");
+    assert_stdout_eq!(tasks::print_apples(2), "Two apples");
+    assert_stdout_eq!(tasks::print_apples(3), "Three apples");
+    assert_stdout_eq!(tasks::print_apples(5), "More than three apples");
+    assert_stdout_eq!(tasks::print_apples(94), "More than three apples");
+
+    //----------------------------------------------------------------------
+});
+
+test_setup::make_test!(task4_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_7_info'
+
+    assert_stdout_eq!(tasks::print_oranges(1), "One orange");
+    assert_stdout_eq!(tasks::print_oranges(2), "Two oranges");
+    assert_stdout_eq!(tasks::print_oranges(3), "Three oranges");
+    assert_stdout_eq!(tasks::print_oranges(5), "5 oranges");
+    assert_stdout_eq!(tasks::print_oranges(94), "94 oranges");
+    //----------------------------------------------------------------------
+});
+
+test_setup::make_test!(task4_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 20, expires: 28}.examine(),
+        "Hey that's my drivers license"
+    );
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 22, expires: 28}.examine(),
+        "Drivers license issued during covid"
+    );
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 22, expires: 45}.examine(),
+        "Drivers license issued during covid"
+    );
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 22, expires: 24}.examine(),
+        "Drivers license issued during covid"
+    );
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 18, expires: 24}.examine(),
+        "Expires on the 24 and was issued on 18"
+    );
+
+    assert_stdout_eq!(
+        tasks::DriversLicense{issued: 10, expires: 24}.examine(),
+        "Expires on the 24 and was issued on 10"
+    );
+
+    //----------------------------------------------------------------------
+});
+
+//  test_setup::make_test!(task5_1, {
 //      //----------------------------------------------------------------------
 //      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
-
-//      let test = tasks::Tombstone{birth_year: 34, death_year: 76};
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_2, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
-
-//      assert_stdout_eq!(
-//          tasks::print_tombstone(tasks::Tombstone{birth_year: 34, death_year: 76}),
-//          "34-76"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::print_tombstone(tasks::Tombstone{birth_year: 72, death_year: 78}),
-//          "72-78"
-//      );
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_3, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
-//      assert_stdout_eq!(
-//          tasks::DriversLicense{issued: 34, expires: 76}.print(),
-//          "Issued on 34, Expires on 76"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::DriversLicense{issued: 72, expires: 78}.print(),
-//          "Issued on 72, Expires on 78"
-//      );
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_4, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
-//      assert_stdout_eq!(
-//          tasks::DriversLicense::new(34).print(),
-//          "Issued on 34, Expires on 42"
-//      );
-//      assert_stdout_eq!(
-//          tasks::DriversLicense::new(72).print(),
-//          "Issued on 72, Expires on 80"
-//      );
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_5, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
-//      assert_stdout_eq!(
-//          tasks::FullName::new("David", "Lightman").print(),
-//          "David Lightman"
-//      );
-//      assert_stdout_eq!(
-//          tasks::FullName::new("Alex", "Rogan").print(),
-//          "Alex Rogan"
-//      );
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
 
 //      //----------------------------------------------------------------------
 //  });
-
-//  test_setup::make_test!(task4_6, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_6_info'
-//      assert_stdout_eq!(
-//          tasks::FullName::new("David", "Lightman").hello(),
-//          "Hi, my name is David Lightman"
-//      );
-//      assert_stdout_eq!(
-//          tasks::FullName::new("Alex", "Rogan").hello(),
-//          "Hi, my name is Alex Rogan"
-//      );
-
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_7, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_7_info'
-//      assert_stdout_eq!(tasks::print_age(10), "You are ten years old!");
-//      assert_stdout_eq!(tasks::print_age(14), "I don't know how old you are but you are alive!");
-//      assert_stdout_eq!(tasks::print_age(120), "I don't know how old you are but you are alive!");
-//      //----------------------------------------------------------------------
-//  });
-
-//  test_setup::make_test!(task4_8, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
-
-//      assert_stdout_eq!(
-//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 12, death_year: 92}),
-//          "He was born in the year '12 and lived 80 years!"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 49, death_year: 30}),
-//          "I don't know when they were born but they died in the year '30"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 30}),
-//          "I don't know when they were born but they died in the year '30"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 120}),
-//          "I don't know when they were born but they died in the year '120"
-//      );
-
-//      assert_stdout_eq!(
-//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 56}),
-//          "I don't know when they were born but they died in the year '56"
-//      );
-//      //----------------------------------------------------------------------
-//  });
-
-//  //  test_setup::make_test!(task5_1, {
-//  //      //----------------------------------------------------------------------
-//  //      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//  //      //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
-
-//  //      //----------------------------------------------------------------------
-//  //  });
