@@ -36,7 +36,7 @@ For Section 2: cargo test --features=task2_1_info
 }
 
 pub fn list(items: &[&str], numbered: bool) -> String {
-    items.into_iter().enumerate().map(|(ix, i)| {
+    items.iter().enumerate().map(|(ix, i)| {
         let ix = ix+1;
         let li = if numbered { format!("{ix}. ")} else { "- ".to_string()};
         format!("        {}{}", li, i)
@@ -44,7 +44,7 @@ pub fn list(items: &[&str], numbered: bool) -> String {
 }
 
 pub fn examples(exs: &[(&str, &str)]) -> String {
-    exs.into_iter().map(|(desc, exa)|
+    exs.iter().map(|(desc, exa)|
         format!("        - {desc}:\n\n            {exa}\n")
     ).collect::<Vec<_>>().join("\n")
 }
@@ -75,11 +75,11 @@ pub fn describe_structure(name: &str, fields: &[&str], constructors: &[String], 
     let mut fields = fields.join("\n        ");
     if fields.is_empty() {fields = "None".to_string();}
 
-    let constructors = constructors.into_iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
     let mut constructors = constructors.join("\n        ");
     if constructors.is_empty() {constructors = "None".to_string();}
 
-    let methods = methods.into_iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
     let mut methods = methods.join("\n        ");
     if methods.is_empty() {methods = "None".to_string();}
 
@@ -390,110 +390,141 @@ test_setup::make_test!(task3_8, {
     //----------------------------------------------------------------------
 });
 
-test_setup::make_test!(task4_1, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
+//  test_setup::make_test!(task4_1, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
 
-    let test = tasks::Tombstone{birth_year: 34, death_year: 76};
-    //----------------------------------------------------------------------
-});
+//      let test = tasks::Tombstone{birth_year: 34, death_year: 76};
+//      //----------------------------------------------------------------------
+//  });
 
-test_setup::make_test!(task4_2, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
+//  test_setup::make_test!(task4_2, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
 
-    assert_stdout_eq!(
-        tasks::print_tombstone(&tasks::Tombstone{birth_year: 34, death_year: 76}),
-        "34-76"
-    );
-    //----------------------------------------------------------------------
-});
+//      assert_stdout_eq!(
+//          tasks::print_tombstone(tasks::Tombstone{birth_year: 34, death_year: 76}),
+//          "34-76"
+//      );
 
-test_setup::make_test!(task4_3, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 34, expires: 76}.print(),
-        "Issued on 34, Expires on 76"
-    );
-    //----------------------------------------------------------------------
-});
+//      assert_stdout_eq!(
+//          tasks::print_tombstone(tasks::Tombstone{birth_year: 72, death_year: 78}),
+//          "72-78"
+//      );
+//      //----------------------------------------------------------------------
+//  });
 
-test_setup::make_test!(task4_4, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
-    assert_stdout_eq!(
-        tasks::DriversLicense::new(34).print(),
-        "Issued on 34, Expires on 42"
-    );
-    //----------------------------------------------------------------------
-});
+//  test_setup::make_test!(task4_3, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
+//      assert_stdout_eq!(
+//          tasks::DriversLicense{issued: 34, expires: 76}.print(),
+//          "Issued on 34, Expires on 76"
+//      );
 
-test_setup::make_test!(task4_5, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
-    assert_stdout_eq!(
-        tasks::FullName::new("David", "Lightman").print(),
-        "David Lightman"
-    );
-    //----------------------------------------------------------------------
-});
+//      assert_stdout_eq!(
+//          tasks::DriversLicense{issued: 72, expires: 78}.print(),
+//          "Issued on 72, Expires on 78"
+//      );
+//      //----------------------------------------------------------------------
+//  });
 
-test_setup::make_test!(task4_6, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_6_info'
-    assert_stdout_eq!(
-        tasks::FullName::new("David", "Lightman").hello(),
-        "Hi, my name is David Lightman"
-    );
-    //----------------------------------------------------------------------
-});
+//  test_setup::make_test!(task4_4, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
+//      assert_stdout_eq!(
+//          tasks::DriversLicense::new(34).print(),
+//          "Issued on 34, Expires on 42"
+//      );
+//      assert_stdout_eq!(
+//          tasks::DriversLicense::new(72).print(),
+//          "Issued on 72, Expires on 80"
+//      );
+//      //----------------------------------------------------------------------
+//  });
 
-test_setup::make_test!(task4_7, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_7_info'
-    assert_stdout_eq!(tasks::print_age(10), "You are ten years old!");
-    assert_stdout_eq!(tasks::print_age(tasks::my_age()), "You are the same age as me!");
-    assert_stdout_eq!(tasks::print_age(14), "I don't know how old you are but you are alive!");
-    assert_stdout_eq!(tasks::print_age(120), "I don't know how old you are but you are alive!");
-    //----------------------------------------------------------------------
-});
+//  test_setup::make_test!(task4_5, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
+//      assert_stdout_eq!(
+//          tasks::FullName::new("David", "Lightman").print(),
+//          "David Lightman"
+//      );
+//      assert_stdout_eq!(
+//          tasks::FullName::new("Alex", "Rogan").print(),
+//          "Alex Rogan"
+//      );
 
-test_setup::make_test!(task4_8, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
+//      //----------------------------------------------------------------------
+//  });
 
-    assert_stdout_eq!(
-        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 12, death_year: 92}),
-        "He was born in the year '12 and lived 80 years!"
-    );
+//  test_setup::make_test!(task4_6, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_6_info'
+//      assert_stdout_eq!(
+//          tasks::FullName::new("David", "Lightman").hello(),
+//          "Hi, my name is David Lightman"
+//      );
+//      assert_stdout_eq!(
+//          tasks::FullName::new("Alex", "Rogan").hello(),
+//          "Hi, my name is Alex Rogan"
+//      );
 
-    assert_stdout_eq!(
-        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 49, death_year: 30}),
-        "I don't know when they were born but they died in the year '30"
-    );
+//      //----------------------------------------------------------------------
+//  });
 
-    assert_stdout_eq!(
-        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 30}),
-        "I don't know when they were born but they died in the year '30"
-    );
+//  test_setup::make_test!(task4_7, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_7_info'
+//      assert_stdout_eq!(tasks::print_age(10), "You are ten years old!");
+//      assert_stdout_eq!(tasks::print_age(14), "I don't know how old you are but you are alive!");
+//      assert_stdout_eq!(tasks::print_age(120), "I don't know how old you are but you are alive!");
+//      //----------------------------------------------------------------------
+//  });
 
-    assert_stdout_eq!(
-        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 120}),
-        "I don't know when they were born but they died in the year '120"
-    );
+//  test_setup::make_test!(task4_8, {
+//      //----------------------------------------------------------------------
+//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
-    assert_stdout_eq!(
-        tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 56}),
-        "I don't know when they were born but they died in the year '56"
-    );
-    //----------------------------------------------------------------------
-});
+//      assert_stdout_eq!(
+//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 12, death_year: 92}),
+//          "He was born in the year '12 and lived 80 years!"
+//      );
+
+//      assert_stdout_eq!(
+//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 49, death_year: 30}),
+//          "I don't know when they were born but they died in the year '30"
+//      );
+
+//      assert_stdout_eq!(
+//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 30}),
+//          "I don't know when they were born but they died in the year '30"
+//      );
+
+//      assert_stdout_eq!(
+//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 120}),
+//          "I don't know when they were born but they died in the year '120"
+//      );
+
+//      assert_stdout_eq!(
+//          tasks::examine_tombstone(&tasks::Tombstone{birth_year: 20, death_year: 56}),
+//          "I don't know when they were born but they died in the year '56"
+//      );
+//      //----------------------------------------------------------------------
+//  });
+
+//  //  test_setup::make_test!(task5_1, {
+//  //      //----------------------------------------------------------------------
+//  //      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//  //      //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
+
+//  //      //----------------------------------------------------------------------
+//  //  });

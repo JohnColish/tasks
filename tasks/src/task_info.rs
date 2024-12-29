@@ -74,13 +74,13 @@ make_test_info!(
         "A formatting string is a &str used in by functions like print!.
         It can contain plain text, such as \"Hello, everyone\".
         It can also include various symbols to better format your print.
-        For example you can type {{}} anywhere in the string and it will
+        For example you can type {} anywhere in the string and it will
         act as a place holder. You can then fill the placeholder by giving
         print! another paramater and it will fill it in.",
         (true, &[]),
         &[(
             "To print a dog breed out like this: \"Hello, Golden Retreiver!\"",
-            "print!(\"Hello, {{}}!\", \"Golden Retreiver\")"
+            "print!(\"Hello, {}!\", \"Golden Retreiver\")"
         )],
     ),
     describe_function("hello_pet", &[], None,
@@ -146,16 +146,32 @@ make_test_info!(
 
 make_test_info!(
     task1_6_info, "Formal Hello",
-    describe_type("Printing Multiple Variables",
+    describe_type("Printing Multiple Parameters",
         "print! can print multiple variables, but each variable requires
         its own set of {} to specify its position in the text.
+
+        Additionally functions can accept more than one parameter, and when
+        the function is called the values must be passed in the same order
+        as when they're declared.
         ",
         (true, &[]),
-        &[(
+        &[
+            (
             "To print two variables, name and age, like this:
             'Hello, my name is Mitch and I am 38 years old",
             "print!(\"Hello, my name is {} and I am {} years old\", name, age);"
-        )],
+            ),
+            (
+            "Calling a function with multiple parameters",
+            "pub fn a_and_b(a: u8, b: u8) {
+                print!(\"this is a: {}\", a);
+                print!(\"this is b: {}\", b);
+            }
+
+            a_and_b(2, 5); //Will print 25 but
+            a_and_b(5, 2); //Will print 52"
+            )
+        ],
     ),
     describe_function("formal_hello", &["first_name: &str", "last_name: &str"], None,
         "print 'Hi, my name is ' followed by both of the parameters"
@@ -224,7 +240,7 @@ make_test_info!(
             "print!(\"Hello, my name is {}\", my_name());")
         ],
     ),
-    describe_function("my_age", &["age: u8"], Some("u8"),
+    describe_function("my_age", &[], Some("u8"),
         "return your age"
     ),
     None,
@@ -252,11 +268,13 @@ make_test_info!(
 make_test_info!(
     task2_4_info, "First Operator: +",
     describe_type("Operators",
-        "Operators are special kinds of functions that take two parameters one before
-        and one after a symbol and turns them into the result of the operation.
-        like functions after declaring an operator it is turned into the value",
+        "Operators are special functions that take two parameters:
+            one before and one after the operator symbol.
+        They perform a specific operation and return the resulting value.
+        Similar to functions, once an operator is declared, it evaluates
+        to its resulting value.",
         (false, &[
-            "Operators work with many different types but the first and second
+            "Operators work with many different types, but the first and second
             parameter must be the exact same Type",
             "(4 + \"Hi\") will not compile because they are different Types",
         ]),
@@ -282,14 +300,18 @@ make_test_info!(
         "Until now, we've used parameters and values directly. However, it can
         get confusing if you need to do more than one thing in a function.",
         (false, &[
-             "Variables work like parameters, but you declare their name, type, and value.",
+             "Variables work like parameters, but you declare their name , type, and value.",
             "You declare them using the let keyword, then you can use them
             just like parameters.",
         ]),
         &[(
             "To declare (create) a variable",
-            "let name: Type = value;",
-        )],
+            "let name: Type = value;
+            let my_number: u8 = 18;
+            ",
+        ),
+        ("To create a variable using the returned value of a function", "let name: Type = my_function();")
+        ],
     ),
     describe_function("say_add", &["a: u8", "b: u8"], None,
         "Declare a variable called 'result' with Type u8.
@@ -319,11 +341,11 @@ make_test_info!(
 make_test_info!(
     task2_7_info, "Second Variable",
     "",
-    describe_function("add_three", &["a: u8", "b: u8", "c: u8"], None,
+    describe_function("add_three", &["a: u8", "b: u8", "c: u8"], Some("u8"),
         "add all three parameters together and return the result"
     ),
     Some("Do not use + directly instead use your 'add()' function"),
-    Some("You can call 'add()' more than once and store the result in a variable")
+    Some("You can call 'add()' more than once. You can store the value add() returned inside a variable for later use")
 );
 
 make_test_info!(
@@ -518,7 +540,7 @@ make_test_info!(
         ]),
         &[],
     ),
-    describe_function("ready_to_play", &["is_hot: bool", "shoes: bool", "coat: bool"], Some("bool"),
+    describe_function("ready_to_play", &["shoes: bool", "is_hot: bool", "coat: bool"], Some("bool"),
         "use || and && to return true if:
             shoes are true and (is_hot or coat) is true",
     ),
@@ -526,364 +548,502 @@ make_test_info!(
     None
 );
 
-make_test_info!(
-    task4_1_info, "First Structure",
-    describe_type("Structures",
-        "Structures are exactly like Types but they can be constructed by anyone. All
-        Structures consist of 5 parts",
-        (true, &[
-            "pub struct: Is the keyword to declare a structure",
-            "Name: The name of a structure is always CammelCase, Meaning the first letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.",
-            "Constructors: These are functions that may accept parameters but always
-            return the structure",
-            "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
-        ]),
-        &[
-            (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-                pub field_name: FieldType,
-            }
+//  make_test_info!(
+//      task4_1_info, "First Structure",
+//      describe_type("Structures",
+//          "Structures are exactly like Types but they can be constructed by anyone. All
+//          Structures consist of 5 parts",
+//          (true, &[
+//              "pub struct: Is the keyword to declare a structure",
+//              "Name: The name of a structure is always CammelCase, Meaning the first
+//              letter of every word is capitalized and there are no spaces or underscores.",
+//              "fields: Fields are the variables that the structure has inside of it.",
+//              "Constructors: These are functions that may accept parameters but always
+//              return the structure",
+//              "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
+//          ]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//                  pub field_name: FieldType,
+//              }
 
-            //Constructors and Methods go in an implmentation shown later
-            "
-            ),
-            (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }"
-            ),
-        ],
-    ),
-    describe_structure(
-        "Tombstone",
-        &["birth_year: u8", "death_year: u8"],
-        &[],
-        &[],
-    ),
-    None,
-    None
-);
+//              //Constructors and Methods go in an implmentation shown later
+//              "
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }"
+//              ),
+//          ],
+//      ),
+//      describe_structure(
+//          "DriversLicense",
+//          &["issued: u8", "expires: u8"],
+//          &[],
+//          &[],
+//      ),
+//      None,
+//      None
+//  );
 
-make_test_info!(
-    task4_2_info, "Using Fields",
-    describe_type("Structure Fields",
-        "Structure fields are exactly like variables contained inside of the structure.
-        To access them you need to .field_name on the variable containing your structure.",
-        (true, &[]),
-        &[
-            (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-            }
+//  make_test_info!(
+//      task4_2_info, "Brace Constructor",
+//      describe_type("Brace '{}' constructor",
+//          "The brace constructor is used to create an instance of your structure. Previously
+//          you described the Type DriversLicense which is like any other type &str or u8 etc.
+//          But now you are assigning it a value like \"hello, world\" to &str.",
+//          (false, &[]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//              }
 
-            let my_struct: Name = Name{field_name: field_value};
+//              let my_struct: Name = Name{field_name: value);"
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
 
-            print!(\"my field contains {}\", my_struct.field_name);"
-            ),
-            (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
+//              let my_date = Date{year: 24, month: 12, day: 25};"
+//              ),
+//          ],
+//      ),
+//      describe_function(
+//          "my_new_dl", &[], Some("DriversLicense"),
+//          "Create a new drivers license with the brace constructor, issued is 4 and expires is 12"
+//      ),
+//      None,
+//      None
+//  );
 
-            let my_date = Date{year: 1, month: 12, day: 14};
+//  make_test_info!(
+//      task4_2_info, "Using Fields",
+//      describe_type("Structure Fields",
+//          "Structure fields are exactly like variables, contained inside of the structure.
+//          To 'access' them you need to state the structure name followed by '.' and the field name.",
+//          (true, &[]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//              }
 
-            print!(\"The year is {}\", my_date.year);"
-            ),
-        ],
-    ),
-    describe_function(
-        "print_tombstone",
-        &["tombstone: Tombstone"],
-        None,
-        "print the birth year and the death year with a '-' inbetween",
-    ),
-    None,
-    None
-);
+//              let my_struct: Name = Name{field_name: field_value};
 
-make_test_info!(
-    task4_3_info, "Methods",
-    describe_type("Structure Methods",
-        "Methods are functions that can be run on a structure, Methods have a special
-        parameter called self that allows you to access the fields of the structure.
-        Methods go in a seperate block called an implementation. A structure can have
-        only one implementation. All your methods and constructors must be placed inside.",
-        (true, &[]),
-        &[
-            (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-            }
+//              print!(\"my field contains {}\", my_struct.field_name);"
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
 
-            impl Name {
-                pub fn my_method(self: &Name, parameter_name: Type) -> ReturnType {
-                    //Function body
-                }
-            }
+//              let my_date = Date{year: 1, month: 12, day: 14};
 
-            let my_struct: Name = Name{field_name: field_value};
+//              print!(\"The year is {}\", my_date.year); //This year is 1"
+//              ),
+//          ],
+//      ),
+//      describe_function(
+//          "print_drivers_license",
+//          &["a_dl: DriversLicense"],
+//          None,
+//          "print the issued year and the expires year of a_dl with a '-' inbetween",
+//      ),
+//      None,
+//      None
+//  );
 
-            my_struct.my_method(parameter_value);"
-            ),
-            (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
+//  make_test_info!(
+//      task4_3_info, "Constructors",
+//      describe_type("Structure Constructors",
+//          "Constructors are functions that are attached to the strucure Type,
+//          These are used to build or construct the structure often limiting or providing
+//          data for the structure.",
+//          (false, &[
+//              "Constructors always go at the top of the implementation(impl) block.",
+//              "Constructors are almost always named 'new' and sometimes 'from'",
+//              "Constructors must be called on the Structure TypeName using '::' to call it",
+//              "'::' is refered to a TypePath used for accessing the inside of a Type"
+//          ]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//              }
 
-            impl Date {
-                pub fn print(self: &Date) {
-                    print!(\"{}/{}/{}\", self.month, self.day, self.year);
-                }
-            }
+//              impl Name {
+//                  pub fn new(parameter_name: Type) -> Name {
+//                      //Function body
+//                  }
+//              }
 
-            let my_date = Date{year: 1, month: 12, day: 14};
+//              let my_struct: Name = Name::new(parameter_value);"
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
 
-            my_date.print();"
-            ),
-        ],
-    ),
-    describe_structure(
-        "DriversLicense",
-        &["issued: u8", "expires: u8"],
-        &[],
-        &[describe_function(
-            "print", &["self"], None,
-            "print 'Issued on {}, Expires on {}' with the years inserted"
-        )]
-    ),
-    None,
-    None
-);
+//              impl Date {
+//                  pub fn new(my_year: u8) -> Date {
+//                      Date{year: my_year, month: 12, day: 25}
+//                  }
+//              }
 
-make_test_info!(
-    task4_4_info, "Constructors",
-    describe_type("Structure Constructors",
-        "Constructors are functions that are attached to the strucure Type,
-        These are used to build or construct the structure often limiting or providing
-        data for the structure.",
-        (false, &[
-            "Constructors always go at the top of the impl block.",
-            "Constructors are almost always named 'new' and sometimes 'from'",
-            "Constructors must be called on the Structure TypeName using '::' to call it"
-        ]),
-        &[
-            (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-            }
+//              let christams_of_24 = Date::new(24);"
+//              ),
+//          ],
+//      ),
+//      "Add a construtor to the top of the impl block for DriversLicense:\n        ".to_string()
+//      +&describe_function(
+//          "new", &["issued: u8"], Some("DriversLicense"),
+//          "Create a new DriversLicense where issued is given from the parameter
+//          and expires is issued plus 8"
+//      ).replace("\n", "\n    "),
+//      None,
+//      None
+//  );
 
-            impl Name {
-                pub fn new(parameter_name: Type) -> Name {
-                    //Function body
-                }
-            }
+//  make_test_info!(
+//      task4_4_info, "Methods",
+//      describe_type("Structure Methods",
+//          "Methods are functions that can be run on a structure. Methods go in
+//          a seperate block called an implementation. A structure can have only one
+//          implementation. All your methods and constructors must be placed inside.",
+//          (true, &[]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//              }
 
-            let my_struct: Name = Name::new(parameter_value);"
-            ),
-            (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
+//              impl Name {
+//                  pub fn my_method(my_name: &Name, parameter_name: Type) -> ReturnType {
+//                      //Function body
+//                  }
+//              }
 
-            impl Date {
-                pub fn new(year: u8, month: u8, day: u8) -> Date {
-                    Date{year: year, month: month, day: day}
-                }
-            }
+//              let my_struct: Name = Name{field_name: field_value};
 
-            let my_date = Date::new(1, 12, 14);"
-            ),
-        ],
-    ),
-    "Add a construtor to the top of the impl block for DriversLicense:\n        ".to_string()
-    +&describe_function(
-        "new", &["issued: u8"], Some("DriversLicense"),
-        "Create a new DriversLicense where issued is given from the parameter
-        and expires is issued plus 8"
-    ).replace("\n", "\n    "),
-    None,
-    None
-);
+//              my_struct.my_method(parameter_value);"
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
 
-make_test_info!(
-    task4_5_info, "Methods on Types",
-    describe_type("String",
-        "The String Type is exactly like a &str but it can be stored in structures.
-        All rust Types are just Structures and have methods and constructors:
-        the &str Type has a .to_string() method to convert it to a String.",
-        (false, &[]),
-        &[
-            (
-            "Example",
-            "let my_string: String = \"Hello\".to_string();"
-            ),
-        ],
-    ),
-    describe_structure(
-        "FullName",
-        &["first: String", "last: String"],
-        &[describe_function("new", &["first: &str", "last: &str"], Some("FullName"),
-            "Create a new FullName by runing .to_string() on the parameters"
-        )],
-        &[describe_function("print", &["self: &FullName"], None,
-            "print the first and last name with a space between them"
-        )]
-    ),
-    None,
-    None
-);
+//              impl Date {
+//                  pub fn print(a_date: &Date) {
+//                      print!(\"{}/{}/{}\", a_date.month, a_date.day, a_date.year);
+//                  }
+//              }
 
-make_test_info!(
-    task4_6_info, "Borrowing",
-    describe_type("Borrowing",
-        "Previously we spoke of reusing a parameter in 'hello_twice'. This was possible because
-        the parameter was a &str (borrowed str).",
-        (false, &[
-            "Values can only be used once unless they are (Copy)ied, (Clone)d, or Borrowed(&)",
-            "Copying is availble for certian types that are not very big like numbers u8 etc",
-            "Cloning is creating an exact duplicate and is best avoided unless necessary",
-            "Borrowing is taking the value for a short period of time and then giving it back",
-            "&str are always borrowed so they can be passed around without trouble but never stored",
-            "Strings are not able to be copied but they are not borrowed so they can be stored",
-            "Strings can be borrowed by putting the & symbol behind it basically turning it
-            back into a &str. This is useful when you want to read/print the value but not move it."
-        ]),
-        &[
-            (
-            "Example",
-            "let my_name: String = \"Alex\".to_string();
+//              let my_date = Date{year: 1, month: 12, day: 14};
 
-            hello_user(&my_name);"
-            ),
-        ],
-    ),
-    "Add a method to the bottom of the impl for FullName:\n        ".to_string()
-    +&describe_function("hello", &["self: &FullName"], None,
-        "Use 'formal_hello' to print the first and last name. Don't forget to borrow
-        the fields as you pass them to formal_hello"
-    ).replace("\n", "\n    "),
-    None,
-    None
-);
+//              my_date.print();"
+//              ),
+//          ],
+//      ),
+//      describe_structure(
+//          "DriversLicense",
+//          &["issued: u8", "expires: u8"],
+//          &[],
+//          &[describe_function(
+//              "print", &["a_drivers_license: &DriversLicense"], None,
+//              "print 'Issued on {}, Expires on {}' with the years inserted"
+//          )]
+//      ),
+//      None,
+//      None
+//  );
 
-make_test_info!(
-    task4_7_info, "Matching on Types",
-    describe_type("More Matching",
-        "In section 3 we matched on the 'bool' type which only had to values 'true' or 'false'.
-        But the match statement can be used on any Type. But if you were to match on the u8
-        that would be 128 branches of the match statement, because a u8 can be 0 to 127.
-        There are two solutions:",
-        (true, &[
-            "WildCard(_): The wild card allows you to ignore the value and execute some code
-            as a fall back",
-            "Catching it in a Varibale: You can specify a variable name and no matter what it is
-            it will be stored there and you can use it in a seperate way."
-        ]),
-        &[
-            (
-            "Using WildCard(_)",
-            "let my_age: u8 = 18;
 
-            match my_age {
-                3 => {
-                    print!(\"I am 3!\");
-                },
-                18 => {
-                    print!(\"18 years old!\");
-                },
-                _ => {
-                    print!(\"I don't know how old I am but I am not 3 or 8 years old.\");
-                }
-            }"
-            ),
-            (
-            "Using a Variable",
-            "let my_age: u8 = 18;
 
-            match my_age {
-                3 => {
-                    print!(\"I am 3!\");
-                },
-                18 => {
-                    print!(\"18 years old!\");
-                },
-                age => {
-                    print!(\"I don't know how old I am but it is: {}\", age);
-                }
-            }"
-            ),
-        ],
-    ),
-    describe_function("print_age", &["age: u8"], None,
-        "Use a match statement on age to print:
-            If the age is 10 print \"You are ten years old!\",
-            If the age is your age print \"You are the same age as me!\",
-            Otherwise print \"I don't know how old you are but you are alive!\""
-    ),
-    None,
-    Some("Make sure when checking your age its the same age you return in my_age()")
-);
+//  make_test_info!(
+//      task4_4_info, "Constructors",
+//      describe_type("Structure Constructors",
+//          "Constructors are functions that are attached to the strucure Type,
+//          These are used to build or construct the structure often limiting or providing
+//          data for the structure.",
+//          (false, &[
+//              "Constructors always go at the top of the impl block.",
+//              "Constructors are almost always named 'new' and sometimes 'from'",
+//              "Constructors must be called on the Structure TypeName using '::' to call it",
+//              "'::' is refered to a TypePath used for accessing the inside of a Type"
+//          ]),
+//          &[
+//              (
+//              "Format",
+//              "pub struct Name {
+//                  pub field_name: FieldType,
+//              }
 
-make_test_info!(
-    task4_8_info, "Matching on Structures",
-    describe_type("Advanced Matching",
-        "Not only can you match on regular types but you can also match on Structures.
-        WildCard(_) and Variable Matching are possible too!",
-        (true, &[]),
-        &[
-            (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
+//              impl Name {
+//                  pub fn new(parameter_name: Type) -> Name {
+//                      //Function body
+//                  }
+//              }
 
-            let my_date: Date = Date{year: 1, month: 8, day: 24};
+//              let my_struct: Name = Name::new(parameter_value);"
+//              ),
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
 
-            match my_date {
-                Date{year: 24, month: 12, day: 25 => {
-                    print!(\"It's Christmas of the year '24\");
-                },
-                Date{year: _, month: 1, day: 1 => {
-                    print!(\"It's New Years! I don't know which year though!\");
-                },
-                Date{year: the_year, month: 1, day: 1 => {
-                    print!(\"It's New Years, of the year {}!\", the_year);
-                },
-                _ => {
-                    print!(\"It Someday!!!!\");
-                }
-            }"
-            ),
-        ],
-    ),
-    describe_function("examine_tombstone", &["tombstone: &Tombstone"], None,
-        "Use a match statement on the Tombstone structure to print:
-            If the birth_year is 12 and the death_year 92 print
-                \"He was born in the year '12 and lived 80 years!\",
-            If death_year is 30 print
-                \"I don't know when they were born but they died in the year '30\",
-            Otherwise print \"I don't know when they were born but they died in the year {}\" insert the years"
-    ),
-    None,
-    None
-);
+//              impl Date {
+//                  pub fn new(year: u8, month: u8, day: u8) -> Date {
+//                      Date{year: year, month: month, day: day}
+//                  }
+//              }
+
+//              let my_date = Date::new(1, 12, 14);"
+//              ),
+//          ],
+//      ),
+//      "Add a construtor to the top of the impl block for DriversLicense:\n        ".to_string()
+//      +&describe_function(
+//          "new", &["issued: u8"], Some("DriversLicense"),
+//          "Create a new DriversLicense where issued is given from the parameter
+//          and expires is issued plus 8"
+//      ).replace("\n", "\n    "),
+//      None,
+//      None
+//  );
+
+//  make_test_info!(
+//      task4_5_info, "Methods on Types",
+//      describe_type("String",
+//          "The String Type is exactly like a &str but it can be stored in structures.
+//          All rust Types are just Structures and have methods and constructors:
+//          the &str Type has a .to_string() method to convert it to a String.
+//          The &str Type cannot be stored because it is borrowed(more on that later)
+//          To store a string you must convert the &str to a String with '.to_string()'",
+//          (false, &[]),
+//          &[
+//              (
+//              "Example",
+//              "let my_str: &str = \"Hello\";
+//              let my_string: String = my_str.to_string();
+
+//              Or more directly:
+
+//              let my_string: String = \"Hello\".to_string();"
+//              ),
+//          ],
+//      ),
+//      describe_structure(
+//          "FullName",
+//          &["first: String", "last: String"],
+//          &[describe_function("new", &["first: &str", "last: &str"], Some("FullName"),
+//              "Create a new FullName by runing .to_string() on the parameters"
+//          )],
+//          &[describe_function("print", &["full_name: &FullName"], None,
+//              "print the first and last name with a space between them"
+//          )]
+//      ),
+//      None,
+//      None
+//  );
+
+//  make_test_info!(
+//      task4_6_info, "Pointers/Borrowing",
+//      describe_type("Pointer",
+//          "Previously we spoke of reusing a parameter in 'hello_twice'. This was possible because
+//          the parameter was a &str (borrowed str) or better called (pointer to a str).",
+//          (false, &[
+//              "Values can only be used once unless they are (Copy)ied, (Clone)d, or pointed to(&)",
+//              "Copying is availble for certian types and is taken care of automatically",
+//              "Cloning is creating an exact duplicate with .clone() and is best avoided unless necessary",
+//              "Borrowing is creating a readonly pointer to the value.",
+//              "&str are always borrowed so they cannot be stored nor modified after creation",
+//              "(String)s are a version of string that can be stored and its created from a &str.",
+//              "Strings can be borrowed or a pointer can be created to it by placing a & behind it.
+//              This essentially turns it into a &str and this is useful when ever you need
+//              to simlpy read/print a value and not modifiy it."
+//          ]),
+//          &[
+//              (
+//              "Example",
+//              "let my_name: String = \"Alex\".to_string();
+
+//              hello_user(&my_name);"
+//              ),
+//          ],
+//      ),
+//      "Add a method to the bottom of the impl for FullName:\n        ".to_string()
+//      +&describe_function("hello", &["full_name: &FullName"], None,
+//          "Use 'formal_hello' to print the first and last name. Don't forget to borrow
+//          the fields as you pass them to formal_hello"
+//      ).replace("\n", "\n    "),
+//      None,
+//      None
+//  );
+
+//  make_test_info!(
+//      task4_7_info, "Matching on Types",
+//      describe_type("More Matching",
+//          "In section 3 we matched on the 'bool' type which only had to values 'true' or 'false'.
+//          But the match statement can be used on any Type. But if you were to match on the u8
+//          that would be 128 branches of the match statement, because a u8 can be 0 to 127.
+//          There are two solutions:",
+//          (true, &[
+//              "WildCard(_): The wild card allows you to ignore the value and execute some code
+//              as a fall back",
+//              "Catching it in a Varibale: You can specify a variable name and no matter what it is
+//              it will be stored there and you can use it in a seperate way."
+//          ]),
+//          &[
+//              (
+//              "Using WildCard(_)",
+//              "let my_age: u8 = 18;
+
+//              match my_age {
+//                  3 => {
+//                      print!(\"I am 3!\");
+//                  },
+//                  18 => {
+//                      print!(\"18 years old!\");
+//                  },
+//                  _ => {
+//                      print!(\"I don't know how old I am but I am not 3 or 18 years old.\");
+//                  }
+//              }"
+//              ),
+//              (
+//              "Using a Variable",
+//              "let my_age: u8 = 18;
+
+//              match my_age {
+//                  3 => {
+//                      print!(\"I am 3!\");
+//                  },
+//                  18 => {
+//                      print!(\"18 years old!\");
+//                  },
+//                  age => {
+//                      print!(\"I don't know how old I am but here is my age: {}\", age);
+//                  }
+//              }"
+//              ),
+//          ],
+//      ),
+//      describe_function("print_age", &["age: u8"], None,
+//          "Use a match statement on age to print:
+//              If the age is 10 print \"You are ten years old!\",
+//              Otherwise print \"I don't know how old you are but you are alive!\""
+//      ),
+//      None,
+//      None
+//  );
+
+//  make_test_info!(
+//      task4_8_info, "Matching on Structures",
+//      describe_type("Advanced Matching",
+//          "Not only can you match on regular types but you can also match on Structures.
+//          WildCard(_) and Variable Matching are possible too!",
+//          (true, &[]),
+//          &[
+//              (
+//              "Example",
+//              "pub struct Date {
+//                  pub year: u8,
+//                  pub month: u8,
+//                  pub day: u8,
+//              }
+
+//              let my_date: Date = Date{year: 1, month: 8, day: 24};
+
+//              match my_date {
+//                  Date{year: 24, month: 12, day: 25 => {
+//                      print!(\"It's Christmas of the year '24\");
+//                  },
+//                  Date{year: _, month: 1, day: 1 => {
+//                      print!(\"It's New Years! I don't know which year though!\");
+//                  },
+//                  Date{year: the_year, month: 1, day: 1 => {
+//                      print!(\"It's New Years, of the year {}!\", the_year);
+//                  },
+//                  _ => {
+//                      print!(\"It Someday!!!!\");
+//                  }
+//              }"
+//              ),
+//          ],
+//      ),
+//      describe_function("examine_tombstone", &["a_tombstone: &Tombstone"], None,
+//          "Use a match statement on a_tombstone to print:
+//              If the birth_year is 12 and the death_year 92 print
+//                  \"He was born in the year '12 and lived 80 years!\",
+//              If death_year is 30 print
+//                  \"I don't know when they were born but they died in the year '30\",
+//              Otherwise print \"I don't know when they were born but they died in the year {}\" insert the years"
+//      ),
+//      None,
+//      None
+//  );
+
+//  //  make_test_info!(
+//  //      task5_1_info, "Enumerators",
+//  //      describe_type("Enumerator",
+//  //          "An enumerator is a Type that can be one of a set of sub-structs.",
+//  //          (false, &[
+//  //              "An enumerator can be matched on, to figure out what sub-structure it is",
+//  //              "Enumerators have an impl block that can contain methods and constructors",
+//  //              "Enumerator sub-structures cannot have their own methods or constructors",
+//  //              "Enumerator sub-structures are not valid types on their own",
+//  //              "To declare an Enum you use the TypePath Seperator '::' to choose the variant"
+//  //          ]),
+//  //          &[
+//  //              (
+//  //              "Example",
+//  //              "pub enum Color {
+//  //                  Blue,
+//  //                  Green,
+//  //                  Red
+//  //              }
+
+//  //              let my_blue: Color = Color::Blue;
+//  //              let my_red: Color = Color::Red;"
+//  //              ),
+//  //          ],
+//  //      ),
+//  //      describe_function("examine_tombstone", &["a_tombstone: &Tombstone"], None,
+//  //          "Use a match statement on a_tombstone to print:
+//  //              If the birth_year is 12 and the death_year 92 print
+//  //                  \"He was born in the year '12 and lived 80 years!\",
+//  //              If death_year is 30 print
+//  //                  \"I don't know when they were born but they died in the year '30\",
+//  //              Otherwise print \"I don't know when they were born but they died in the year {}\" insert the years"
+//  //      ),
+//  //      None,
+//  //      None
+//  //  );

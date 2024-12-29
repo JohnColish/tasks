@@ -103,64 +103,65 @@ pub fn ready_to_play(shoes: bool, is_hot: bool, coat: bool) -> bool {
     shoes && (is_hot || coat)
 }
 
-pub struct Tombstone {
-    pub birth_year: u8,
-    pub death_year: u8,
-}
-
-pub fn print_tombstone(tombstone: &Tombstone) {
-    print!("{}-{}", tombstone.birth_year, tombstone.death_year);
-}
 
 pub struct DriversLicense {
     pub issued: u8,
     pub expires: u8,
 }
 
+pub fn my_new_drivers_license() -> DriversLicense {
+    DriversLicense{issued: 4, expires: 12}
+}
+
+pub fn print_drivers_license(a_dl: DriversLicense) {
+    print!("{}-{}", a_dl.issued, a_dl.expires);
+}
+
 impl DriversLicense {
     pub fn new(issued: u8) -> DriversLicense {
         DriversLicense{issued: issued, expires: issued+8}
     }
-    pub fn print(self: &DriversLicense) {
-        print!("Issued on {}, Expires on {}", self.issued, self.expires);
-    }
 }
+//      pub fn print(self: &DriversLicense) {
+//          print!("Issued on {}, Expires on {}", self.issued, self.expires);
+//      }
+//  }
 
-pub struct FullName {
-    pub first: String,
-    pub last: String,
-}
+//  pub struct FullName {
+//      pub first: String,
+//      pub last: String,
+//  }
 
-impl FullName {
-    pub fn new(first: &str, last: &str) -> FullName {
-        FullName{first: first.to_string(), last: last.to_string()}
-    }
-    pub fn print(self: &FullName) {
-        print!("{} {}", self.first, self.last);
-    }
-    pub fn hello(self: &FullName) {
-        formal_hello(&self.first, &self.last);
-    }
-}
+//  impl FullName {
+//      pub fn new(first: &str, last: &str) -> FullName {
+//          FullName{first: first.to_string(), last: last.to_string()}
+//      }
+//      pub fn print(self: &FullName) {
+//          print!("{} {}", self.first, self.last);
+//      }
+//      pub fn hello(self: &FullName) {
+//          formal_hello(&self.first, &self.last);
+//      }
+//  }
 
-pub fn print_age(age: u8) {
-    match age {
-        10 => print!("You are ten years old!"),
-        20 => print!("You are the same age as me!"),
-        _ => print!("I don't know how old you are but you are alive!"),
-    }
-}
+//  pub fn print_age(age: u8) {
+//      match age {
+//          10 => print!("You are ten years old!"),
+//          20 => print!("You are the same age as me!"),
+//          _ => print!("I don't know how old you are but you are alive!"),
+//      }
+//  }
 
-pub fn examine_tombstone(tombstone: &Tombstone) {
-    match tombstone {
-        Tombstone{birth_year: 12, death_year: 92} => {
-            print!("He was born in the year '12 and lived 80 years!");
-        },
-        Tombstone{birth_year: _, death_year: 30} => {
-            print!("I don't know when they were born but they died in the year '30");
-        },
-        Tombstone{birth_year: _, death_year: year} => {
-            print!("I don't know when they were born but they died in the year '{}", year);
-        },
-    }
-}
+//  pub fn examine_tombstone(tombstone: &Tombstone) {
+//      match tombstone {
+//          Tombstone{birth_year: 12, death_year: 92} => {
+//              print!("He was born in the year '12 and lived 80 years!");
+//          },
+//          Tombstone{birth_year: _, death_year: 30} => {
+//              print!("I don't know when they were born but they died in the year '30");
+//          },
+//          Tombstone{birth_year: _, death_year: year} => {
+//              print!("I don't know when they were born but they died in the year '{}", year);
+//          },
+//      }
+//  }
