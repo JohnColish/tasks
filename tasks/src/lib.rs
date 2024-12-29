@@ -513,7 +513,6 @@ test_setup::make_test!(task4_8, {
         tasks::DriversLicense{issued: 10, expires: 24}.examine(),
         "Expires on the 24 and was issued on 10"
     );
-
     //----------------------------------------------------------------------
 });
 
