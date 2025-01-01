@@ -3,34 +3,16 @@ pub mod tasks;
 pub mod task_info;
 
 pub fn rules() {
+    std::process::Command::new("clear").status().unwrap();
     println!("
 ----------------------------------------------------------------------
 
 RULES:
-1. Make sure no warnings appear in either the tests or after running
-    'cargo clippy' in your tasks directory
-2. Never change a previous task after you've completed it.
-3. Never prefix variables with _. Fix warnings in a proper way instead.
-4. Do not use the test results to hard code the answer, meaning
-    Any information provided by the test suite such as 'David' or 18
-    should not be used in any of the task functions
-5. Do not edit any other files in the project except for src/tasks.rs
+1. Never change a previous task after you've completed it.
+2. Never prefix variables with _. Fix warnings in a different way.
+3. Do not edit any other files in the project except for src/tasks.rs
 
 Follow these rules to ensure your solutions are clean and correct!
-----------------------------------------------------------------------
-    ");
-}
-
-pub fn congrats() {
-    println!("
-----------------------------------------------------------------------
-
-CONGRATS YOU FINISHED THE SECTION!
-
-Move on by increasing the section number:
-
-For Section 2: cargo test --features=task2_1_info
-
 ----------------------------------------------------------------------
     ");
 }
@@ -87,6 +69,31 @@ pub fn describe_structure(name: &str, fields: &[&str], constructors: &[String], 
         Name: {name}
 
     Fields:
+        {fields}
+
+    Constructors:
+        {constructors}
+
+    Methods:
+        {methods}")
+}
+
+pub fn describe_enum(name: &str, fields: &[&str], constructors: &[String], methods: &[String]) -> String {
+    let mut fields = fields.join("\n        ");
+    if fields.is_empty() {fields = "None".to_string();}
+
+    let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    let mut constructors = constructors.join("\n        ");
+    if constructors.is_empty() {constructors = "None".to_string();}
+
+    let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    let mut methods = methods.join("\n        ");
+    if methods.is_empty() {methods = "None".to_string();}
+
+    format!("Create a enum with:
+        Name: {name}
+
+    Variants:
         {fields}
 
     Constructors:
@@ -166,7 +173,7 @@ test_setup::make_test!(task1_1, {
 
     assert_stdout_eq!(tasks::hello_world(), "Hello, World!");
     //----------------------------------------------------------------------
-});
+}, task1_2);
 
 test_setup::make_test!(task1_2, {
     //----------------------------------------------------------------------
@@ -175,7 +182,7 @@ test_setup::make_test!(task1_2, {
 
     assert_stdout_eq!(tasks::hello_everyone(), "Hello, Everyone!");
     //----------------------------------------------------------------------
-});
+}, task1_3);
 
 test_setup::make_test!(task1_3, {
     //----------------------------------------------------------------------
@@ -184,25 +191,25 @@ test_setup::make_test!(task1_3, {
 
     assert_stdout_eq!(tasks::hello_pet(), "Hello, Benji!");
     //----------------------------------------------------------------------
-});
+}, task1_4);
 
-test_setup::make_test!(task1_5, {
+test_setup::make_test!(task1_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_4_info'
 
     assert_stdout_eq!(tasks::hello_mitch(), "Hi, my name is Mitch");
     //----------------------------------------------------------------------
-});
+}, task1_5);
 
-test_setup::make_test!(task1_4, {
+test_setup::make_test!(task1_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_5_info'
     assert_stdout_eq!(tasks::hello_user("David"), "Hi, my name is David");
     assert_stdout_eq!(tasks::hello_user("Alex"), "Hi, my name is Alex");
     //----------------------------------------------------------------------
-});
+}, task1_6);
 
 test_setup::make_test!(task1_6, {
     //----------------------------------------------------------------------
@@ -211,7 +218,7 @@ test_setup::make_test!(task1_6, {
     assert_stdout_eq!(tasks::formal_hello("David", "Lightman"), "Hi, my name is David Lightman");
     assert_stdout_eq!(tasks::formal_hello("Alex", "Rogan"), "Hi, my name is Alex Rogan");
     //----------------------------------------------------------------------
-});
+}, task1_7);
 
 test_setup::make_test!(task1_7, {
     //----------------------------------------------------------------------
@@ -220,7 +227,7 @@ test_setup::make_test!(task1_7, {
     assert_stdout_eq!(tasks::hello_twice("David", "Lightman"), "Hi, my name is DavidHi, my name is David Lightman");
     assert_stdout_eq!(tasks::hello_twice("Alex", "Rogan"), "Hi, my name is AlexHi, my name is Alex Rogan");
     //----------------------------------------------------------------------
-});
+}, task2_1);
 
 
 test_setup::make_test!(task2_1, {
@@ -230,7 +237,7 @@ test_setup::make_test!(task2_1, {
     assert_stdout_eq!(tasks::say_age(17), "My age is 17");
     assert_stdout_eq!(tasks::say_age(19), "My age is 19");
     //----------------------------------------------------------------------
-});
+}, task2_2);
 
 test_setup::make_test!(task2_2, {
     //----------------------------------------------------------------------
@@ -239,7 +246,7 @@ test_setup::make_test!(task2_2, {
 
     let age: u8 = tasks::my_age();
     //----------------------------------------------------------------------
-});
+}, task2_3);
 
 test_setup::make_test!(task2_3, {
     //----------------------------------------------------------------------
@@ -248,7 +255,7 @@ test_setup::make_test!(task2_3, {
 
     assert_stdout_eq!(tasks::say_my_age(), format!("My age is {}", tasks::my_age()).as_str());
     //----------------------------------------------------------------------
-});
+}, task2_4);
 
 test_setup::make_test!(task2_4, {
     //----------------------------------------------------------------------
@@ -257,7 +264,7 @@ test_setup::make_test!(task2_4, {
     assert_eq!(tasks::add(1, 4), 5);
     assert_eq!(tasks::add(61, 42), 103);
     //----------------------------------------------------------------------
-});
+}, task2_5);
 
 test_setup::make_test!(task2_5, {
     //----------------------------------------------------------------------
@@ -266,7 +273,7 @@ test_setup::make_test!(task2_5, {
     assert_stdout_eq!(tasks::say_add(1, 5), "The result was 6");
     assert_stdout_eq!(tasks::say_add(61, 42), "The result was 103");
     //----------------------------------------------------------------------
-});
+}, task2_6);
 
 test_setup::make_test!(task2_6, {
     //----------------------------------------------------------------------
@@ -275,7 +282,7 @@ test_setup::make_test!(task2_6, {
     assert_eq!(tasks::subtract(8, 4), 4);
     assert_eq!(tasks::subtract(61, 42), 19);
     //----------------------------------------------------------------------
-});
+}, task2_7);
 
 test_setup::make_test!(task2_7, {
     //----------------------------------------------------------------------
@@ -284,7 +291,7 @@ test_setup::make_test!(task2_7, {
     assert_eq!(tasks::add_three(8, 4, 45), 57);
     assert_eq!(tasks::add_three(61, 42, 1), 104);
     //----------------------------------------------------------------------
-});
+}, task2_8);
 
 test_setup::make_test!(task2_8, {
     //----------------------------------------------------------------------
@@ -298,9 +305,8 @@ test_setup::make_test!(task2_8, {
     	tasks::formal_greet("Alex", "Rogan", 10, 9),
     	"Hi, my name is Alex RoganMy age is 19"
     );
-    congrats();
     //----------------------------------------------------------------------
-});
+}, task3_1);
 
 test_setup::make_test!(task3_1, {
     //----------------------------------------------------------------------
@@ -313,7 +319,7 @@ test_setup::make_test!(task3_1, {
     	tasks::say_bool(false), "My boolean is: false"
     );
     //----------------------------------------------------------------------
-});
+}, task3_2);
 
 test_setup::make_test!(task3_2, {
     //----------------------------------------------------------------------
@@ -323,7 +329,7 @@ test_setup::make_test!(task3_2, {
     assert_eq!(tasks::is_equal(8, 4), false);
     assert_eq!(tasks::is_equal(8, 8), true);
     //----------------------------------------------------------------------
-});
+}, task3_3);
 
 test_setup::make_test!(task3_3, {
     //----------------------------------------------------------------------
@@ -333,7 +339,7 @@ test_setup::make_test!(task3_3, {
     assert_stdout_eq!(tasks::say_is_equals(8, 4), "Values are not equal");
     assert_stdout_eq!(tasks::say_is_equals(8, 8), "Values are equal");
     //----------------------------------------------------------------------
-});
+}, task3_4);
 
 test_setup::make_test!(task3_4, {
     //----------------------------------------------------------------------
@@ -343,7 +349,7 @@ test_setup::make_test!(task3_4, {
     assert_eq!(tasks::is_not_equal(8, 4), true);
     assert_eq!(tasks::is_not_equal(8, 8), false);
     //----------------------------------------------------------------------
-});
+}, task3_5);
 
 test_setup::make_test!(task3_5, {
     //----------------------------------------------------------------------
@@ -353,7 +359,7 @@ test_setup::make_test!(task3_5, {
     assert_eq!(tasks::is_not_equal_again(8, 4), true);
     assert_eq!(tasks::is_not_equal_again(8, 8), false);
     //----------------------------------------------------------------------
-});
+}, task3_6);
 
 test_setup::make_test!(task3_6, {
     //----------------------------------------------------------------------
@@ -363,7 +369,7 @@ test_setup::make_test!(task3_6, {
     assert_stdout_eq!(tasks::shoes_on(true, false), "Take your shoes off!");
     assert_stdout_eq!(tasks::shoes_on(false, false), "Good kid!");
     //----------------------------------------------------------------------
-});
+}, task3_7);
 
 test_setup::make_test!(task3_7, {
     assert_stdout_eq!(tasks::ready_to_go(true, true), "Ready to go!");
@@ -373,7 +379,7 @@ test_setup::make_test!(task3_7, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_7_info'
     //----------------------------------------------------------------------
-});
+}, task3_8);
 
 test_setup::make_test!(task3_8, {
     //----------------------------------------------------------------------
@@ -388,7 +394,7 @@ test_setup::make_test!(task3_8, {
     assert_eq!(tasks::ready_to_play(false, true, true), false);
     assert_eq!(tasks::ready_to_play(true, true, true), true);
     //----------------------------------------------------------------------
-});
+}, task4_1);
 
 test_setup::make_test!(task4_1, {
     //----------------------------------------------------------------------
@@ -397,7 +403,7 @@ test_setup::make_test!(task4_1, {
 
     let _test = tasks::DriversLicense{issued: 34, expires: 76};
     //----------------------------------------------------------------------
-});
+}, task4_2);
 
 test_setup::make_test!(task4_2, {
     //----------------------------------------------------------------------
@@ -407,7 +413,7 @@ test_setup::make_test!(task4_2, {
     assert_eq!(test.issued, 4);
     assert_eq!(test.expires, 12);
     //----------------------------------------------------------------------
-});
+}, task4_3);
 
 test_setup::make_test!(task4_3, {
     //----------------------------------------------------------------------
@@ -422,7 +428,7 @@ test_setup::make_test!(task4_3, {
         "72-80"
     );
     //----------------------------------------------------------------------
-});
+}, task4_4);
 
 
 test_setup::make_test!(task4_4, {
@@ -437,7 +443,7 @@ test_setup::make_test!(task4_4, {
     assert_eq!(test.issued, 57);
     assert_eq!(test.expires, 65);
     //----------------------------------------------------------------------
-});
+}, task4_5);
 
 
 test_setup::make_test!(task4_5, {
@@ -451,7 +457,7 @@ test_setup::make_test!(task4_5, {
     assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(45), false);
 
     //----------------------------------------------------------------------
-});
+}, task4_6);
 
 test_setup::make_test!(task4_6, {
     //----------------------------------------------------------------------
@@ -464,7 +470,7 @@ test_setup::make_test!(task4_6, {
     assert_stdout_eq!(tasks::print_apples(94), "More than three apples");
 
     //----------------------------------------------------------------------
-});
+}, task4_7);
 
 test_setup::make_test!(task4_7, {
     //----------------------------------------------------------------------
@@ -477,7 +483,7 @@ test_setup::make_test!(task4_7, {
     assert_stdout_eq!(tasks::print_oranges(5), "5 oranges");
     assert_stdout_eq!(tasks::print_oranges(94), "94 oranges");
     //----------------------------------------------------------------------
-});
+}, task4_8);
 
 test_setup::make_test!(task4_8, {
     //----------------------------------------------------------------------
@@ -514,12 +520,119 @@ test_setup::make_test!(task4_8, {
         "Expires on the 24 and was issued on 10"
     );
     //----------------------------------------------------------------------
-});
+}, task5_1);
 
-//  test_setup::make_test!(task5_1, {
-//      //----------------------------------------------------------------------
-//      //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//      //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
+test_setup::make_test!(task5_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
 
-//      //----------------------------------------------------------------------
-//  });
+    let blue = tasks::Color::Blue{};
+    let red = tasks::Color::Red{};
+    let green = tasks::Color::Green{};
+    let yellow = tasks::Color::Yellow{};
+
+    //----------------------------------------------------------------------
+}, task5_2);
+
+test_setup::make_test!(task5_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_2_info'
+
+    assert_eq!(tasks::Color::Blue{}.is_primary(), true);
+    assert_eq!(tasks::Color::Red{}.is_primary(), true);
+    assert_eq!(tasks::Color::Green{}.is_primary(), true);
+    assert_eq!(tasks::Color::Yellow{}.is_primary(), false);
+
+    //----------------------------------------------------------------------
+}, task5_3);
+
+test_setup::make_test!(task5_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
+
+    assert_eq!(tasks::Furniture::Couch{legs: 8, cushion: 1}.get_legs(), 8);
+    assert_eq!(tasks::Furniture::Couch{legs: 24, cushion: 43}.get_legs(), 24);
+    assert_eq!(tasks::Furniture::Chair{legs: 83}.get_legs(), 83);
+    assert_eq!(tasks::Furniture::Chair{legs: 22}.get_legs(), 22);
+    assert_eq!(tasks::Furniture::Table{legs: 49, plates: 12}.get_legs(), 49);
+    assert_eq!(tasks::Furniture::Table{legs: 29, plates: 13}.get_legs(), 29);
+
+    //----------------------------------------------------------------------
+}, task5_4);
+
+test_setup::make_test!(task5_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
+
+    let some_u8 = tasks::Option::<u8>::Some{value: 134};
+    let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
+    let none_u8 = tasks::Option::<u8>::None{};
+    let none_string = tasks::Option::<String>::None{};
+
+    //----------------------------------------------------------------------
+}, task5_5);
+
+test_setup::make_test!(task5_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
+
+    let _test = tasks::Option::<u8>::new_some(10);
+    let _test = tasks::Option::<String>::new_some("test".to_string());
+
+    //----------------------------------------------------------------------
+}, task5_6);
+
+test_setup::make_test!(task5_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_6_info'
+
+    assert_eq!(tasks::Option::<u8>::Some{value: 134}.is_some(), true);
+    assert_eq!(tasks::Option::<String>::Some{value: "test".to_string()}.is_some(), true);
+    assert_eq!(tasks::Option::<u8>::None{}.is_some(), false);
+    assert_eq!(tasks::Option::<String>::None{}.is_some(), false);
+
+    //----------------------------------------------------------------------
+}, task5_7);
+
+test_setup::make_test!(task5_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_7_info'
+
+    let my_box = tasks::Box::<u8>::new(134, 20);
+    assert_eq!(my_box.boxed_value, 134);
+    assert_eq!(my_box.count, 20);
+
+    let my_box = tasks::Box::<String>::new("test".to_string(), 20);
+    assert_eq!(my_box.boxed_value, "test".to_string());
+    assert_eq!(my_box.count, 20);
+
+    let my_box = my_box.add_one();
+    assert_eq!(my_box.boxed_value, "test".to_string());
+    assert_eq!(my_box.count, 21);
+
+    //----------------------------------------------------------------------
+}, task5_7);
+
+test_setup::make_test!(task5_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_8_info'
+
+    let my_box = tasks::create_boxed_option(20);
+    assert_eq!(my_box.count, 20);
+    assert_eq!(my_box.boxed_value.is_some(), false);
+
+    let my_box = tasks::create_boxed_option(70);
+    assert_eq!(my_box.count, 10);
+    assert_eq!(my_box.boxed_value.is_some(), true);
+
+
+    //----------------------------------------------------------------------
+}, task6_1);

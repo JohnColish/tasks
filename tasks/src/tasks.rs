@@ -159,3 +159,87 @@ pub fn print_oranges(oranges: u8) {
         count => print!("{} oranges", count),
     }
 }
+
+pub enum Color {
+    Blue{},
+    Red{},
+    Green{},
+    Yellow{}
+}
+
+impl Color {
+    pub fn is_primary(self: Color) -> bool {
+        match self {
+            Color::Blue{} => true,
+            Color::Red{} => true,
+            Color::Green{} => true,
+            Color::Yellow{} => false,
+        }
+    }
+}
+
+pub enum Furniture {
+    Couch{
+        legs: u8,
+        cushion: u8
+    },
+    Chair{
+        legs: u8
+    },
+    Table{
+        legs: u8,
+        plates: u8,
+    }
+}
+
+impl Furniture {
+    pub fn get_legs(self: Furniture) -> u8 {
+        match self {
+            Furniture::Couch{legs, cushion: _} => legs,
+            Furniture::Chair{legs} => legs,
+            Furniture::Table{legs, plates: _} => legs,
+        }
+    }
+}
+
+pub enum Option<T> {
+    Some{
+        value: T
+    },
+    None{}
+}
+
+impl<T> Option<T> {
+    pub fn new_some(value_param: T) -> Option<T> {
+        Option::<T>::Some{value: value_param}
+    }
+
+    pub fn is_some(self: Option<T>) -> bool {
+        match self {
+            Option::<T>::Some{value: _} => true,
+            Option::<T>::None{} => false
+        }
+    }
+}
+
+pub struct Box<T> {
+    pub boxed_value: T,
+    pub count: u8
+}
+
+impl<T> Box<T> {
+    pub fn new(value: T, count: u8) -> Box<T> {
+        Box::<T>{boxed_value: value, count}
+    }
+
+    pub fn add_one(self: Box<T>) -> Box<T> {
+        Box::<T>{boxed_value: self.boxed_value, count: self.count+1}
+    }
+}
+
+pub fn create_boxed_option(value: u8) -> Box<Option<u8>> {
+    match value > 50 {
+        true => Box::<Option<u8>>::new(Option::<u8>::new_some(value), 10),
+        false => Box::<Option<u8>>::new(Option::<u8>::None{}, 20)
+    }
+}
