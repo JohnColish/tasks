@@ -229,7 +229,7 @@ make_test_info!(
         "When defining (creating) a function, follow the parentheses () with an arrow ->,
             followed by the type of the return value (e.g., u8, &str, etc.).",
         "The return value can be specified with the return keyword, but this
-            is only needed when you trying to return a vaule before the function
+            is only needed when you trying to return a value before the function
             is finished running. The proper way to return a value is to have it
             be on the last line of your function with out a ';'"
         ]),
@@ -559,7 +559,8 @@ make_test_info!(
             "pub struct: Is the keyword to declare a structure",
             "Name: The name of a structure is always CammelCase, Meaning the first
             letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.",
+            "fields: Fields are the variables that the structure has inside of it.
+                All fields must be prefixed with pub as well!",
             "Constructors: These are functions that may accept parameters but always
             return the structure",
             "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
@@ -587,7 +588,7 @@ make_test_info!(
     ),
     describe_structure(
         "DriversLicense",
-        &["issued: u8", "expires: u8"],
+        &["pub issued: u8", "pub expires: u8"],
         &[],
         &[],
     ),
@@ -933,42 +934,343 @@ make_test_info!(
     None
 );
 
-//  //  make_test_info!(
-//  //      task5_1_info, "Enumerators",
-//  //      describe_type("Enumerator",
-//  //          "An enumerator is a Type that can be one of a set of sub-structs.",
-//  //          (false, &[
-//  //              "An enumerator can be matched on, to figure out what sub-structure it is",
-//  //              "Enumerators have an impl block that can contain methods and constructors",
-//  //              "Enumerator sub-structures cannot have their own methods or constructors",
-//  //              "Enumerator sub-structures are not valid types on their own",
-//  //              "To declare an Enum you use the TypePath Seperator '::' to choose the variant"
-//  //          ]),
-//  //          &[
-//  //              (
-//  //              "Example",
-//  //              "pub enum Color {
-//  //                  Blue,
-//  //                  Green,
-//  //                  Red
-//  //              }
+make_test_info!(
+    task5_1_info, "Enumerators",
+    describe_type("Enumerator",
+        "An enumerator is a Type where its value can be one of a list of sub-structs",
+        (false, &[
+            "All the sub-structs for an enumerator a defined with the enumerator",
+            "An enumerator can be matched on, to figure out what sub-struct it is",
+            "Enumerators have an impl block that can contain methods and constructors",
+            "To declare an Enum you use the TypePath Seperator '::' to choose the sub-struct"
+        ]),
+        &[
+            (
+            "Example",
+            "pub enum Weather {
+                Clear{},
+                Rain{},
+                Snow{}
+            }
+            //Enum TypeName is Weather
+            //Clear, Rain, Snow are sub-structs
 
-//  //              let my_blue: Color = Color::Blue;
-//  //              let my_red: Color = Color::Red;"
-//  //              ),
-//  //          ],
-//  //      ),
-//  //      describe_function("examine_tombstone", &["a_tombstone: &Tombstone"], None,
-//  //          "Use a match statement on a_tombstone to print:
-//  //              If the birth_year is 12 and the death_year 92 print
-//  //                  \"He was born in the year '12 and lived 80 years!\",
-//  //              If death_year is 30 print
-//  //                  \"I don't know when they were born but they died in the year '30\",
-//  //              Otherwise print \"I don't know when they were born but they died in the year {}\" insert the years"
-//  //      ),
-//  //      None,
-//  //      None
-//  //  );
+            let current_weather: Weather = Weather::Rain{};
+            let preferred_weather: Weather = Weather::Snow{};"
+            ),
+        ],
+    ),
+    describe_enum(
+        "Color",
+        &["Blue{}", "Red{}", "Green{}", "Yellow{}"],
+        &[],
+        &[],
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_2_info, "Matching on Enums",
+    describe_type("Enum Matching",
+        "Just like structures you can attach methods or constructors with an impl block.
+        As well as matching on the sub-structs and values of an enum",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub enum Weather {
+                Clear{},
+                Rain{},
+                Snow{}
+            }
+
+            impl Weather {
+                pub fn print(self: Weather) {
+                    match self {
+
+                       Weather::Clear{} => print!(\"Clear and sunny skies\"),
+                        Weather::Rain{} => print!(\"Rain and light clouds\"),
+                        Weather::Snow{} => print!(\"Snow and heavy clouds\"),
+                    }
+                }
+            }"
+            ),
+        ],
+    ),
+    "Add and impl block to the Color enum and add a method to it:\n        ".to_string()
+    +&describe_function("is_primary", &["self: Color"], Some("bool"),
+        "Use a match statement to return true if the Color sub-struct is Blue, Red, or Green"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_3_info, "Fields",
+    describe_type("Sub-Struct Fields",
+        "Like structures Sub-Structs can have fields too, to access the fields you'll have
+        to match the enum just like structure matching.",
+        (false, &[
+            "The sub-struct fields do not need to be prefixed with pub, explanation later"
+        ]),
+        &[
+            (
+            "Example",
+            "pub enum Weather {
+                Clear{chance: u8},
+                Rain{chance: u8},
+                Snow{chance: u8}
+            }
+
+            impl Weather {
+                pub fn print(self: Weather) {
+                    match self {
+                       Weather::Clear{chance: the_chance} => print!(\"{}% of Clear\", the_chance),
+                        Weather::Rain{chance: the_chance} => print!(\"{}% of Rain\", the_chance),
+                        Weather::Snow{chance: the_chance} => print!(\"{}% of Snow\", the_chance),
+                    }
+                }
+            }"
+            ),
+        ],
+    ),
+    describe_enum(
+        "Furniture",
+        &["Couch{
+            legs: u8,
+            cushions: u8
+        },", "Chair{
+            legs: u8
+        },", "Table{
+            legs: u8,
+            plates: u8,
+        }"],
+        &[],
+        &[describe_function("get_legs", &["self: Furniture"], Some("u8"),
+            "match on the furniture and return the number of legs each piece of furniture has"
+        )],
+    ),
+    None,
+    Some("Remember to use WildCard '_' to ignore unneeded fields")
+);
+
+make_test_info!(
+    task5_4_info, "Type Parameter",
+    describe_type("T: TypeParameter",
+        "There is a special feature of Types, including structures and enums, that allow you
+        to accept a TypeParemeter, This is for situations where you want a type that can be
+        used to store any type in a field.",
+        (false, &[
+            "To declare a Type Parameter place arrow braces after the Structure Name",
+            "To use the structure you have to provide the TypeParameter this is done
+            using the :: TypePathSeperator and Arrow Braces <>"
+        ]),
+        &[
+            (
+            "Example",
+            "pub enum Result<T> {
+                Ok{
+                    value: T
+                },
+                Error{
+                    code: u8
+                }
+            }
+
+            let my_ok_result = Result::<u8>::Ok{value: 125};//125 is a u8 replacing the T
+            let my_err_result = Result::<&str>::Error{code: 2};
+            //For the Error we still have to specify the Type Param even though it is unused
+            "
+            ),
+        ],
+    ),
+    describe_enum(
+        "Option<T>",
+        &["Some{
+            value: T,
+        },",
+        "None{}"
+        ],
+        &[],
+        &[],
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_5_info, "Impl TypeParamater",
+    describe_type("TypeParam Constructor",
+        "TypeParameters can be a bit of a pain to deal with since you won't know what
+        Type your dealing when creating methods or constructors",
+        (false, &[
+            "In order to impl a TypeParameter Structure you have to include the TypeParam
+            in the impl block definition as shown in the example.",
+            "To create or construct a Structure with a Type Parameter you have to include
+            the type as apart of the brace constructor Name::<Type>::SubStruct{...}",
+        ]),
+        &[
+            (
+            "Example",
+            "pub enum Result<T> {
+                Ok{
+                    value: T
+                },
+                Error{
+                    code: u8
+                }
+            }
+
+            impl<T> Result<T> {
+                //For a method that accepts any Type T
+                pub fn new_ok(value_param: T) -> Result<T> {
+                    Result::<T>::Ok{value: value_param}
+                }
+
+                //To just create a Result with a u8
+                pub fn new_ok_u8(value_param: u8) -> Result<u8> {
+                    Result::<u8>::Ok{value: value_param}
+                }
+
+                //For a new error, even if the TypeParam is unused it still has to be specified
+                pub fn new_err(code_param: u8) -> Result<T> {
+                    Result::<T>::Error{code: code_param}
+                }
+            }"
+            ),
+        ],
+    ),
+    "Add and impl<T> block to the Option<T> enum and add a constructor to it:\n        ".to_string()
+    +&describe_function("new_some", &["value_param: T"], Some("Option<T>"),
+        "Construct the Some SubStrucure of Option and use value_param as the value"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_6_info, "Impl TypeParamater",
+    describe_type("TypeParam Method",
+        "Another downside is that returning a value with a TypeParamater is much harder,
+        since you cannot provide a value that could be one Type or another. But a match
+        statement can still come in handy here.",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "pub enum Result<T> {
+                Ok{
+                    value: T
+                },
+                Error{
+                    code: u8
+                }
+            }
+
+            impl<T> Result<T> {
+                pub fn get_error_code(self: Result<T>) -> u8 {
+                    match self {
+                        Result::<T>::Ok{value: _} => 0,//Zero error code is no error
+                        Result::<T>::Error{code: err_code} => err_code,
+                    }
+                }
+            }"
+            ),
+        ],
+    ),
+    "Add a method to the impl<T> Option<T> Block:\n        ".to_string()
+    +&describe_function("is_some", &["self: Option<T>"], Some("bool"),
+        "Use a match statement to return true if the Option sub-struct is Some"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_7_info, "TypeParam Structure",
+    describe_type("Structure TypeParam",
+        "Structures can accept Type Parameters exactly the same way as enums",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "pub struct Box<T> {
+                pub boxed_value: T,
+                pub count: u8
+            }
+
+            let my_box = Box::<u8>{boxed_value: 10, count: 1};
+            "
+            ),
+        ],
+    ),
+    describe_structure(
+        "Box<T>",
+        &[
+            "pub boxed_value: T",
+            "pub count: u8"
+        ],
+        &[describe_function("new", &["value: T, count: u8"], Some("Box<T>"),
+            "Create a new Box<T> and set the boxed_value to value, and count to the count param"
+        )],
+        &[describe_function("add_one", &["self: Box<T>"], Some("Box<T>"),
+            "Take in self and create a new Box<T> setting boxed_value to self.boxed_value,
+            But set count to the old count plus one"
+        )],
+    ),
+    None,
+    Some("While add_one does return a Box<T> like a constructor, because it accepts self: Box<T>
+    its considered to be a method and ran just like any other method.")
+);
+
+make_test_info!(
+    task5_8_info, "Nested TypeParam",
+    describe_type("Nested TypeParam",
+        "You can use your structure or enums inside other structures or enums just like
+        any other type. But when you have types that require a Type Param you have to
+        specify the TypeParam in every place you use it. And when you do this you
+        will likely end up with nested TypeParams, fortunately this is possible by simply
+        nesting the arrow braces.",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "pub struct Box<T> {
+                pub boxed_value: T,
+                pub count: u8
+            }
+
+            pub enum Result<T> {
+                Ok{value: T},
+                Error{code: u8}
+            }
+
+            impl<T> Result<T> {
+                pub fn new_ok(my_value: T) -> Result<T> {
+                    Result::<T>::Ok{value: my_value}
+                }
+            }
+
+            let my_boxed_result: Box<Result<u8>> = Box::<Result<u8>>{
+                boxed_value: Result::<u8>::new_ok(10),
+                count: 1
+            };"
+            ),
+        ],
+    ),
+    describe_function(
+        "create_boxed_option", &["value: u8"], Some("Box<Option<u8>>"),
+        "Accept value which is a u8, use a match statement and '>' to check:
+        If value is greater than 50:
+            Return the Option Some substructure with value equal to the param
+            Box the Option Some with count 10
+        Otherwise:
+            Return None SubStructure Boxed with count 20"
+    ),
+    None,
+    Some("Use the Box::<Option<u8>>::new() and the Option::<u8>::new_some() constructors")
+);
 
 //  make_test_info!(
 //      task4_5_info, "Methods on Types",
