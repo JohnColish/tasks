@@ -11,6 +11,7 @@ RULES:
 1. Never change a previous task after you've completed it.
 2. Never prefix variables with _. Fix warnings in a different way.
 3. Do not edit any other files in the project except for src/tasks.rs
+4. Ensure there are no warnings in your solutions
 
 Follow these rules to ensure your solutions are clean and correct!
 ----------------------------------------------------------------------

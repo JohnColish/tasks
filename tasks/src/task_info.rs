@@ -213,7 +213,7 @@ make_test_info!(
         &[],
     ),
     describe_function("say_age", &["age: u8"], None,
-        "print 'My age is ' followed by the parameter"
+        "print 'My age is: ' followed by the parameter"
     ),
     None,
     None
@@ -342,7 +342,7 @@ make_test_info!(
 
 make_test_info!(
     task2_7_info, "Second Variable",
-    "",
+    "No Additional Info",
     describe_function("add_three", &["a: u8", "b: u8", "c: u8"], Some("u8"),
         "add all three parameters together and return the result"
     ),
@@ -357,7 +357,7 @@ make_test_info!(
         "use 'formal_hello()' to print the two strings.
         add the u8s together and print them using 'say_age()'"
     ),
-    Some("Do not use print! or + in 'formal_greet' directly use 'add'"),
+    Some("Do not use print! or '+' in 'formal_greet' directly, instead use 'add'"),
     None
 );
 
