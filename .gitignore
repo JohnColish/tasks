@@ -1,3 +1,6 @@
 tasks/target
 test_setup/target
 *.swp
+
+.cargo
+.rustup
