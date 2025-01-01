@@ -199,7 +199,8 @@ test_setup::make_test!(task1_4, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_4_info'
 
-    assert_stdout_eq!(tasks::hello_mitch(), "Hi, my name is Mitch");
+    assert_stdout_eq!(tasks::hello_user("David"), "Hi, my name is David");
+    assert_stdout_eq!(tasks::hello_user("Alex"), "Hi, my name is Alex");
     //----------------------------------------------------------------------
 }, task1_5);
 
@@ -207,8 +208,7 @@ test_setup::make_test!(task1_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_5_info'
-    assert_stdout_eq!(tasks::hello_user("David"), "Hi, my name is David");
-    assert_stdout_eq!(tasks::hello_user("Alex"), "Hi, my name is Alex");
+    assert_stdout_eq!(tasks::hello_mitch(), "Hi, my name is Mitch");
     //----------------------------------------------------------------------
 }, task1_6);
 
