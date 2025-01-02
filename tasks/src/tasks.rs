@@ -181,7 +181,7 @@ impl Color {
 pub enum Furniture {
     Couch{
         legs: u8,
-        cushion: u8
+        cushions: u8
     },
     Chair{
         legs: u8
@@ -195,7 +195,7 @@ pub enum Furniture {
 impl Furniture {
     pub fn get_legs(self: Furniture) -> u8 {
         match self {
-            Furniture::Couch{legs, cushion: _} => legs,
+            Furniture::Couch{legs, cushions: _} => legs,
             Furniture::Chair{legs} => legs,
             Furniture::Table{legs, plates: _} => legs,
         }

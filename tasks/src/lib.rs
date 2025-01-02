@@ -554,8 +554,8 @@ test_setup::make_test!(task5_3, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    assert_eq!(tasks::Furniture::Couch{legs: 8, cushion: 1}.get_legs(), 8);
-    assert_eq!(tasks::Furniture::Couch{legs: 24, cushion: 43}.get_legs(), 24);
+    assert_eq!(tasks::Furniture::Couch{legs: 8, cushions: 1}.get_legs(), 8);
+    assert_eq!(tasks::Furniture::Couch{legs: 24, cushions: 43}.get_legs(), 24);
     assert_eq!(tasks::Furniture::Chair{legs: 83}.get_legs(), 83);
     assert_eq!(tasks::Furniture::Chair{legs: 22}.get_legs(), 22);
     assert_eq!(tasks::Furniture::Table{legs: 49, plates: 12}.get_legs(), 49);
