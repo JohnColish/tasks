@@ -76,11 +76,11 @@ make_test_info!(
         It can also include various symbols to better format your print.
         For example you can type {} anywhere in the string and it will
         act as a place holder. You can then fill the placeholder by giving
-        print! another paramater and it will fill it in.",
+        print! another parameter and it will fill it in.",
         (true, &[]),
         &[(
-            "To print a dog breed out like this: \"Hello, Golden Retreiver!\"",
-            "print!(\"Hello, {}!\", \"Golden Retreiver\")"
+            "To print a dog breed out like this: \"Hello, Golden Retriever!\"",
+            "print!(\"Hello, {}!\", \"Golden Retriever\")"
         )],
     ),
     describe_function("hello_pet", &[], None,
@@ -183,9 +183,9 @@ make_test_info!(
 );
 
 make_test_info!(
-    task1_7_info, "Paramater Reuse",
+    task1_7_info, "Parameter Reuse",
     describe_type("Reusing Parameters",
-        "Paramaters and variables can be used multiple times if you
+        "Parameters and variables can be used multiple times if you
         'borrow' them, The borrow symbol is denoted by &. We will discuss
         borrowing any type later but notice that the '&str' has the
         borrow symbol and can there be used mulitple times.",
@@ -206,7 +206,7 @@ make_test_info!(
     task2_1_info, "First number Type: u8",
     describe_type("u8",
         "A u8 is very small number that can only be between 0 and 255.
-        A u8 cannot be negitive, commonly referred to as a byte.
+        A u8 cannot be negative, commonly referred to as a byte.
         It is preferred to use this number type when possible.
         u8s can be printed in the same way strings can be.",
         (true, &[]),
@@ -405,7 +405,7 @@ make_test_info!(
     describe_type("Match Statement",
         "A match statement is an expression that takes a value and compares
         it against a series of patterns. If a pattern matches, the code after the
-        corosponding \"=>\" is ran. A pattern matches if the value == pattern",
+        corresponding \"=>\" is ran. A pattern matches if the value == pattern",
         (true, &[]),
         &[
             ("Match statements follow this format",
@@ -998,7 +998,7 @@ make_test_info!(
             ),
         ],
     ),
-    "Add and impl block to the Color enum and add a method to it:\n        ".to_string()
+    "Add an impl block to the Color enum and add a method to it:\n        ".to_string()
     +&describe_function("is_primary", &["self: Color"], Some("bool"),
         "Use a match statement to return true if the Color sub-struct is Blue, Red, or Green"
     ).replace("\n", "\n    "),
@@ -1100,7 +1100,7 @@ make_test_info!(
 );
 
 make_test_info!(
-    task5_5_info, "Impl TypeParamater",
+    task5_5_info, "Impl TypeParameter",
     describe_type("TypeParam Constructor",
         "TypeParameters can be a bit of a pain to deal with since you won't know what
         Type your dealing when creating methods or constructors",
@@ -1150,9 +1150,9 @@ make_test_info!(
 );
 
 make_test_info!(
-    task5_6_info, "Impl TypeParamater",
+    task5_6_info, "Impl TypeParameter",
     describe_type("TypeParam Method",
-        "Another downside is that returning a value with a TypeParamater is much harder,
+        "Another downside is that returning a value with a TypeParameter is much harder,
         since you cannot provide a value that could be one Type or another. But a match
         statement can still come in handy here.",
         (false, &[]),
