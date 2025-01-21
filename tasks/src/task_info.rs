@@ -65,18 +65,19 @@ make_test_info!(
 make_test_info!(
     task1_3_info, "&str Type and Formatting Strings",
     describe_type("&str",
-        "A &str is a Type that is easy to use, but cannot be easily stored.
-        It's value is declared by using double quotes",
+        "A &str is a Type that is easy to use but cannot be easily stored.
+        Its value is declared by using double quotes",
         (true, &[]),
         &[("For the string containing Hello, World!", "\"Hello, World!\"")],
     )+TYPE_SEP+
     &describe_type("Formatting String",
-        "A formatting string is a &str used in by functions like print!.
+        "A formatting string is a &str used in functions like print!.
         It can contain plain text, such as \"Hello, everyone\".
         It can also include various symbols to better format your print.
-        For example you can type {} anywhere in the string and it will
-        act as a place holder. You can then fill the placeholder by giving
-        print! another parameter and it will fill it in.",
+        For example, you can type {} anywhere in the string and it will
+        act as a placeholder. You can then fill the placeholder by giving
+        print! another parameter. This additional parameter will be filled
+        into the print output where the placeholder is.",
         (true, &[]),
         &[(
             "To print a dog breed out like this: \"Hello, Golden Retriever!\"",
@@ -93,7 +94,7 @@ make_test_info!(
 make_test_info!(
     task1_4_info, "Function Parameters",
     describe_type("Parameters",
-        "A parameter is like a placeholder that a function use
+        "A parameter is like a placeholder that a function uses.
         When you define a function, you list the parameters inside
         parentheses () after the function's name, specifying their name and
         Type (like u8 or &str).
@@ -124,9 +125,9 @@ make_test_info!(
     task1_5_info, "Calling A Function",
     describe_type("Function Calling",
         "Functions are useful because they let us reuse code or logic without
-        rewriting it. To use a function, you call it by writing its name
-        followed by parentheses (). If the function has parameters, you provide
-        the values inside the parentheses when calling it.
+        rewriting it. To use, or call, a function, write its name followed by
+        parentheses (). If the function has parameters, you provide the values
+        inside the parentheses when calling it.
         ",
         (true, &[]),
         &[
@@ -152,26 +153,26 @@ make_test_info!(
         "print! can print multiple variables, but each variable requires
         its own set of {} to specify its position in the text.
 
-        Additionally functions can accept more than one parameter, and when
-        the function is called the values must be passed in the same order
-        as when they're declared.
+        Additionally, functions can accept more than one parameter.
+        When the function is called the values must be passed in the same
+        order as when they're declared.
         ",
         (true, &[]),
         &[
             (
-            "To print two variables, name and age, like this:
-            'Hello, my name is Mitch and I am 38 years old",
+            "To print two variables, name and age",
+            "'Hello, my name is Mitch and I am 38 years old'",
             "print!(\"Hello, my name is {} and I am {} years old\", name, age);"
             ),
             (
-            "Calling a function with multiple parameters",
+            "To call a function with multiple parameters",
             "pub fn a_and_b(a: u8, b: u8) {
                 print!(\"this is a: {}\", a);
                 print!(\"this is b: {}\", b);
             }
 
-            a_and_b(2, 5); //Will print \"this is a: 2\", \"this is b: 5
-            a_and_b(5, 2); //Will print \"this is a: 5\", \"this is b: 2"
+            a_and_b(2, 5); //Will print \"this is a: 2\", \"this is b: 5\"
+            a_and_b(5, 2); //Will print \"this is a: 5\", \"this is b: 2\""
             )
         ],
     ),
@@ -186,7 +187,7 @@ make_test_info!(
     task1_7_info, "Parameter Reuse",
     describe_type("Reusing Parameters",
         "Parameters and variables can be used multiple times if you
-        'borrow' them, The borrow symbol is denoted by &. We will discuss
+        'borrow' them. The borrow symbol is denoted by &. We will discuss
         borrowing any type later but notice that the '&str' has the
         borrow symbol and can there be used mulitple times.",
         (true, &[]),
@@ -206,9 +207,9 @@ make_test_info!(
     task2_1_info, "First number Type: u8",
     describe_type("u8",
         "A u8 is very small number that can only be between 0 and 255.
-        A u8 cannot be negative, commonly referred to as a byte.
+        A u8, commonly referred to as a byte, cannot be negative.
         It is preferred to use this number type when possible.
-        u8s can be printed in the same way strings can be.",
+        u8s can be printed the same way strings can be.",
         (true, &[]),
         &[],
     ),
@@ -223,7 +224,7 @@ make_test_info!(
     task2_2_info, "First Return Type",
     describe_type("Function Return Types",
         "Functions can return values that are a result of the logic inside.
-        If a function returns a type then after calling a function it becomes
+        If a function returns a type, after calling a function it becomes
         the value it returned.",
         (false, &[
         "When defining (creating) a function, follow the parentheses () with an arrow ->,
@@ -231,10 +232,10 @@ make_test_info!(
         "The return value can be specified with the return keyword, but this
             is only needed when you trying to return a value before the function
             is finished running. The proper way to return a value is to have it
-            be on the last line of your function with out a ';'"
+            be on the last line of your function without a ';'"
         ]),
         &[
-            ("You can define the return type of a function like this",
+            ("You can define the return type of a function",
             "fn my_name() -> &str {
                 \"Mitch\"
             }"),
@@ -261,9 +262,9 @@ make_test_info!(
         )],
     ),
     describe_function("say_my_age", &[], None,
-        "print 'My age is ' followed by your the result of my_age()"
+        "print 'My age is ' followed by the result of my_age()"
     ),
-    Some("Do not set your age directly, instead use my_age()"),
+    Some("Do not set your age directly. Use my_age() instead"),
     None
 );
 
