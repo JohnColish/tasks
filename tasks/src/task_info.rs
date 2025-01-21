@@ -367,7 +367,7 @@ make_test_info!(
 make_test_info!(
     task3_1_info, "First Boolean",
     describe_type("Booleans",
-        "Booleans: Can only store one of two values: true or false.
+        "Can only store one of two values: true or false.
         They are often used in conditions and comparisons.",
         (true, &[]),
         &[
@@ -440,7 +440,7 @@ make_test_info!(
           - Print \"Values are equal\" if it is true."
     ),
     Some("Do not use == directly in 'say_is_equals', instead use 'is_equals'
-    Do not use an if statement, match statements only"),
+    Use match statements only, not an if statement"),
     None
 );
 
@@ -448,7 +448,7 @@ make_test_info!(
     task3_4_info, "Not Operator",
     describe_type("'!' Operator",
         "The ! (not) operator is a unique operator that only has one parameter.
-        When applied to a bool, it flips the booleans value. true to false, or false to true",
+        When applied to a bool, it flips the boolean's value from true to false or false to true",
         (true, &[]),
         &[
             ("(!true) becomes", "false"),
@@ -456,10 +456,10 @@ make_test_info!(
         ],
     ),
     describe_function("is_not_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false"
+        "return true if 'a' is not equal to 'b', otherwise return false"
     ),
-    Some("Use the ! operator and the function 'is_equals' only",),
-    Some("is_equals returns a bool, flip it")
+    Some("Use the '!' operator and the function 'is_equals' only",),
+    Some("is_equals returns a bool, so flip it")
 );
 
 make_test_info!(
@@ -498,7 +498,7 @@ make_test_info!(
           - Print \"Take your shoes off!\" if true.
           - Print \"Good kid!\" if false.",
     ),
-    Some("Do not use an if statement, match statements only"),
+    Some("Use match statements only, not an if statement"),
     None
 );
 
@@ -514,7 +514,7 @@ make_test_info!(
         ],
     ),
     describe_function("ready_to_go", &["shoes: bool", "coat: bool"], None,
-        "use the && operator to check if coat and shoes are both true
+        "use the && operator to check if both coat and shoes are true
         then, use a match statement to:
           - Print \"Ready to go!\" if both are true.
           - Print \"Not ready to go yet!\" if either or both conditions are false.",
@@ -526,8 +526,8 @@ make_test_info!(
 make_test_info!(
     task3_8_info, "Chained Operators",
     describe_type("Chained Operators",
-        "Operators can also be chained together to make multiple operations at once.
-        But, you must be careful not to confuse things.
+        "Operators can also be chained together to make multiple operations at once,
+        but you must be careful not to confuse things.
         It is recommendend to always wrap your operations in parentheses.
         Running 'cargo clippy' will let you know when the parentheses are not needed.",
         (false, &[
@@ -535,7 +535,7 @@ make_test_info!(
             "(false && true) || true",
             "false || true",
             "true",
-            "But without them specified the compiler guesses resulting in:",
+            "But without them specified, the compiler guesses:",
             "false && true || true",
             "false && (true || true) <- compiler guessing",
             "false && true",
@@ -554,17 +554,17 @@ make_test_info!(
 make_test_info!(
     task4_1_info, "First Structure",
     describe_type("Structures",
-        "Structures are exactly like Types but they can be constructed by anyone. All
-        Structures consist of 5 parts",
+        "Structures are exactly like Types but they can be constructed by anyone.
+        All structures consist of 5 parts:",
         (true, &[
-            "pub struct: Is the keyword to declare a structure",
+            "pub struct: The keyword to declare a structure",
             "Name: The name of a structure is always CammelCase, Meaning the first
             letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.
+            "Fields: The variables that the structure has inside of it.
                 All fields must be prefixed with pub as well!",
-            "Constructors: These are functions that may accept parameters but always
-            return the structure",
-            "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
+            "Constructors: Functions that may accept parameters but always return the structure",
+            "Methods: These are functions that can be run on a structure.
+                They can accept parameters and have access to all the fields of a structure."
         ]),
         &[
             (
