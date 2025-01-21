@@ -65,22 +65,23 @@ make_test_info!(
 make_test_info!(
     task1_3_info, "&str Type and Formatting Strings",
     describe_type("&str",
-        "A &str is a Type that is easy to use, but cannot be easily stored.
-        It's value is declared by using double quotes",
+        "A &str is a Type that is easy to use but cannot be easily stored.
+        Its value is declared by using double quotes",
         (true, &[]),
         &[("For the string containing Hello, World!", "\"Hello, World!\"")],
     )+TYPE_SEP+
     &describe_type("Formatting String",
-        "A formatting string is a &str used in by functions like print!.
+        "A formatting string is a &str used in functions like print!.
         It can contain plain text, such as \"Hello, everyone\".
         It can also include various symbols to better format your print.
-        For example you can type {} anywhere in the string and it will
-        act as a place holder. You can then fill the placeholder by giving
-        print! another paramater and it will fill it in.",
+        For example, you can type {} anywhere in the string and it will
+        act as a placeholder. You can then fill the placeholder by giving
+        print! another parameter. This additional parameter will be filled
+        into the print output where the placeholder is.",
         (true, &[]),
         &[(
-            "To print a dog breed out like this: \"Hello, Golden Retreiver!\"",
-            "print!(\"Hello, {}!\", \"Golden Retreiver\")"
+            "To print a dog breed out like this: \"Hello, Golden Retriever!\"",
+            "print!(\"Hello, {}!\", \"Golden Retriever\")"
         )],
     ),
     describe_function("hello_pet", &[], None,
@@ -93,7 +94,7 @@ make_test_info!(
 make_test_info!(
     task1_4_info, "Function Parameters",
     describe_type("Parameters",
-        "A parameter is like a placeholder that a function use
+        "A parameter is like a placeholder that a function uses.
         When you define a function, you list the parameters inside
         parentheses () after the function's name, specifying their name and
         Type (like u8 or &str).
@@ -124,9 +125,9 @@ make_test_info!(
     task1_5_info, "Calling A Function",
     describe_type("Function Calling",
         "Functions are useful because they let us reuse code or logic without
-        rewriting it. To use a function, you call it by writing its name
-        followed by parentheses (). If the function has parameters, you provide
-        the values inside the parentheses when calling it.
+        rewriting it. To use, or call, a function, write its name followed by
+        parentheses (). If the function has parameters, you provide the values
+        inside the parentheses when calling it.
         ",
         (true, &[]),
         &[
@@ -152,26 +153,26 @@ make_test_info!(
         "print! can print multiple variables, but each variable requires
         its own set of {} to specify its position in the text.
 
-        Additionally functions can accept more than one parameter, and when
-        the function is called the values must be passed in the same order
-        as when they're declared.
+        Additionally, functions can accept more than one parameter.
+        When the function is called the values must be passed in the same
+        order as when they're declared.
         ",
         (true, &[]),
         &[
             (
-            "To print two variables, name and age, like this:
-            'Hello, my name is Mitch and I am 38 years old",
+            "To print two variables, name and age",
+            "'Hello, my name is Mitch and I am 38 years old'",
             "print!(\"Hello, my name is {} and I am {} years old\", name, age);"
             ),
             (
-            "Calling a function with multiple parameters",
+            "To call a function with multiple parameters",
             "pub fn a_and_b(a: u8, b: u8) {
                 print!(\"this is a: {}\", a);
                 print!(\"this is b: {}\", b);
             }
 
-            a_and_b(2, 5); //Will print \"this is a: 2\", \"this is b: 5
-            a_and_b(5, 2); //Will print \"this is a: 5\", \"this is b: 2"
+            a_and_b(2, 5); //Will print \"this is a: 2\", \"this is b: 5\"
+            a_and_b(5, 2); //Will print \"this is a: 5\", \"this is b: 2\""
             )
         ],
     ),
@@ -183,10 +184,10 @@ make_test_info!(
 );
 
 make_test_info!(
-    task1_7_info, "Paramater Reuse",
+    task1_7_info, "Parameter Reuse",
     describe_type("Reusing Parameters",
-        "Paramaters and variables can be used multiple times if you
-        'borrow' them, The borrow symbol is denoted by &. We will discuss
+        "Parameters and variables can be used multiple times if you
+        'borrow' them. The borrow symbol is denoted by &. We will discuss
         borrowing any type later but notice that the '&str' has the
         borrow symbol and can there be used mulitple times.",
         (true, &[]),
@@ -206,9 +207,9 @@ make_test_info!(
     task2_1_info, "First number Type: u8",
     describe_type("u8",
         "A u8 is very small number that can only be between 0 and 255.
-        A u8 cannot be negitive, commonly referred to as a byte.
+        A u8, commonly referred to as a byte, cannot be negative.
         It is preferred to use this number type when possible.
-        u8s can be printed in the same way strings can be.",
+        u8s can be printed the same way strings can be.",
         (true, &[]),
         &[],
     ),
@@ -223,7 +224,7 @@ make_test_info!(
     task2_2_info, "First Return Type",
     describe_type("Function Return Types",
         "Functions can return values that are a result of the logic inside.
-        If a function returns a type then after calling a function it becomes
+        If a function returns a type, after calling a function it becomes
         the value it returned.",
         (false, &[
         "When defining (creating) a function, follow the parentheses () with an arrow ->,
@@ -231,10 +232,10 @@ make_test_info!(
         "The return value can be specified with the return keyword, but this
             is only needed when you trying to return a value before the function
             is finished running. The proper way to return a value is to have it
-            be on the last line of your function with out a ';'"
+            be on the last line of your function without a ';'"
         ]),
         &[
-            ("You can define the return type of a function like this",
+            ("You can define the return type of a function",
             "fn my_name() -> &str {
                 \"Mitch\"
             }"),
@@ -261,9 +262,9 @@ make_test_info!(
         )],
     ),
     describe_function("say_my_age", &[], None,
-        "print 'My age is ' followed by your the result of my_age()"
+        "print 'My age is ' followed by the result of my_age()"
     ),
-    Some("Do not set your age directly, instead use my_age()"),
+    Some("Do not set your age directly. Use my_age() instead"),
     None
 );
 
@@ -334,7 +335,7 @@ make_test_info!(
         ],
     ),
     describe_function("subtract", &["a: u8", "b: u8"], Some("u8"),
-        "subtract 'a' from 'b' and return the result"
+        "subtract 'b' from 'a' and return the result"
     ),
     None,
     None
@@ -366,7 +367,7 @@ make_test_info!(
 make_test_info!(
     task3_1_info, "First Boolean",
     describe_type("Booleans",
-        "Booleans: Can only store one of two values: true or false.
+        "Can only store one of two values: true or false.
         They are often used in conditions and comparisons.",
         (true, &[]),
         &[
@@ -405,7 +406,7 @@ make_test_info!(
     describe_type("Match Statement",
         "A match statement is an expression that takes a value and compares
         it against a series of patterns. If a pattern matches, the code after the
-        corosponding \"=>\" is ran. A pattern matches if the value == pattern",
+        corresponding \"=>\" is ran. A pattern matches if the value == pattern",
         (true, &[]),
         &[
             ("Match statements follow this format",
@@ -439,7 +440,7 @@ make_test_info!(
           - Print \"Values are equal\" if it is true."
     ),
     Some("Do not use == directly in 'say_is_equals', instead use 'is_equals'
-    Do not use an if statement, match statements only"),
+    Use match statements only, not an if statement"),
     None
 );
 
@@ -447,7 +448,7 @@ make_test_info!(
     task3_4_info, "Not Operator",
     describe_type("'!' Operator",
         "The ! (not) operator is a unique operator that only has one parameter.
-        When applied to a bool, it flips the booleans value. true to false, or false to true",
+        When applied to a bool, it flips the boolean's value from true to false or false to true",
         (true, &[]),
         &[
             ("(!true) becomes", "false"),
@@ -455,10 +456,10 @@ make_test_info!(
         ],
     ),
     describe_function("is_not_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false"
+        "return true if 'a' is not equal to 'b', otherwise return false"
     ),
-    Some("Use the ! operator and the function 'is_equals' only",),
-    Some("is_equals returns a bool, flip it")
+    Some("Use the '!' operator and the function 'is_equals' only",),
+    Some("is_equals returns a bool, so flip it")
 );
 
 make_test_info!(
@@ -497,7 +498,7 @@ make_test_info!(
           - Print \"Take your shoes off!\" if true.
           - Print \"Good kid!\" if false.",
     ),
-    Some("Do not use an if statement, match statements only"),
+    Some("Use match statements only, not an if statement"),
     None
 );
 
@@ -513,7 +514,7 @@ make_test_info!(
         ],
     ),
     describe_function("ready_to_go", &["shoes: bool", "coat: bool"], None,
-        "use the && operator to check if coat and shoes are both true
+        "use the && operator to check if both coat and shoes are true
         then, use a match statement to:
           - Print \"Ready to go!\" if both are true.
           - Print \"Not ready to go yet!\" if either or both conditions are false.",
@@ -525,8 +526,8 @@ make_test_info!(
 make_test_info!(
     task3_8_info, "Chained Operators",
     describe_type("Chained Operators",
-        "Operators can also be chained together to make multiple operations at once.
-        But, you must be careful not to confuse things.
+        "Operators can also be chained together to make multiple operations at once,
+        but you must be careful not to confuse things.
         It is recommendend to always wrap your operations in parentheses.
         Running 'cargo clippy' will let you know when the parentheses are not needed.",
         (false, &[
@@ -534,7 +535,7 @@ make_test_info!(
             "(false && true) || true",
             "false || true",
             "true",
-            "But without them specified the compiler guesses resulting in:",
+            "But without them specified, the compiler guesses:",
             "false && true || true",
             "false && (true || true) <- compiler guessing",
             "false && true",
@@ -553,17 +554,17 @@ make_test_info!(
 make_test_info!(
     task4_1_info, "First Structure",
     describe_type("Structures",
-        "Structures are exactly like Types but they can be constructed by anyone. All
-        Structures consist of 5 parts",
+        "Structures are exactly like Types but they can be constructed by anyone.
+        All structures consist of 5 parts:",
         (true, &[
-            "pub struct: Is the keyword to declare a structure",
+            "pub struct: The keyword to declare a structure",
             "Name: The name of a structure is always CammelCase, Meaning the first
             letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.
+            "Fields: The variables that the structure has inside of it.
                 All fields must be prefixed with pub as well!",
-            "Constructors: These are functions that may accept parameters but always
-            return the structure",
-            "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
+            "Constructors: Functions that may accept parameters but always return the structure",
+            "Methods: These are functions that can be run on a structure.
+                They can accept parameters and have access to all the fields of a structure."
         ]),
         &[
             (
@@ -998,7 +999,7 @@ make_test_info!(
             ),
         ],
     ),
-    "Add and impl block to the Color enum and add a method to it:\n        ".to_string()
+    "Add an impl block to the Color enum and add a method to it:\n        ".to_string()
     +&describe_function("is_primary", &["self: Color"], Some("bool"),
         "Use a match statement to return true if the Color sub-struct is Blue, Red, or Green"
     ).replace("\n", "\n    "),
@@ -1100,7 +1101,7 @@ make_test_info!(
 );
 
 make_test_info!(
-    task5_5_info, "Impl TypeParamater",
+    task5_5_info, "Impl TypeParameter",
     describe_type("TypeParam Constructor",
         "TypeParameters can be a bit of a pain to deal with since you won't know what
         Type your dealing when creating methods or constructors",
@@ -1150,9 +1151,9 @@ make_test_info!(
 );
 
 make_test_info!(
-    task5_6_info, "Impl TypeParamater",
+    task5_6_info, "Impl TypeParameter",
     describe_type("TypeParam Method",
-        "Another downside is that returning a value with a TypeParamater is much harder,
+        "Another downside is that returning a value with a TypeParameter is much harder,
         since you cannot provide a value that could be one Type or another. But a match
         statement can still come in handy here.",
         (false, &[]),
