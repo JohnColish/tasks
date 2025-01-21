@@ -335,7 +335,7 @@ make_test_info!(
         ],
     ),
     describe_function("subtract", &["a: u8", "b: u8"], Some("u8"),
-        "subtract 'a' from 'b' and return the result"
+        "subtract 'b' from 'a' and return the result"
     ),
     None,
     None
