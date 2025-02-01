@@ -24,39 +24,47 @@ make_test_info!(
 make_test_info!(
     task1_2_info, "First Function",
     describe_type("Functions (fn)",
-        "Functions are used to define a specific set of actions or logic that can
-        be reused by using/calling the function. Every function has five key parts",
+        "
+        Imagine you're making a recipe.
+        A function is like a recipe that tells the computer how to do something.
+
+        Here's how the different parts of a function work",
         (true, &[
-        "pub fn: This is the keyword used to declare a public function.",
-        "Name: The name of the function is like a label or identifier,
-            you use it when you want to call the function.",
-        "Parameters: These are optional variables used by the function to do its job.
-            They are listed inside parentheses after the name, in the form of \"name: Type\".",
-        "Return Type: An optional Type if the function returns a value,
-            the return type is declared after the parameters using \"-> Type\"",
-        "Function Body: The body contains the code that performs the function's logic.
-            It is enclosed in curly braces {}, where the parameters can be used
-            to compute the result, and the return type (if there is one) is returned."
+        "pub fn: This is the keyword to say \"Hey, I'm sharing this recipe with everyone.
+            - pub means it's public, so any file can use it.
+            - fn tells the computer you're now creating a function (recipe)
+            ",
+        "Name: This is the name of your recipe. It's the label you use to reference the function later.
+        ",
+        "Parameters: These are optional ingredients for your recipe. 
+        You're function (recipe) might need paremeters (ingredients) to work, but some functions don't.
+        ",
+        "Return Type: This is the result of your recipe. What will the function give back after it's finished?
+        For example, if the recipe is making a cake, the Return Type would be 'Cake'.
+            ",
+        "Function Body: This is the part where the function does it's work, like the steps in a recipe.
+        Here, you tell the computer exactly what this recipe should do or make.
+            "
         ]),
         &[(
-            "For a function that accepts an &str and returns u8",
+            "Example of a function",
             "pub fn function_name(my_str: &str) -> u8 {
-                //function body
+                print!(\"Hello, World!\");
+                16
             }"
-        ), (
-            "For a function that accepts a &str and u8 and returns nothing",
-            "pub fn function_name(my_name_str: &str, my_favorite_u8: u8) {
-                //function body
-            }"
-        ), (
-            "For a function that accepts no parameters and returns nothing",
-            "pub fn function_name() {
-                //function body
-            }"
+        ),
+        (
+            "Explanation",
+            "- pub fn means we're sharing this function with everyone
+            - function_name is what we're calling this function (recipe's name)
+            - my_str: &str is the ingredient we need: a piece of text
+            - -> u8 tells us the function will give back a small number
+            - The function body prints 'Hello, World!' then tells the function 
+                to give back 16"
         )]
     ),
     describe_function("hello_everyone", &[], None,
-        "print! 'Hello, Everyone!'"
+        "Create a print! statement that says 'Hello, Everyone!'"
     ),
     None,
     None
