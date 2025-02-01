@@ -45,12 +45,19 @@ pub fn describe_function(name: &str, params: &[&str], return_type: Option<&str>,
     let mut params = params.join("\n        ");
     if params.is_empty() {params = "None".to_string();}
     format!("Create a function with:
-        Name: {name}
+
+    Name: {name}
+
     Parameters:
+
         {params}
-    ReturnType:
+
+    ReturnType: 
+    
         {return_type}
+
     This function must:
+
         {description}")
 }
 

@@ -23,7 +23,7 @@ make_test_info!(
 
 make_test_info!(
     task1_2_info, "First Function",
-    describe_type("Functions(fn)",
+    describe_type("Functions (fn)",
         "Functions are used to define a specific set of actions or logic that can
         be reused by using/calling the function. Every function has five key parts",
         (true, &[
@@ -63,28 +63,33 @@ make_test_info!(
 );
 
 make_test_info!(
-    task1_3_info, "&str Type and Formatting Strings",
+    task1_3_info, "The &str Type",
     describe_type("&str",
-        "A &str is a Type that is easy to use, but cannot be easily stored.
-        It's value is declared by using double quotes",
+        "
+        An &str (string) is just simply a piece of text.",
         (true, &[]),
-        &[("For the string containing Hello, World!", "\"Hello, World!\"")],
+        &[("To create an &str with the text 'Hello, World!', you surround the text in double quotes", "\"Hello, World!\"")],
     )+TYPE_SEP+
     &describe_type("Formatting String",
-        "A formatting string is a &str used in by functions like print!.
-        It can contain plain text, such as \"Hello, everyone\".
-        It can also include various symbols to better format your print.
-        For example you can type {} anywhere in the string and it will
-        act as a place holder. You can then fill the placeholder by giving
-        print! another paramater and it will fill it in.",
+        "
+        You can use {} as placeholders in a &str, and Rust will 'format' the string 
+        by replacing those placeholders with the values you provide",
         (true, &[]),
         &[(
-            "To print a dog breed out like this: \"Hello, Golden Retreiver!\"",
+            "You can use placeholders in print! statements.
+        It's like a talking program that says whatever you tell it to",
             "print!(\"Hello, {}!\", \"Golden Retreiver\")"
+        ),
+        (
+            "The {} is the blank space.
+        Rust takes \"Golden Retreiver\" and puts it in the blank space",
+            "The program then says: \"Hello, Golden Retriever!\""
         )],
     ),
     describe_function("hello_pet", &[], None,
-        "print 'Hello, Benji!' using a placeholder like the example",
+        "Create a print! statement that prints \"Hello, Benji!\" by using
+        \"Benji\" as the value and a {} placeholder to insert it into 
+        the sentence after the comma",
     ),
     None,
     None
