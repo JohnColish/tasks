@@ -246,16 +246,16 @@ make_test_info!(
         ]),
         &[
             ("Example",
-            "pub fn get_cookie() -> u8 {
-                1
+            "pub fn bake_cake() -> &str {
+                \"Chocolate Cake\"
             }"
             ),
             ("Explanation
 
             -> : This arrow is saying, \"After the function does its work, it will give something back\"
 
-            u8 : This is the type of value the function will return.",
-            "So, '-> u8' means, \"This function will give back a u8 (number) when it finishes\"")
+            &str : This is the type of value the function will return.",
+            "So, '-> &str' means, \"This function will give back a &str (string) when it finishes\"")
         ],
     ),
     describe_function("my_age", &[], Some("u8"),
@@ -272,7 +272,7 @@ make_test_info!(
         The returned value is what the function gives back to you after it finishes.",
         (true, &[]),
         &[(
-            "This function gives you an &str when it finishes",
+            "This function gives you the &str \"Chocolate Cake\" when it finishes",
             "pub fn bake_cake() -> &str {
                 \"Chocolate Cake\"
             }"
