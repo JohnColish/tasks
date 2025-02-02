@@ -409,7 +409,7 @@ test_setup::make_test!(task4_1, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
 
-    let _test = tasks::DriversLicense{issued: 34, expires: 76};
+    let _test = tasks::Warship{cannons: 34, torpedoes: 76, speed: 100};
     //----------------------------------------------------------------------
 }, task4_2);
 
@@ -417,9 +417,10 @@ test_setup::make_test!(task4_2, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
-    let test = tasks::my_new_dl();
-    assert_eq!(test.issued, 4);
-    assert_eq!(test.expires, 12);
+    let test = tasks::create_warship();
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
+    assert_eq!(test.speed, 100);
     //----------------------------------------------------------------------
 }, task4_3);
 
@@ -428,12 +429,12 @@ test_setup::make_test!(task4_3, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
     assert_stdout_eq!(
-        tasks::print_drivers_license(tasks::DriversLicense{issued: 34, expires: 42}),
-        "34-42"
+        tasks::cannon_count(tasks::Warship{cannons: 34, torpedoes: 76, speed: 100}),
+        "My warship has 34 cannons left"
     );
     assert_stdout_eq!(
-        tasks::print_drivers_license(tasks::DriversLicense{issued: 72, expires: 80}),
-        "72-80"
+        tasks::cannon_count(tasks::Warship{cannons: 7, torpedoes: 76, speed: 100}),
+        "My warship has 7 cannons left"
     );
     //----------------------------------------------------------------------
 }, task4_4);
@@ -443,13 +444,15 @@ test_setup::make_test!(task4_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
-    let test = tasks::DriversLicense::new(34);
-    assert_eq!(test.issued, 34);
-    assert_eq!(test.expires, 42);
+    let test = tasks::Warship::new(34);
+    assert_eq!(test.speed, 34);
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
 
-    let test = tasks::DriversLicense::new(57);
-    assert_eq!(test.issued, 57);
-    assert_eq!(test.expires, 65);
+    let test = tasks::Warship::new(200);
+    assert_eq!(test.speed, 200);
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
     //----------------------------------------------------------------------
 }, task4_5);
 
@@ -458,11 +461,15 @@ test_setup::make_test!(task4_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(33), false);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(34), true);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(40), true);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(42), false);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(45), false);
+    assert_stdout_eq!(
+        tasks::Warship{cannons: 7, torpedoes: 2, speed: 100}.torpedo_check(),
+        "I have 2 torpedoes left"
+    );
+
+    assert_stdout_eq!(
+        tasks::Warship{cannons: 7, torpedoes: 76, speed: 100}.torpedo_check(),
+        "I have 76 torpedoes left"
+    );
 
     //----------------------------------------------------------------------
 }, task4_6);
@@ -499,33 +506,18 @@ test_setup::make_test!(task4_8, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 20, expires: 28}.examine(),
-        "Hey that's my drivers license"
+        tasks::Warship{cannons: 5, torpedoes: 10, speed: 100}.torpedo_check(),
+        "This ship is stocked up and ready to go"
     );
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 28}.examine(),
-        "Drivers license issued during covid"
+        tasks::Warship{cannons: 0, torpedoes: 1, speed: 25}.torpedo_check(),
+        "This ship is low and slow"
     );
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 45}.examine(),
-        "Drivers license issued during covid"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 24}.examine(),
-        "Drivers license issued during covid"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 18, expires: 24}.examine(),
-        "Expires on the 24 and was issued on 18"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 10, expires: 24}.examine(),
-        "Expires on the 24 and was issued on 10"
+        tasks::Warship{cannons: 51, torpedoes: 12, speed: 90}.torpedo_check(),
+        "This ship is a mystery"
     );
     //----------------------------------------------------------------------
 }, task5_1);

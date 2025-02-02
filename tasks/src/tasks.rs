@@ -103,43 +103,36 @@ pub fn ready_to_play(shoes: bool, is_hot: bool, coat: bool) -> bool {
     shoes && (is_hot || coat)
 }
 
-
-pub struct DriversLicense {
-    pub issued: u8,
-    pub expires: u8,
+pub struct Warship {
+    pub cannons: u8,
+    pub torpedoes: u8,
+    pub speed: u8
 }
 
-pub fn my_new_dl() -> DriversLicense {
-    DriversLicense{issued: 4, expires: 12}
-}
-
-pub fn print_drivers_license(a_dl: DriversLicense) {
-    print!("{}-{}", a_dl.issued, a_dl.expires);
-}
-
-impl DriversLicense {
-    pub fn new(issued: u8) -> DriversLicense {
-        DriversLicense{issued, expires: issued+8}
-    }
-
-    pub fn is_valid(self: DriversLicense, current_year: u8) -> bool {
-        current_year >= self.issued && current_year < self.expires
-    }
-
-    pub fn examine(self: DriversLicense) {
-        match self {
-            DriversLicense{issued: 20, expires: 28} => {
-                print!("Hey that's my drivers license");
-            },
-            DriversLicense{issued: 22, expires: _} => {
-                print!("Drivers license issued during covid");
-            },
-            DriversLicense{issued, expires: 24} => {
-                print!("Expires on the 24 and was issued on {}", issued);
-            },
-            _ => print!("No comment")
+impl Warship {
+    pub fn new(max_speed: u8) -> Warship {
+        Warship {
+            cannons: 12,
+            torpedoes: 24,
+            speed: max_speed,
         }
     }
+
+    pub fn torpedo_check(self: Warship) {
+        print!("I have {} torpedoes left", self.torpedoes)
+    }
+}
+
+pub fn create_warship() -> Warship {
+    Warship {
+        cannons: 12,
+        torpedoes: 24,
+        speed: 100,
+    }
+}
+
+pub fn cannon_count(warship: Warship) {
+    print!("My warship has {} cannons left", warship.cannons)
 }
 
 pub fn print_apples(apples: u8) {
