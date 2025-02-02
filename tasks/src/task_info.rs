@@ -30,10 +30,10 @@ make_test_info!(
 
         Here's how the different parts of a function work",
         (true, &[
-        "pub fn: This is the keyword to say \"Hey, I'm sharing this recipe with everyone.
-            - pub means it's public, so any file can use it.
-            - fn tells the computer you're now creating a function (recipe)
-            ",
+        "pub: This is the keyword to say \"Hey, I'm sharing this recipe with everyone.
+        ",
+        "fn: This tells the computer you're now creating a function (recipe)
+        ",
         "Name: This is the name of your recipe. It's the label you use to reference the function later.
         ",
         "Parameters: These are optional ingredients for your recipe. 
@@ -186,34 +186,34 @@ make_test_info!(
     None
 );
 
-make_test_info!(
-    task1_7_info, "Paramater Reuse",
-    describe_type("Reusing Parameters",
-        "Just like reusing the same ingredient in different recipes, parameters can be used
-        multiple times in different function calls.",
-        (true, &[]),
-        &[
-            ("Example reusing 'ingredient' parameter", 
-            "pub fn bake(dessert: &str, ingredient: &str) {
-                print!(\"Using {} to make {}!\", dessert, ingredient);
-            }
+// make_test_info!(
+//     task1_7_info, "Paramater Reuse",
+//     describe_type("Reusing Parameters",
+//         "Just like reusing the same ingredient in different recipes, parameters can be used
+//         multiple times in different function calls.",
+//         (true, &[]),
+//         &[
+//             ("Example reusing 'ingredient' parameter", 
+//             "pub fn bake(dessert: &str, ingredient: &str) {
+//                 print!(\"Using {} to make {}!\", dessert, ingredient);
+//             }
             
-            pub fn prepare_party(ingredient: &str) {
-                bake(\"cookies\", ingredient);
-                bake(\"cupcakes\", ingredient);
-            }"),
-            ("Running prepare_party(\"flour\") will print",
-            "Using flour to make cookies!
-            Using flour to make cupcakes!")
-        ],
-    ),
-    describe_function("hello_twice", &["first_name: &str", "last_name: &str"], None,
-        "use your previous function 'hello_user' to print the first_name,
-        then use 'formal_hello' to print both first_name and last_name"
-    ),
-    Some("Do not use print! directly in this function"),
-    None
-);
+//             pub fn prepare_party(ingredient: &str) {
+//                 bake(\"cookies\", ingredient);
+//                 bake(\"cupcakes\", ingredient);
+//             }"),
+//             ("Running prepare_party(\"flour\") will print",
+//             "Using flour to make cookies!
+//             Using flour to make cupcakes!")
+//         ],
+//     ),
+//     describe_function("hello_twice", &["first_name: &str", "last_name: &str"], None,
+//         "use your previous function 'hello_user' to print the first_name,
+//         then use 'formal_hello' to print both first_name and last_name"
+//     ),
+//     Some("Do not use print! directly in this function"),
+//     None
+// );
 
 // ---------------- SECTION TWO ---------------- //
 
@@ -238,21 +238,13 @@ make_test_info!(
         A function return type tells your computer what kind of value the function
         will give back after running.",
         (false, &[
-            "Imagine a vending machine.
-
-            You put money in the machine (parameters)
+            "You put money in the machine (parameters)
             The machine returns a snack (return value)
             Depending on the machine, you'll get a different snack (return type)"
-        // "When defining (creating) a function, follow the parentheses () with an arrow ->,
-        //     followed by the type of the return value (e.g., u8, &str, etc.).",
-        // "The return value can be specified with the return keyword, but this
-        //     is only needed when you trying to return a value before the function
-        //     is finished running. The proper way to return a value is to have it
-        //     be on the last line of your function with out a ';'"
         ]),
         &[
             ("Example",
-            "pub fn get_dollar() -> u8 {
+            "pub fn get_cookie() -> u8 {
                 1
             }"
             ),
@@ -260,8 +252,8 @@ make_test_info!(
 
             -> : This arrow is saying, \"After the function does its work, it will give something back\"
 
-            u8 : This is the type of value the function will return. In this case, u8 means it will return 
-                 a whole number between 0 and 255",
+            u8 : This is the type of value the function will return.
+            ",
             "So, '-> u8' means, \"This function will give back a u8 (number) when it finishes\"")
         ],
     ),
