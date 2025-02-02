@@ -23,68 +23,81 @@ make_test_info!(
 
 make_test_info!(
     task1_2_info, "First Function",
-    describe_type("Functions(fn)",
-        "Functions are used to define a specific set of actions or logic that can
-        be reused by using/calling the function. Every function has five key parts",
+    describe_type("Functions (fn)",
+        "
+        Imagine you're making a recipe.
+        A function is like a recipe that tells the computer how to do something.
+
+        Here's how the different parts of a function work",
         (true, &[
-        "pub fn: This is the keyword used to declare a public function.",
-        "Name: The name of the function is like a label or identifier,
-            you use it when you want to call the function.",
-        "Parameters: These are optional variables used by the function to do its job.
-            They are listed inside parentheses after the name, in the form of \"name: Type\".",
-        "Return Type: An optional Type if the function returns a value,
-            the return type is declared after the parameters using \"-> Type\"",
-        "Function Body: The body contains the code that performs the function's logic.
-            It is enclosed in curly braces {}, where the parameters can be used
-            to compute the result, and the return type (if there is one) is returned."
+        "pub: This is the keyword to say \"Hey, I'm sharing this recipe with everyone.
+        ",
+        "fn: This tells the computer you're now creating a function (recipe)
+        ",
+        "Name: This is the name of your recipe. It's the label you use to reference the function later.
+        ",
+        "Parameters: These are optional ingredients for your recipe. 
+        You're function (recipe) might need paremeters (ingredients) to work, but some functions don't.
+        ",
+        "Return Type: This is the result of your recipe. What will the function give back after it's finished?
+        For example, if the recipe is making a cake, the Return Type would be 'Cake'.
+            ",
+        "Function Body: This is the part where the function does it's work, like the steps in a recipe.
+        Here, you tell the computer exactly what this recipe should do or make.
+            "
         ]),
         &[(
-            "For a function that accepts an &str and returns u8",
+            "Example of a function",
             "pub fn function_name(my_str: &str) -> u8 {
-                //function body
+                print!(\"Hello, World!\");
+                16
             }"
-        ), (
-            "For a function that accepts a &str and u8 and returns nothing",
-            "pub fn function_name(my_name_str: &str, my_favorite_u8: u8) {
-                //function body
-            }"
-        ), (
-            "For a function that accepts no parameters and returns nothing",
-            "pub fn function_name() {
-                //function body
-            }"
+        ),
+        (
+            "Explanation",
+            "- pub fn means we're sharing this function with everyone
+            - function_name is what we're calling this function (recipe's name)
+            - my_str: &str is the ingredient we need: a piece of text
+            - -> u8 tells us the function will give back a small number
+            - The function body prints 'Hello, World!' then tells the function 
+                to give back 16"
         )]
     ),
     describe_function("hello_everyone", &[], None,
-        "print! 'Hello, Everyone!'"
+        "Create a print! statement that says 'Hello, Everyone!'"
     ),
     None,
     None
 );
 
 make_test_info!(
-    task1_3_info, "&str Type and Formatting Strings",
+    task1_3_info, "The &str Type",
     describe_type("&str",
-        "A &str is a Type that is easy to use, but cannot be easily stored.
-        It's value is declared by using double quotes",
+        "
+        An &str (string) is just simply a piece of text.",
         (true, &[]),
-        &[("For the string containing Hello, World!", "\"Hello, World!\"")],
+        &[("To create an &str with the text 'Hello, World!', you surround the text in double quotes", "\"Hello, World!\"")],
     )+TYPE_SEP+
     &describe_type("Formatting String",
-        "A formatting string is a &str used in by functions like print!.
-        It can contain plain text, such as \"Hello, everyone\".
-        It can also include various symbols to better format your print.
-        For example you can type {} anywhere in the string and it will
-        act as a place holder. You can then fill the placeholder by giving
-        print! another paramater and it will fill it in.",
+        "
+        You can use {} as placeholders in a &str, and Rust will 'format' the string 
+        by replacing those placeholders with the values you provide",
         (true, &[]),
         &[(
-            "To print a dog breed out like this: \"Hello, Golden Retreiver!\"",
+            "You can use placeholders in print! statements.
+        It's like a talking program that says whatever you tell it to",
             "print!(\"Hello, {}!\", \"Golden Retreiver\")"
+        ),
+        (
+            "The {} is the blank space.
+        Rust takes \"Golden Retreiver\" and puts it in the blank space",
+            "The program then says: \"Hello, Golden Retriever!\""
         )],
     ),
     describe_function("hello_pet", &[], None,
-        "print 'Hello, Benji!' using a placeholder like the example",
+        "Create a print! statement that prints \"Hello, Benji!\" by using
+        \"Benji\" as the value and a {} placeholder to insert it into 
+        the sentence after the comma",
     ),
     None,
     None
@@ -93,24 +106,25 @@ make_test_info!(
 make_test_info!(
     task1_4_info, "Function Parameters",
     describe_type("Parameters",
-        "A parameter is like a placeholder that a function use
-        When you define a function, you list the parameters inside
-        parentheses () after the function's name, specifying their name and
-        Type (like u8 or &str).
+        "Parameters are like ingredients for a recipe. 
+        When you cook something, you don't always use the same ingredient every time.
+        You change it depending on what you want.
 
-        However, you don’t give them actual values at this point. Instead,
-        when the function is used or called, the caller provides the specific
-        values for these placeholders. This allows the function to work with
-        different inputs and produce results based on those inputs.
-
-        Parameters make functions more flexible and reusable.
+        For example, a sandwich recipe might need filling. 
+        But you can choose different fillings, like peanut butter or cheeese.
         ",
         (true, &[]),
         &[(
-            "For a function with a &str and u8 as params",
-            "my_function(a_random_str: &str, my_favorite_u8: u8) {
-                //Function body
+            "In a function",
+            "pub fn make_sandwich(filling: &str) {
+                print!(\"Here's a {} sandwich!\", filling);
             }",
+        ),
+        (
+            "'filling: &str' is the ingredient (parameter)
+        - When you call make_sandwich(\"bacon\"); Rust uses \"bacon\" as the filling
+        - The function prints",
+            "\"Here's a bacon sandwich!\"",
         )]
     ),
     describe_function("hello_user", &["name: &str"], None,
@@ -123,24 +137,23 @@ make_test_info!(
 make_test_info!(
     task1_5_info, "Calling A Function",
     describe_type("Function Calling",
-        "Functions are useful because they let us reuse code or logic without
-        rewriting it. To use a function, you call it by writing its name
-        followed by parentheses (). If the function has parameters, you provide
-        the values inside the parentheses when calling it.
+        "Calling a function is like using a recipe.
+        You provide the needed ingredients (parameters), and the
+        function does its job
         ",
         (true, &[]),
         &[
             ("To call a function",
-            "function_name(param_value);"),
-            ("To call a function that requires a u8",
-            "function_name(18);"),
-            ("To call a function that requires a String",
-            "function_name(\"Hello\");")
+            "function_name(parameter_value);"),
+            ("To call a function named bake_cake that requires a u8 (small number)",
+            "bake_cake(18);"),
+            ("To call a function named make_sandwich that requires a &str (string)",
+            "make_sandwich(\"cheese\");")
         ],
     ),
     describe_function("hello_mitch", &[], None,
-        "use your previous function 'hello_user' with 'mitch' as the parameter
-        to print 'Hi, my name is Mitch'"
+        "Call your function 'hello_user' and give it 'mitch' as the name parameter,
+        to print 'Hi, my name is mitch'"
     ),
     Some( "Do not use print! directly in this function"),
     None
@@ -149,66 +162,65 @@ make_test_info!(
 make_test_info!(
     task1_6_info, "Formal Hello",
     describe_type("Printing Multiple Parameters",
-        "print! can print multiple variables, but each variable requires
-        its own set of {} to specify its position in the text.
-
-        Additionally functions can accept more than one parameter, and when
-        the function is called the values must be passed in the same order
-        as when they're declared.
-        ",
+        "Using multiple parmaters is like following a recipe that needs more than
+        one ingredient.",
         (true, &[]),
         &[
             (
-            "To print two variables, name and age, like this:
-            'Hello, my name is Mitch and I am 38 years old",
-            "print!(\"Hello, my name is {} and I am {} years old\", name, age);"
+            "Function with multiple parameters",
+            "pub fn describe_animal(name: &str, animal: &str) {
+                print!(\"This is {} the {}, name, animal);
+            }"),
+            ("describe_animal(\"Harry\", \"Frog\")", "\"This is Harry the Frog\""),
+            ("describe_animal(\"Danny\", \"Chicken\")", "\"This is Danny the Chicken\""),
+            ("Each value fills in a different blank in a print! statement",
+            "print!(\"{} has {} apples\", \"Frank\", 5)"
             ),
-            (
-            "Calling a function with multiple parameters",
-            "pub fn a_and_b(a: u8, b: u8) {
-                print!(\"this is a: {}\", a);
-                print!(\"this is b: {}\", b);
-            }
-
-            a_and_b(2, 5); //Will print \"this is a: 2\", \"this is b: 5
-            a_and_b(5, 2); //Will print \"this is a: 5\", \"this is b: 2"
-            )
+            ("This will print", "\"Frank has 5 apples\""),
         ],
     ),
     describe_function("formal_hello", &["first_name: &str", "last_name: &str"], None,
-        "print 'Hi, my name is ' followed by first_name then last_name with a space in between"
+        "print 'Hi, my name is ' followed by first_name and last_name with a space in between"
     ),
     None,
     None
 );
 
-make_test_info!(
-    task1_7_info, "Paramater Reuse",
-    describe_type("Reusing Parameters",
-        "Paramaters and variables can be used multiple times if you
-        'borrow' them, The borrow symbol is denoted by &. We will discuss
-        borrowing any type later but notice that the '&str' has the
-        borrow symbol and can there be used mulitple times.",
-        (true, &[]),
-        &[],
-    ),
-    describe_function("hello_twice", &["first_name: &str", "last_name: &str"], None,
-        "use your previous function 'hello_user' to print the first name,
-        then use 'formal_hello' to print both first_name and last_name"
-    ),
-    Some("Do not use print! directly in this function"),
-    None
-);
+// make_test_info!(
+//     task1_7_info, "Paramater Reuse",
+//     describe_type("Reusing Parameters",
+//         "Just like reusing the same ingredient in different recipes, parameters can be used
+//         multiple times in different function calls.",
+//         (true, &[]),
+//         &[
+//             ("Example reusing 'ingredient' parameter", 
+//             "pub fn bake(dessert: &str, ingredient: &str) {
+//                 print!(\"Using {} to make {}!\", dessert, ingredient);
+//             }
+            
+//             pub fn prepare_party(ingredient: &str) {
+//                 bake(\"cookies\", ingredient);
+//                 bake(\"cupcakes\", ingredient);
+//             }"),
+//             ("Running prepare_party(\"flour\") will print",
+//             "Using flour to make cookies!
+//             Using flour to make cupcakes!")
+//         ],
+//     ),
+//     describe_function("hello_twice", &["first_name: &str", "last_name: &str"], None,
+//         "use your previous function 'hello_user' to print the first_name,
+//         then use 'formal_hello' to print both first_name and last_name"
+//     ),
+//     Some("Do not use print! directly in this function"),
+//     None
+// );
 
 // ---------------- SECTION TWO ---------------- //
 
 make_test_info!(
     task2_1_info, "First number Type: u8",
     describe_type("u8",
-        "A u8 is very small number that can only be between 0 and 255.
-        A u8 cannot be negitive, commonly referred to as a byte.
-        It is preferred to use this number type when possible.
-        u8s can be printed in the same way strings can be.",
+        "A u8 is a whole number between 0 and 255",
         (true, &[]),
         &[],
     ),
@@ -222,43 +234,56 @@ make_test_info!(
 make_test_info!(
     task2_2_info, "First Return Type",
     describe_type("Function Return Types",
-        "Functions can return values that are a result of the logic inside.
-        If a function returns a type then after calling a function it becomes
-        the value it returned.",
+        "
+        A function return type tells your computer what kind of value the function
+        will give back after running.",
         (false, &[
-        "When defining (creating) a function, follow the parentheses () with an arrow ->,
-            followed by the type of the return value (e.g., u8, &str, etc.).",
-        "The return value can be specified with the return keyword, but this
-            is only needed when you trying to return a value before the function
-            is finished running. The proper way to return a value is to have it
-            be on the last line of your function with out a ';'"
+            "Remember how a function is like a cake recipe?
+            You can require ingredients (parameters)
+            Then, you bake the dessert (function body)
+            And afterwards, you'll have a finished dessert (return value)
+            Depending on the recipe, you'll get a different dessert (return type)"
         ]),
         &[
-            ("You can define the return type of a function like this",
-            "fn my_name() -> &str {
-                \"Mitch\"
-            }"),
-            ("You can print a function value just like any variable",
-            "print!(\"Hello, my name is {}\", my_name());")
+            ("Example",
+            "pub fn bake_cake() -> &str {
+                \"Chocolate Cake\"
+            }"
+            ),
+            ("Explanation
+
+            -> : This arrow is saying, \"After the function does its work, it will give something back\"
+
+            &str : This is the type of value the function will return.",
+            "So, '-> &str' means, \"This function will give back a &str (string) when it finishes\"")
         ],
     ),
     describe_function("my_age", &[], Some("u8"),
         "return your age"
     ),
     None,
-    Some("This is an exception to the hard code rule where you can type your age into the function")
+    None
 );
 
 make_test_info!(
     task2_3_info, "Using a Returned Value",
     describe_type("Returned Values",
-        "If a function has a return type, calling the function turns it into the value.",
+        "
+        The returned value is what the function gives back to you after it finishes.",
         (true, &[]),
         &[(
-            "For example, if a function called my_name() returns a &str,
-            you can call it and then print it just like any other &str",
-            "print!(\"Hello, my name is {}\", my_name());"
-        )],
+            "This function gives you the &str \"Chocolate Cake\" when it finishes",
+            "pub fn bake_cake() -> &str {
+                \"Chocolate Cake\"
+            }"
+        ),
+        (
+            "Using returned value in print! statement",
+            "print!(\"I made you a {}\", bake_cake());
+
+            This will print: \"I made you a Chocolate Cake\""
+        )
+        ],
     ),
     describe_function("say_my_age", &[], None,
         "print 'My age is ' followed by your the result of my_age()"

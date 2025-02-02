@@ -45,12 +45,19 @@ pub fn describe_function(name: &str, params: &[&str], return_type: Option<&str>,
     let mut params = params.join("\n        ");
     if params.is_empty() {params = "None".to_string();}
     format!("Create a function with:
-        Name: {name}
+
+    Name: {name}
+
     Parameters:
+
         {params}
-    ReturnType:
+
+    ReturnType: 
+    
         {return_type}
+
     This function must:
+
         {description}")
 }
 
@@ -219,16 +226,16 @@ test_setup::make_test!(task1_6, {
     assert_stdout_eq!(tasks::formal_hello("David", "Lightman"), "Hi, my name is David Lightman");
     assert_stdout_eq!(tasks::formal_hello("Alex", "Rogan"), "Hi, my name is Alex Rogan");
     //----------------------------------------------------------------------
-}, task1_7);
-
-test_setup::make_test!(task1_7, {
-    //----------------------------------------------------------------------
-    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_7_info'
-    assert_stdout_eq!(tasks::hello_twice("David", "Lightman"), "Hi, my name is DavidHi, my name is David Lightman");
-    assert_stdout_eq!(tasks::hello_twice("Alex", "Rogan"), "Hi, my name is AlexHi, my name is Alex Rogan");
-    //----------------------------------------------------------------------
 }, task2_1);
+
+// test_setup::make_test!(task1_7, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task1_7_info'
+//     assert_stdout_eq!(tasks::hello_twice("David", "Lightman"), "Hi, my name is DavidHi, my name is David Lightman");
+//     assert_stdout_eq!(tasks::hello_twice("Alex", "Rogan"), "Hi, my name is AlexHi, my name is Alex Rogan");
+//     //----------------------------------------------------------------------
+// }, task2_1);
 
 
 test_setup::make_test!(task2_1, {
