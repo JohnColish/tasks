@@ -238,9 +238,11 @@ make_test_info!(
         A function return type tells your computer what kind of value the function
         will give back after running.",
         (false, &[
-            "You put money in the machine (parameters)
-            The machine returns a snack (return value)
-            Depending on the machine, you'll get a different snack (return type)"
+            "Remember how a function is like a cake recipe?
+            You can require ingredients (parameters)
+            Then, you bake the dessert (function body)
+            And afterwards, you'll have a finished dessert (return value)
+            Depending on the recipe, you'll get a different dessert (return type)"
         ]),
         &[
             ("Example",
@@ -252,8 +254,7 @@ make_test_info!(
 
             -> : This arrow is saying, \"After the function does its work, it will give something back\"
 
-            u8 : This is the type of value the function will return.
-            ",
+            u8 : This is the type of value the function will return.",
             "So, '-> u8' means, \"This function will give back a u8 (number) when it finishes\"")
         ],
     ),
