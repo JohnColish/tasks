@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 crossterm = "0.28.1"
 gag = "1.0.0"
-test_setup = {path="/home/shared/test_setup"}
+test_setup = {path="../test_setup"}
 
 [lib]
 doctest = false
