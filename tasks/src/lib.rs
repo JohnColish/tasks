@@ -74,7 +74,8 @@ pub fn describe_structure(name: &str, fields: &[&str], constructors: &[String], 
     if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a structure with:
-        Name: {name}
+
+    Name: {name}
 
     Fields:
         {fields}
@@ -99,7 +100,8 @@ pub fn describe_enum(name: &str, fields: &[&str], constructors: &[String], metho
     if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a enum with:
-        Name: {name}
+
+    Name: {name}
 
     Variants:
         {fields}
@@ -527,10 +529,10 @@ test_setup::make_test!(task5_1, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
 
-    let blue = tasks::Color::Blue{};
-    let red = tasks::Color::Red{};
-    let green = tasks::Color::Green{};
-    let yellow = tasks::Color::Yellow{};
+    let fighter = tasks::Spacecraft::Fighter{};
+    let cargo = tasks::Spacecraft::Cargo{};
+    let colonizer = tasks::Spacecraft::Colonizer{};
+    let explorer = tasks::Spacecraft::Explorer{};
 
     //----------------------------------------------------------------------
 }, task5_2);
@@ -540,10 +542,7 @@ test_setup::make_test!(task5_2, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_2_info'
 
-    assert_eq!(tasks::Color::Blue{}.is_primary(), true);
-    assert_eq!(tasks::Color::Red{}.is_primary(), true);
-    assert_eq!(tasks::Color::Green{}.is_primary(), true);
-    assert_eq!(tasks::Color::Yellow{}.is_primary(), false);
+    let test = tasks::get_fighter();
 
     //----------------------------------------------------------------------
 }, task5_3);
@@ -553,12 +552,10 @@ test_setup::make_test!(task5_3, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    assert_eq!(tasks::Furniture::Couch{legs: 8, cushions: 1}.get_legs(), 8);
-    assert_eq!(tasks::Furniture::Couch{legs: 24, cushions: 43}.get_legs(), 24);
-    assert_eq!(tasks::Furniture::Chair{legs: 83}.get_legs(), 83);
-    assert_eq!(tasks::Furniture::Chair{legs: 22}.get_legs(), 22);
-    assert_eq!(tasks::Furniture::Table{legs: 49, plates: 12}.get_legs(), 49);
-    assert_eq!(tasks::Furniture::Table{legs: 29, plates: 13}.get_legs(), 29);
+    assert_eq!(tasks::Spacecraft::Fighter{}.is_passenger(), true);
+    assert_eq!(tasks::Spacecraft::Cargo{}.is_passenger(), false);
+    assert_eq!(tasks::Spacecraft::Colonizer{}.is_passenger(), true);
+    assert_eq!(tasks::Spacecraft::Explorer{}.is_passenger(), true);
 
     //----------------------------------------------------------------------
 }, task5_4);
@@ -566,12 +563,11 @@ test_setup::make_test!(task5_3, {
 test_setup::make_test!(task5_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    let some_u8 = tasks::Option::<u8>::Some{value: 134};
-    let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
-    let none_u8 = tasks::Option::<u8>::None{};
-    let none_string = tasks::Option::<String>::None{};
+    let invisibility = tasks::Potion::Invisibility{ strength: 12 };
+    let healing = tasks::Potion::Healing{ strength: 14 };
+    let poison = tasks::Potion::Poison{ strength: 8 };
 
     //----------------------------------------------------------------------
 }, task5_5);
@@ -579,13 +575,46 @@ test_setup::make_test!(task5_4, {
 test_setup::make_test!(task5_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    let _test = tasks::Option::<u8>::new_some(10);
-    let _test = tasks::Option::<String>::new_some("test".to_string());
+    assert_stdout_eq!(
+        tasks::Potion::Invisibility{strength: 51}.say_strength(),
+        "You found an Invisibility potion with 51 strength"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Healing{strength: 15}.say_strength(),
+        "You found a Healing potion with 15 strength"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Poison{strength: 12}.say_strength(),
+        "You found a Poison potion with 12 strength"
+    );
 
     //----------------------------------------------------------------------
 }, task5_6);
+// test_setup::make_test!(task5_4, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
+
+//     let some_u8 = tasks::Option::<u8>::Some{value: 134};
+//     let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
+//     let none_u8 = tasks::Option::<u8>::None{};
+//     let none_string = tasks::Option::<String>::None{};
+
+//     //----------------------------------------------------------------------
+// }, task5_5);
+
+// test_setup::make_test!(task5_5, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
+
+//     let _test = tasks::Option::<u8>::new_some(10);
+//     let _test = tasks::Option::<String>::new_some("test".to_string());
+
+//     //----------------------------------------------------------------------
+// }, task5_6);
 
 test_setup::make_test!(task5_6, {
     //----------------------------------------------------------------------

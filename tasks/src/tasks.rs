@@ -153,47 +153,6 @@ pub fn print_oranges(oranges: u8) {
     }
 }
 
-pub enum Color {
-    Blue{},
-    Red{},
-    Green{},
-    Yellow{}
-}
-
-impl Color {
-    pub fn is_primary(self: Color) -> bool {
-        match self {
-            Color::Blue{} => true,
-            Color::Red{} => true,
-            Color::Green{} => true,
-            Color::Yellow{} => false,
-        }
-    }
-}
-
-pub enum Furniture {
-    Couch{
-        legs: u8,
-        cushions: u8
-    },
-    Chair{
-        legs: u8
-    },
-    Table{
-        legs: u8,
-        plates: u8,
-    }
-}
-
-impl Furniture {
-    pub fn get_legs(self: Furniture) -> u8 {
-        match self {
-            Furniture::Couch{legs, cushions: _} => legs,
-            Furniture::Chair{legs} => legs,
-            Furniture::Table{legs, plates: _} => legs,
-        }
-    }
-}
 
 pub enum Option<T> {
     Some{
@@ -234,5 +193,49 @@ pub fn create_boxed_option(value: u8) -> Box<Option<u8>> {
     match value > 50 {
         true => Box::<Option<u8>>::new(Option::<u8>::new_some(value), 10),
         false => Box::<Option<u8>>::new(Option::<u8>::None{}, 20)
+    }
+}
+
+pub enum Spacecraft {
+    Fighter {},
+    Cargo {},
+    Colonizer {},
+    Explorer {}
+}
+
+pub fn get_fighter() -> Spacecraft {
+    Spacecraft::Fighter{}
+}
+
+impl Spacecraft {
+    pub fn is_passenger(self: Spacecraft) -> bool {
+        match self {
+            Spacecraft::Fighter{} => true,
+            Spacecraft::Cargo{} => false,
+            Spacecraft::Colonizer{} => true,
+            Spacecraft::Explorer{} => true,
+        }
+    }
+}
+
+pub enum Potion {
+    Invisibility { strength: u8 },
+    Healing { strength: u8 },
+    Poison { strength: u8 }
+}
+
+impl Potion {
+    pub fn say_strength(self: Potion) {
+        match self {
+            Potion::Invisibility {strength: x} => {
+                print!("You found an Invisibility potion with {x} strength");
+            },
+            Potion::Healing {strength: x} => {
+                print!("You found a Healing potion with {x} strength");
+            },
+            Potion::Poison {strength: x} => {
+                print!("You found a Poison potion with {x} strength");
+            }
+        }
     }
 }
