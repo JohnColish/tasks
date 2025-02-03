@@ -280,8 +280,8 @@ test_setup::make_test!(task2_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_5_info'
-    assert_stdout_eq!(tasks::say_add(1, 5), "The result was 6");
-    assert_stdout_eq!(tasks::say_add(61, 42), "The result was 103");
+    assert_eq!(tasks::subtract(8, 4), 4);
+    assert_eq!(tasks::subtract(61, 42), 19);
     //----------------------------------------------------------------------
 }, task2_6);
 
@@ -289,8 +289,7 @@ test_setup::make_test!(task2_6, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_6_info'
-    assert_eq!(tasks::subtract(8, 4), 4);
-    assert_eq!(tasks::subtract(61, 42), 19);
+    assert_stdout_eq!(tasks::jonah(), "Their name is Jonah");
     //----------------------------------------------------------------------
 }, task2_7);
 
@@ -298,8 +297,8 @@ test_setup::make_test!(task2_7, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_7_info'
-    assert_eq!(tasks::add_three(8, 4, 45), 57);
-    assert_eq!(tasks::add_three(61, 42, 1), 104);
+    assert_stdout_eq!(tasks::say_add(8, 4), "The result is 12");
+    assert_stdout_eq!(tasks::say_add(61, 42), "The result is 103");
     //----------------------------------------------------------------------
 }, task2_8);
 

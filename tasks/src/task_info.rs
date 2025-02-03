@@ -385,7 +385,7 @@ make_test_info!(
     describe_function("jonah", &[], None,
         "Declare a variable called 'name' with the type &str.
         Put the text \"Jonah\" inside the name variable.
-        Print \"Jonah's name is \" followed by the variable name"
+        Print \"Their name is \" followed by 'name'"
     ),
     None,
     None

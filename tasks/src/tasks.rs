@@ -44,18 +44,19 @@ pub fn add(a: u8, b: u8) -> u8 {
 	a + b
 }
 
-pub fn say_add(a: u8, b: u8) {
-	let result: u8 = add(a, b);
-	print!("The result was {}", result);
-}
 
 pub fn subtract(a: u8, b: u8) -> u8 {
 	a - b
 }
 
-pub fn add_three(a: u8, b: u8, c: u8) -> u8 {
-	let d: u8 = add(a, b);
-	add(d, c)
+pub fn jonah() {
+    let jonah: &str = "Jonah";
+    print!("Their name is {}", jonah)
+}
+
+pub fn say_add(a: u8, b: u8) {
+    let result = add(a, b);
+    print!("The result is {}", result);
 }
 
 pub fn formal_greet(f: &str, l: &str, a: u8, b: u8) {
