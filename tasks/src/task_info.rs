@@ -442,16 +442,16 @@ make_test_info!(
 make_test_info!(
     task3_1_info, "First Boolean",
     describe_type("Booleans",
-        "Booleans: Can only store one of two values: true or false.
-        They are often used in conditions and comparisons.",
+        "
+        A Boolean is like a switch. It's either true or false",
         (true, &[]),
         &[
-            ("To declare a false boolean", "false"),
-            ("To declare a true boolean", "true"),
+            ("Example", "let is_alive: bool = true;"),
+            ("Example", "let is_underwater: bool = false;"),
         ],
     ),
-    describe_function("say_bool", &["a: bool"], None,
-         "print 'My boolean is: ' followed by the parameter 'a'"
+    describe_function("is_awesome", &[], Some("bool"),
+         "return true"
     ),
     None,
     None
@@ -461,16 +461,15 @@ make_test_info!(
 make_test_info!(
     task3_2_info, "Equals Operator",
     describe_type("'==' Operator",
-        "The == (equals) operator is used check if two values are equal
-        and return a boolean (true or false)",
+        "The == (equals) operator is used check if two values are equal",
         (true, &[]),
         &[
-            ("(5 == 5) becomes", "true"),
-            ("(5 == 3) becomes", "false"),
+            ("(5 == 5)", "This is true, because 5 is equal to 5"),
+            ("(5 == 3)", "This is false, because 5 is not equal to 3"),
         ],
     ),
     describe_function("is_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is equal to b, otherwise return false"
+        "use the == operator on a and b and return the result"
     ),
     None,
     None
@@ -479,158 +478,205 @@ make_test_info!(
 make_test_info!(
     task3_3_info, "Using Match Statements",
     describe_type("Match Statement",
-        "A match statement is an expression that takes a value and compares
-        it against a series of patterns. If a pattern matches, the code after the
-        corosponding \"=>\" is ran. A pattern matches if the value == pattern",
+        "
+        Let’s say you have a box, and inside the box could be one of three things: 
+        an apple, an orange, or a banana. 
+        
+        The match statement helps you check what’s inside the box and do 
+        something different depending on what you find.",
         (true, &[]),
         &[
-            ("Match statements follow this format",
-            "match value {
-                pattern => {
-                    //function body
-                },
-                pattern => {
-                    //function body
-                }
+            ("Example",
+            "let fruit_box: &str = \"apple\";
+
+            match fruit_box {
+                \"apple\" => print!(\"You have an apple!\"),
+                \"orange\" => print!(\"You have an orange!\"),
+                \"banana\" => print!(\"You have a banana!\"),
+                _ => print!(\"I don't know what this fruit is!\")
             }"),
-            ("For example",
-            "match 30 {
-                10 => {
-                    print!(\"I am 10\");
-                },
-                20 => {
-                    print!(\"I am 20\");
-                },
-                30 => {
-                    print!(\"I am 30\");
-                }
-            }
+            ("Explanation",
+            "
+            let fruit_box: &str = \"apple\"; 
+                - We create a box and put the text \"apple\" inside it
 
-            This will print \"I am 30\""),
+            match fruit_box {} 
+                - This tells the computer we want to check the contents of 
+                fruit_box and run case specific code
+
+             \"apple\" => print!(\"You have an apple!\"),
+                - If the content is \"apple\" then we will run the code after the => arrow
+            
+            _ => print!(\"I don't know what this fruit is!\")
+                - We use an underscore to say \"If the content is none of the above,
+                then run the code after this => arrow\"
+            
+
+            ")
         ],
     ),
-    describe_function("say_is_equals", &["a: u8", "b: u8"], None,
-        "call 'is_equal(a, b)' and use a match statement to:
-          - Print \"Values are not equal\" if it is false.
-          - Print \"Values are equal\" if it is true."
-    ),
-    Some("Do not use == directly in 'say_is_equals', instead use 'is_equals'
-    Do not use an if statement, match statements only"),
-    None
-);
+    describe_function("your_planet", &["planet: &str"], None,
+        "create a match statement for the parameter 'planet'
+        
+        if the content of the parameter 'planet' is:
+        
+            \"mercury\", then print \"About 77 million kilometers away.\"
 
-make_test_info!(
-    task3_4_info, "Not Operator",
-    describe_type("'!' Operator",
-        "The ! (not) operator is a unique operator that only has one parameter.
-        When applied to a bool, it flips the booleans value. true to false, or false to true",
-        (true, &[]),
-        &[
-            ("(!true) becomes", "false"),
-            ("(!false) becomes", "true"),
-        ],
-    ),
-    describe_function("is_not_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false"
-    ),
-    Some("Use the ! operator and the function 'is_equals' only",),
-    Some("is_equals returns a bool, flip it")
-);
-
-make_test_info!(
-    task3_5_info, "Compound Operators",
-    describe_type("NotEquals Operator !=",
-        "Compound Operators are a special category of operators that combine multiple operators.
-        For example, the NotEquals operator works exactly like the previous function:",
-        (false, &[
-            "!(\"hi\" == \"hi\") == false",
-            "\"hi\" != \"hi\" == false",
-        ]),
-        &[],
-    ),
-    describe_function("is_not_equal_again", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false",
-    ),
-    Some("Do not use 'is_equals' or '!' and '==', instead use the != symbol"),
-    None
-);
-
-make_test_info!(
-    task3_6_info, "|| Operator",
-    describe_type("'||' Operator",
-        "The || (or) operator evaluates two boolean expressions and returns
-        true if either of the expressions is true.",
-        (true, &[]),
-        &[
-            ("(false || true) becomes", "true"),
-            ("(true || false) becomes", "true"),
-            ("(false || false) becomes", "false"),
-        ],
-    ),
-    describe_function("shoes_on", &["left: bool", "right: bool"], None,
-        "use the || operator to check if either boolean is true
-        then, use a match statement to:
-          - Print \"Take your shoes off!\" if true.
-          - Print \"Good kid!\" if false.",
-    ),
-    Some("Do not use an if statement, match statements only"),
-    None
-);
-
-make_test_info!(
-    task3_7_info, "&& Operator",
-    describe_type("'&&' Operator",
-        "The && (and) Operator evaluates two boolean expressions and returns true only if both expressions are true.",
-        (true, &[]),
-        &[
-            ("(true && true) becomes", "true"),
-            ("(false && true) becomes", "false"),
-            ("(false && false) becomes", "false"),
-        ],
-    ),
-    describe_function("ready_to_go", &["shoes: bool", "coat: bool"], None,
-        "use the && operator to check if coat and shoes are both true
-        then, use a match statement to:
-          - Print \"Ready to go!\" if both are true.
-          - Print \"Not ready to go yet!\" if either or both conditions are false.",
-    ),
-    Some("Do not use an if statement, match statements only"),
-    None
-);
-
-make_test_info!(
-    task3_8_info, "Chained Operators",
-    describe_type("Chained Operators",
-        "Operators can also be chained together to make multiple operations at once.
-        But, you must be careful not to confuse things.
-        It is recommendend to always wrap your operations in parentheses.
-        Running 'cargo clippy' will let you know when the parentheses are not needed.",
-        (false, &[
-            "Here is how the chained expression evaluates with ():",
-            "(false && true) || true",
-            "false || true",
-            "true",
-            "But without them specified the compiler guesses resulting in:",
-            "false && true || true",
-            "false && (true || true) <- compiler guessing",
-            "false && true",
-            "false"
-        ]),
-        &[],
-    ),
-    describe_function("ready_to_play", &["shoes: bool", "is_hot: bool", "coat: bool"], Some("bool"),
-        "use || and && to return true if:
-            shoes are true and (is_hot or coat) is true",
+            \"venus\", then print \"About 41 million kilometers away.\"
+            
+            \"neptune\", then print \"About 4.3 billion kilometers away.\"
+            
+            if it's anything else, use a _, then print \"Undiscovered planet.\""
     ),
     None,
     None
 );
 
-// String - String
-// &String - Borrowed String
-// &mut String - Mutable Borrowed String
-// &str - String Slice
-// mut &str - Mutable String Slice
+make_test_info!(
+    task3_4_info, "Match Statements on booleans",
+    describe_type("Match Statement",
+        "
+        We can also match on a boolean (a box that either contains true or false)",
+        (true, &[]),
+        &[
+            ("Example",
+            "let is_alive: bool = true;
+
+            match is_alive {
+                true => print!(\"Yes! I am still alive.\"),
+                false => print!(\"No, I have died.\")
+            }"),
+        ],
+    ),
+    describe_function("underwater", &["is_underwater: bool"], None,
+        "create a match statement for the parameter 'is_underwater'
+        
+        if the content of 'is_underwater' is:
+        
+            true, then print \"I am underwater\"
+
+            false, then print \"Not underwater\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm"
+    ),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task3_5_info, "Match Statements on operations",
+    describe_type("Match Statement",
+        "
+        We can also match on the result of an operation (as long as that operation results in a boolean)",
+        (true, &[]),
+        &[
+            ("Example",
+            "match 10 == 10 {
+                true => print!(\"This is equal\"),
+                false => print!(\"This is not equal\")
+            }"),
+        ],
+    ),
+    describe_function("say_is_equal", &["a: u8, b: u8"], None,
+        "create a match statement to see if a == b
+        
+        if the result is:
+        
+            true, then print \"a is the same as b\"
+
+            false, then print \"as is not the same as b\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_6_info, "Not Operator",
+    describe_type("'!' Operator",
+        "
+        The ! operator is called the 'not' operator. 
+        It inverts or flips a boolean value. 
+
+        If a value is true, ! changes it to false. 
+        If the value is false, ! changes it to true.",
+        (true, &[]),
+        &[
+            ("Example", "let light_on = true; // The light is on (true)
+    
+            let light_off = !light_on; // The ! operator flips it, making it false (off)")
+        ],
+    ),
+    describe_function("power_status", &["is_active: bool"], Some("bool"),
+        "flip the is_active boolean using the ! operator and return it"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_7_info, "|| Operator",
+    describe_type("'||' Operator",
+        "The || (or) operator checks two booleans and if either is true, then the expression will result in true
+        If both of the booleans are false, then the expression will result in false",
+        (true, &[]),
+        &[
+            ("(false || true) is", "true - because one of the booleans is true"),
+            ("(true || false) is", "true - because one of the booleans is true"),
+            ("(false || false) is", "false - because neither of the booleans are true"),
+        ],
+    ),
+    describe_function("decide_battle", &["is_dragon_sleeping: bool", "is_giant_away: bool"], None,
+        "create a match statement to see if is_dragon_sleeping || is_giant_away
+        
+        if the result is:
+        
+            true, then print \"Run!\"
+
+            false, then print \"Fight!\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm",
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_8_info, "&& Operator",
+    describe_type("'&&' Operator",
+        "The && (and) operator checks two booleans and if both is true, then the expression will result in true
+        If either of the booleans are false, then the expression will result in false",
+        (true, &[]),
+        &[
+            ("(true && true) is", "true - because both of the booleans are true"),
+            ("(false && true) is", "false - because one of the booleans is false"),
+            ("(false && false) is", "false - because one of the booleans is false"),
+        ],
+    ),
+    describe_function("has_access", &["has_pass: bool", "has_permission: bool"], None,
+        "create a match statement to see if has_pass && has_permission
+        
+        if the result is:
+        
+            true, then print \"You can enter!\"
+
+            false, then print \"Access denied.\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm",
+    ),
+    None,
+    None
+);
+
+// Haven't covered:
+    // Chained Operators
+    // Is greater than
+    // Is less than
+    // Is greater than or equal to
+    // Is less than or equal to
+    // Is not equal
 
 make_test_info!(
     task4_1_info, "First Structure",
@@ -1190,7 +1236,7 @@ make_test_info!(
             \"You found a Poison potion with _ strength\""
     ).replace("\n", "\n    "),
     None,
-    None
+    Some("**  THIS IS CURRENTLY THE LAST TASK  **")
 );
 
 // make_test_info!(

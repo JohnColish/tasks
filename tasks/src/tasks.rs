@@ -64,18 +64,52 @@ pub fn formal_greet(f: &str, l: &str, a: u8, b: u8) {
 	say_age(add(a, b));
 }
 
-pub fn say_bool(b: bool) {
-    print!("My boolean is: {}", b);
+pub fn is_awesome() -> bool {
+    true
 }
 
 pub fn is_equal(a: u8, b: u8) -> bool {
     a == b
 }
 
-pub fn say_is_equals(a: u8, b: u8) {
-    match is_equal(a, b) {
-        true => print!("Values are equal"),
-        false => print!("Values are not equal"),
+pub fn your_planet(planet: &str) {
+    match planet {
+        "mercury" => print!("About 77 million kilometers away."),
+        "venus" => print!("About 41 million kilometers away."),
+        "neptune" => print!("About 4.3 billion kilometers away."),
+        _ => print!("Undiscovered planet.")
+    };
+}
+
+pub fn underwater(is_underwater: bool) {
+    match is_underwater {
+        true => print!("I am underwater"),
+        false => print!("Not underwater")
+    }
+}
+
+pub fn say_is_equal(a: u8, b: u8) {
+    match a == b {
+        true => print!("a is the same as b"),
+        false => print!("a is not the same as b")
+    }
+}
+
+pub fn power_status(is_active: bool) -> bool {
+    !is_active
+}
+
+pub fn decide_battle(is_dragon_sleeping: bool, is_giant_away: bool) {
+    match is_dragon_sleeping || is_giant_away {
+        true => print!("Run!"),
+        false => print!("Fight!")
+    }
+}
+
+pub fn has_access(has_pass: bool, has_permission: bool) {
+    match has_pass && has_permission {
+        true => print!("You can enter!"),
+        false => print!("Access denied.")
     }
 }
 

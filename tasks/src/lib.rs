@@ -321,12 +321,7 @@ test_setup::make_test!(task3_1, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_1_info'
-    assert_stdout_eq!(
-    	tasks::say_bool(true), "My boolean is: true"
-    );
-    assert_stdout_eq!(
-    	tasks::say_bool(false), "My boolean is: false"
-    );
+    assert_eq!(tasks::is_awesome(), true);
     //----------------------------------------------------------------------
 }, task3_2);
 
@@ -344,9 +339,10 @@ test_setup::make_test!(task3_3, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_3_info'
-    assert_stdout_eq!(tasks::say_is_equals(8, 2), "Values are not equal");
-    assert_stdout_eq!(tasks::say_is_equals(8, 4), "Values are not equal");
-    assert_stdout_eq!(tasks::say_is_equals(8, 8), "Values are equal");
+    assert_stdout_eq!(tasks::your_planet("mercury"), "About 77 million kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("venus"), "About 41 million kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("neptune"), "About 4.3 billion kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("ukraine"), "Undiscovered planet.");
     //----------------------------------------------------------------------
 }, task3_4);
 
@@ -354,9 +350,8 @@ test_setup::make_test!(task3_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_4_info'
-    assert_eq!(tasks::is_not_equal(8, 2), true);
-    assert_eq!(tasks::is_not_equal(8, 4), true);
-    assert_eq!(tasks::is_not_equal(8, 8), false);
+    assert_stdout_eq!(tasks::underwater(true), "I am underwater");
+    assert_stdout_eq!(tasks::underwater(false), "Not underwater");
     //----------------------------------------------------------------------
 }, task3_5);
 
@@ -364,26 +359,36 @@ test_setup::make_test!(task3_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_5_info'
-    assert_eq!(tasks::is_not_equal_again(8, 2), true);
-    assert_eq!(tasks::is_not_equal_again(8, 4), true);
-    assert_eq!(tasks::is_not_equal_again(8, 8), false);
+    assert_stdout_eq!(tasks::say_is_equal(5, 5), "a is the same as b");
+    assert_stdout_eq!(tasks::say_is_equal(10, 12), "a is not the same as b");
     //----------------------------------------------------------------------
 }, task3_6);
+
 
 test_setup::make_test!(task3_6, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_6_info'
-    assert_stdout_eq!(tasks::shoes_on(true, true), "Take your shoes off!");
-    assert_stdout_eq!(tasks::shoes_on(true, false), "Take your shoes off!");
-    assert_stdout_eq!(tasks::shoes_on(false, false), "Good kid!");
+    assert_eq!(tasks::power_status(true), false);
+    assert_eq!(tasks::power_status(false), true);
     //----------------------------------------------------------------------
 }, task3_7);
 
+
+// test_setup::make_test!(task3_6, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_6_info'
+//     assert_stdout_eq!(tasks::shoes_on(true, true), "Take your shoes off!");
+//     assert_stdout_eq!(tasks::shoes_on(true, false), "Take your shoes off!");
+//     assert_stdout_eq!(tasks::shoes_on(false, false), "Good kid!");
+//     //----------------------------------------------------------------------
+// }, task3_7);
+
 test_setup::make_test!(task3_7, {
-    assert_stdout_eq!(tasks::ready_to_go(true, true), "Ready to go!");
-    assert_stdout_eq!(tasks::ready_to_go(true, false), "Not ready to go yet!");
-    assert_stdout_eq!(tasks::ready_to_go(false, false), "Not ready to go yet!");
+    assert_stdout_eq!(tasks::decide_battle(true, true), "Run!");
+    assert_stdout_eq!(tasks::decide_battle(true, false), "Run!");
+    assert_stdout_eq!(tasks::decide_battle(false, false), "Fight!");
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_7_info'
@@ -391,17 +396,12 @@ test_setup::make_test!(task3_7, {
 }, task3_8);
 
 test_setup::make_test!(task3_8, {
+    assert_stdout_eq!(tasks::has_access(true, true), "You can enter!");
+    assert_stdout_eq!(tasks::has_access(true, false), "Access denied.");
+    assert_stdout_eq!(tasks::has_access(false, false), "Access denied.");
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_8_info'
-    assert_eq!(tasks::ready_to_play(false, false, false), false);
-    assert_eq!(tasks::ready_to_play(true, false, false), false);
-    assert_eq!(tasks::ready_to_play(false, true, false), false);
-    assert_eq!(tasks::ready_to_play(true, true, false), true);
-    assert_eq!(tasks::ready_to_play(false, false, true), false);
-    assert_eq!(tasks::ready_to_play(true, false, true), true);
-    assert_eq!(tasks::ready_to_play(false, true, true), false);
-    assert_eq!(tasks::ready_to_play(true, true, true), true);
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_7_info'
     //----------------------------------------------------------------------
 }, task4_1);
 
