@@ -44,18 +44,19 @@ pub fn add(a: u8, b: u8) -> u8 {
 	a + b
 }
 
-pub fn say_add(a: u8, b: u8) {
-	let result: u8 = add(a, b);
-	print!("The result was {}", result);
-}
 
 pub fn subtract(a: u8, b: u8) -> u8 {
 	a - b
 }
 
-pub fn add_three(a: u8, b: u8, c: u8) -> u8 {
-	let d: u8 = add(a, b);
-	add(d, c)
+pub fn jonah() {
+    let jonah: &str = "Jonah";
+    print!("Their name is {}", jonah)
+}
+
+pub fn say_add(a: u8, b: u8) {
+    let result = add(a, b);
+    print!("The result is {}", result);
 }
 
 pub fn formal_greet(f: &str, l: &str, a: u8, b: u8) {
@@ -63,18 +64,52 @@ pub fn formal_greet(f: &str, l: &str, a: u8, b: u8) {
 	say_age(add(a, b));
 }
 
-pub fn say_bool(b: bool) {
-    print!("My boolean is: {}", b);
+pub fn is_awesome() -> bool {
+    true
 }
 
 pub fn is_equal(a: u8, b: u8) -> bool {
     a == b
 }
 
-pub fn say_is_equals(a: u8, b: u8) {
-    match is_equal(a, b) {
-        true => print!("Values are equal"),
-        false => print!("Values are not equal"),
+pub fn your_planet(planet: &str) {
+    match planet {
+        "mercury" => print!("About 77 million kilometers away."),
+        "venus" => print!("About 41 million kilometers away."),
+        "neptune" => print!("About 4.3 billion kilometers away."),
+        _ => print!("Undiscovered planet.")
+    };
+}
+
+pub fn underwater(is_underwater: bool) {
+    match is_underwater {
+        true => print!("I am underwater"),
+        false => print!("Not underwater")
+    }
+}
+
+pub fn say_is_equal(a: u8, b: u8) {
+    match a == b {
+        true => print!("a is the same as b"),
+        false => print!("a is not the same as b")
+    }
+}
+
+pub fn power_status(is_active: bool) -> bool {
+    !is_active
+}
+
+pub fn decide_battle(is_dragon_sleeping: bool, is_giant_away: bool) {
+    match is_dragon_sleeping || is_giant_away {
+        true => print!("Run!"),
+        false => print!("Fight!")
+    }
+}
+
+pub fn has_access(has_pass: bool, has_permission: bool) {
+    match has_pass && has_permission {
+        true => print!("You can enter!"),
+        false => print!("Access denied.")
     }
 }
 
@@ -103,43 +138,36 @@ pub fn ready_to_play(shoes: bool, is_hot: bool, coat: bool) -> bool {
     shoes && (is_hot || coat)
 }
 
-
-pub struct DriversLicense {
-    pub issued: u8,
-    pub expires: u8,
+pub struct Warship {
+    pub cannons: u8,
+    pub torpedoes: u8,
+    pub speed: u8
 }
 
-pub fn my_new_dl() -> DriversLicense {
-    DriversLicense{issued: 4, expires: 12}
-}
-
-pub fn print_drivers_license(a_dl: DriversLicense) {
-    print!("{}-{}", a_dl.issued, a_dl.expires);
-}
-
-impl DriversLicense {
-    pub fn new(issued: u8) -> DriversLicense {
-        DriversLicense{issued, expires: issued+8}
-    }
-
-    pub fn is_valid(self: DriversLicense, current_year: u8) -> bool {
-        current_year >= self.issued && current_year < self.expires
-    }
-
-    pub fn examine(self: DriversLicense) {
-        match self {
-            DriversLicense{issued: 20, expires: 28} => {
-                print!("Hey that's my drivers license");
-            },
-            DriversLicense{issued: 22, expires: _} => {
-                print!("Drivers license issued during covid");
-            },
-            DriversLicense{issued, expires: 24} => {
-                print!("Expires on the 24 and was issued on {}", issued);
-            },
-            _ => print!("No comment")
+impl Warship {
+    pub fn new(max_speed: u8) -> Warship {
+        Warship {
+            cannons: 12,
+            torpedoes: 24,
+            speed: max_speed,
         }
     }
+
+    pub fn torpedo_check(self: Warship) {
+        print!("I have {} torpedoes left", self.torpedoes)
+    }
+}
+
+pub fn create_warship() -> Warship {
+    Warship {
+        cannons: 12,
+        torpedoes: 24,
+        speed: 100,
+    }
+}
+
+pub fn cannon_count(warship: Warship) {
+    print!("My warship has {} cannons left", warship.cannons)
 }
 
 pub fn print_apples(apples: u8) {
@@ -160,47 +188,6 @@ pub fn print_oranges(oranges: u8) {
     }
 }
 
-pub enum Color {
-    Blue{},
-    Red{},
-    Green{},
-    Yellow{}
-}
-
-impl Color {
-    pub fn is_primary(self: Color) -> bool {
-        match self {
-            Color::Blue{} => true,
-            Color::Red{} => true,
-            Color::Green{} => true,
-            Color::Yellow{} => false,
-        }
-    }
-}
-
-pub enum Furniture {
-    Couch{
-        legs: u8,
-        cushions: u8
-    },
-    Chair{
-        legs: u8
-    },
-    Table{
-        legs: u8,
-        plates: u8,
-    }
-}
-
-impl Furniture {
-    pub fn get_legs(self: Furniture) -> u8 {
-        match self {
-            Furniture::Couch{legs, cushions: _} => legs,
-            Furniture::Chair{legs} => legs,
-            Furniture::Table{legs, plates: _} => legs,
-        }
-    }
-}
 
 pub enum Option<T> {
     Some{
@@ -241,5 +228,49 @@ pub fn create_boxed_option(value: u8) -> Box<Option<u8>> {
     match value > 50 {
         true => Box::<Option<u8>>::new(Option::<u8>::new_some(value), 10),
         false => Box::<Option<u8>>::new(Option::<u8>::None{}, 20)
+    }
+}
+
+pub enum Spacecraft {
+    Fighter {},
+    Cargo {},
+    Colonizer {},
+    Explorer {}
+}
+
+pub fn get_fighter() -> Spacecraft {
+    Spacecraft::Fighter{}
+}
+
+impl Spacecraft {
+    pub fn is_passenger(self: Spacecraft) -> bool {
+        match self {
+            Spacecraft::Fighter{} => true,
+            Spacecraft::Cargo{} => false,
+            Spacecraft::Colonizer{} => true,
+            Spacecraft::Explorer{} => true,
+        }
+    }
+}
+
+pub enum Potion {
+    Invisibility { strength: u8 },
+    Healing { strength: u8 },
+    Poison { strength: u8 }
+}
+
+impl Potion {
+    pub fn say_strength(self: Potion) {
+        match self {
+            Potion::Invisibility {strength: x} => {
+                print!("You found an Invisibility potion with {x} strength");
+            },
+            Potion::Healing {strength: x} => {
+                print!("You found a Healing potion with {x} strength");
+            },
+            Potion::Poison {strength: x} => {
+                print!("You found a Poison potion with {x} strength");
+            }
+        }
     }
 }

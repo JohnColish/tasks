@@ -30,7 +30,7 @@ make_test_info!(
 
         Here's how the different parts of a function work",
         (true, &[
-        "pub: This is the keyword to say \"Hey, I'm sharing this recipe with everyone.
+        "pub: This is the keyword to say \"Hey, I'm sharing this function (recipe) with all my files\".
         ",
         "fn: This tells the computer you're now creating a function (recipe)
         ",
@@ -55,7 +55,8 @@ make_test_info!(
         ),
         (
             "Explanation",
-            "- pub fn means we're sharing this function with everyone
+            "- pub means this function can be seen by any file
+            - fn means we're creating a function now
             - function_name is what we're calling this function (recipe's name)
             - my_str: &str is the ingredient we need: a piece of text
             - -> u8 tells us the function will give back a small number
@@ -143,12 +144,12 @@ make_test_info!(
         ",
         (true, &[]),
         &[
-            ("To call a function",
-            "function_name(parameter_value);"),
-            ("To call a function named bake_cake that requires a u8 (small number)",
+            ("Example",
             "bake_cake(18);"),
-            ("To call a function named make_sandwich that requires a &str (string)",
-            "make_sandwich(\"cheese\");")
+            ("Explanation",
+            "- bake_cake is the name of our function
+            - () parentheses are used to provide the parameters (ingredients)
+            - If your function doesn't need parameters, leave the () empty"),
         ],
     ),
     describe_function("hello_mitch", &[], None,
@@ -294,68 +295,57 @@ make_test_info!(
 
 make_test_info!(
     task2_4_info, "First Operator: +",
-    describe_type("Operators",
-        "Operators are special functions that take two parameters:
-            one before and one after the operator symbol.
-        They perform a specific operation and return the resulting value.
-        Similar to functions, once an operator is declared, it evaluates
-        to its resulting value.",
-        (false, &[
-            "Operators work with many different types, but the first and second
-            parameter must be the exact same Type",
-            "(4 + \"Hi\") will not compile because they are different Types",
-        ]),
-        &[]
-    )+TYPE_SEP+
-    &describe_type("'+' Operator",
-        "The + (plus) operator is used to add two numbers together.",
-        (true, &[]),
+    describe_type("'+' Operator",
+        "
+        The + (plus) operator is used to add two numbers together.
+
+        Examples - 
+
+            4 + 3 becomes: 7
+            1 + 2 becomes: 3
+            12 + 12 becomes: 24",
+        (false, &[]),
         &[
-            ("(4 + 3) becomes", "7")
+            (
+                "To add two variables together",
+                "x + y"
+            ),
+            (
+                "When using the + (plus) operator",
+                "Rust will take the first variable 
+            and add it to the second variable"
+            )
         ],
     ),
     describe_function("add", &["a: u8", "b: u8"], Some("u8"),
-        "add the two u8 parameters and return the result"
+        "return the a and b parameters added together"
     ),
     None,
     None
 );
 
 make_test_info!(
-    task2_5_info, "First Variable",
-    describe_type("Variables",
-        "Until now, we've used parameters and values directly. However, it can
-        get confusing if you need to do more than one thing in a function.",
-        (false, &[
-             "Variables work like parameters, but you declare their name , type, and value.",
-            "You declare them using the let keyword, then you can use them
-            just like parameters.",
-        ]),
-        &[(
-            "To declare (create) a variable",
-            "let name: Type = value;
-            let my_number: u8 = 18;
-            ",
-        ),
-        ("To create a variable using the returned value of a function", "let name: Type = my_function();")
-        ],
-    ),
-    describe_function("say_add", &["a: u8", "b: u8"], None,
-        "Declare a variable called 'result' with Type u8.
-        Set 'result' to be the returned value of add(a, b).
-        Print 'The result was ' followed by the variable 'result'"
-    ),
-    Some("Do not use + directly and instead use 'add'"),
-    None
-);
-
-make_test_info!(
-    task2_6_info, "Second Operator: -",
+    task2_5_info, "Second Operator: -",
     describe_type("'-' Operator",
-        "The - (minus) operator is used to subtract two numbers.",
+        "
+        The - (minus) operator is used to subtract two numbers.
+        
+        Examples - 
+
+            10 - 7 becomes: 3
+            4 - 2 becomes: 2
+            120 - 20 becomes: 100",
         (true, &[]),
         &[
-            ("(4 - 3) becomes", "1")
+            (
+                "To subtract two variables",
+                "x - y"
+            ),
+            (
+                "When using the - (minus) operator",
+                "Rust will take the first variable 
+            and subtract it from the second variable"
+            )
         ],
     ),
     describe_function("subtract", &["a: u8", "b: u8"], Some("u8"),
@@ -366,13 +356,73 @@ make_test_info!(
 );
 
 make_test_info!(
-    task2_7_info, "Second Variable",
-    "No Additional Info",
-    describe_function("add_three", &["a: u8", "b: u8", "c: u8"], Some("u8"),
-        "add all three parameters together and return the result"
+    task2_6_info, "First Variable",
+    describe_type("Variables",
+        "Variables are like boxes in rust.
+        A variable can hold one value",
+        (false, &[]),
+        &[(
+            "To create a variable (box) containing the text \"Chocolate Cake\"",
+            "let my_cake: &str = \"Chocolate Cake\";",
+        ),
+        (
+            "Explanation",
+            "let - this is the keyword that tells the computer we are now creating a variable (box)
+
+            my_cake - this is what we are naming our box so we can use it later
+
+            : &str - variables (boxes) need to know what type of value they hold (this box contains an &str)
+
+            =   we use the '=' symbol to put a value inside the variable (box)
+
+            \"Chocolate Cake\" - this is the value we put inside our variable (the text \"Chocolate Cake\")
+            
+            ; - this semi-colon tells the computer we are done creating a variable now"
+            
+        )
+        ],
     ),
-    Some("Do not use + directly instead use your 'add()' function"),
-    Some("You can call 'add()' more than once. You can store the value add() returned inside a variable for later use")
+    describe_function("jonah", &[], None,
+        "Declare a variable called 'name' with the type &str.
+        Put the text \"Jonah\" inside the name variable.
+        Print \"Their name is \" followed by 'name'"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task2_7_info, "Second Variable",
+    describe_type("Returned Values in Variables",
+        "When you call a function, sometimes it gives back something. (the return value)
+        You can keep that value in a variable to use it",
+        (false, &[]),
+        &[(
+            "Example",
+            "pub fn pbj_sandwich() -> &str {
+                \"Here's a PBJ sandwich!\"
+            }
+
+            let sandwich: &str = pbj_sandwich();",
+        ),
+        (
+            "Explanation",
+            "let sandwich: &str - creating a variable that will hold an &str
+
+            pbj_sandwich(); - running the pbj_sandwich function
+                - it will give us the text \"Here's a PBJ sandwich!\"
+            
+            sandwich is now a box containing the text \"Here's a PBJ sandwich!\""
+        )
+        ],
+    ),
+    describe_function("say_add", &["a: u8", "b: u8"], None,
+        "Declare a variable called 'result' with Type u8.
+        Set 'result' to be the returned value of add(a, b).
+        Print \"The result is \" followed by the variable 'result'"
+    ),
+    None,
+    None
 );
 
 make_test_info!(
@@ -382,7 +432,8 @@ make_test_info!(
         "use 'formal_hello()' to print the two strings.
         add the u8s together and print them using 'say_age()'"
     ),
-    Some("Do not use print! or '+' in 'formal_greet' directly, instead use 'add'"),
+    Some("Do not use '+' directly, instead use 'add'
+    Do not use print! directly, instead use formal_hello()"),
     None
 );
 
@@ -391,16 +442,16 @@ make_test_info!(
 make_test_info!(
     task3_1_info, "First Boolean",
     describe_type("Booleans",
-        "Booleans: Can only store one of two values: true or false.
-        They are often used in conditions and comparisons.",
+        "
+        A Boolean is like a switch. It's either true or false",
         (true, &[]),
         &[
-            ("To declare a false boolean", "false"),
-            ("To declare a true boolean", "true"),
+            ("Example", "let is_alive: bool = true;"),
+            ("Example", "let is_underwater: bool = false;"),
         ],
     ),
-    describe_function("say_bool", &["a: bool"], None,
-         "print 'My boolean is: ' followed by the parameter 'a'"
+    describe_function("is_awesome", &[], Some("bool"),
+         "return true"
     ),
     None,
     None
@@ -410,16 +461,15 @@ make_test_info!(
 make_test_info!(
     task3_2_info, "Equals Operator",
     describe_type("'==' Operator",
-        "The == (equals) operator is used check if two values are equal
-        and return a boolean (true or false)",
+        "The == (equals) operator is used check if two values are equal",
         (true, &[]),
         &[
-            ("(5 == 5) becomes", "true"),
-            ("(5 == 3) becomes", "false"),
+            ("(5 == 5)", "This is true, because 5 is equal to 5"),
+            ("(5 == 3)", "This is false, because 5 is not equal to 3"),
         ],
     ),
     describe_function("is_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is equal to b, otherwise return false"
+        "use the == operator on a and b and return the result"
     ),
     None,
     None
@@ -428,192 +478,252 @@ make_test_info!(
 make_test_info!(
     task3_3_info, "Using Match Statements",
     describe_type("Match Statement",
-        "A match statement is an expression that takes a value and compares
-        it against a series of patterns. If a pattern matches, the code after the
-        corosponding \"=>\" is ran. A pattern matches if the value == pattern",
+        "
+        Let’s say you have a box, and inside the box could be one of three things: 
+        an apple, an orange, or a banana. 
+        
+        The match statement helps you check what’s inside the box and do 
+        something different depending on what you find.",
         (true, &[]),
         &[
-            ("Match statements follow this format",
-            "match value {
-                pattern => {
-                    //function body
-                },
-                pattern => {
-                    //function body
-                }
+            ("Example",
+            "let fruit_box: &str = \"apple\";
+
+            match fruit_box {
+                \"apple\" => print!(\"You have an apple!\"),
+                \"orange\" => print!(\"You have an orange!\"),
+                \"banana\" => print!(\"You have a banana!\"),
+                _ => print!(\"I don't know what this fruit is!\")
             }"),
-            ("For example",
-            "match 30 {
-                10 => {
-                    print!(\"I am 10\");
-                },
-                20 => {
-                    print!(\"I am 20\");
-                },
-                30 => {
-                    print!(\"I am 30\");
-                }
-            }
+            ("Explanation",
+            "
+            let fruit_box: &str = \"apple\"; 
+                - We create a box and put the text \"apple\" inside it
 
-            This will print \"I am 30\""),
+            match fruit_box {} 
+                - This tells the computer we want to check the contents of 
+                fruit_box and run case specific code
+
+             \"apple\" => print!(\"You have an apple!\"),
+                - If the content is \"apple\" then we will run the code after the => arrow
+            
+            _ => print!(\"I don't know what this fruit is!\")
+                - We use an underscore to say \"If the content is none of the above,
+                then run the code after this => arrow\"
+            
+
+            ")
         ],
     ),
-    describe_function("say_is_equals", &["a: u8", "b: u8"], None,
-        "call 'is_equal(a, b)' and use a match statement to:
-          - Print \"Values are not equal\" if it is false.
-          - Print \"Values are equal\" if it is true."
-    ),
-    Some("Do not use == directly in 'say_is_equals', instead use 'is_equals'
-    Do not use an if statement, match statements only"),
-    None
-);
+    describe_function("your_planet", &["planet: &str"], None,
+        "create a match statement for the parameter 'planet'
+        
+        if the content of the parameter 'planet' is:
+        
+            \"mercury\", then print \"About 77 million kilometers away.\"
 
-make_test_info!(
-    task3_4_info, "Not Operator",
-    describe_type("'!' Operator",
-        "The ! (not) operator is a unique operator that only has one parameter.
-        When applied to a bool, it flips the booleans value. true to false, or false to true",
-        (true, &[]),
-        &[
-            ("(!true) becomes", "false"),
-            ("(!false) becomes", "true"),
-        ],
-    ),
-    describe_function("is_not_equal", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false"
-    ),
-    Some("Use the ! operator and the function 'is_equals' only",),
-    Some("is_equals returns a bool, flip it")
-);
-
-make_test_info!(
-    task3_5_info, "Compound Operators",
-    describe_type("NotEquals Operator !=",
-        "Compound Operators are a special category of operators that combine multiple operators.
-        For example, the NotEquals operator works exactly like the previous function:",
-        (false, &[
-            "!(\"hi\" == \"hi\") == false",
-            "\"hi\" != \"hi\" == false",
-        ]),
-        &[],
-    ),
-    describe_function("is_not_equal_again", &["a: u8", "b: u8"], Some("bool"),
-        "return true if a is not equal to b, otherwise return false",
-    ),
-    Some("Do not use 'is_equals' or '!' and '==', instead use the != symbol"),
-    None
-);
-
-make_test_info!(
-    task3_6_info, "|| Operator",
-    describe_type("'||' Operator",
-        "The || (or) operator evaluates two boolean expressions and returns
-        true if either of the expressions is true.",
-        (true, &[]),
-        &[
-            ("(false || true) becomes", "true"),
-            ("(true || false) becomes", "true"),
-            ("(false || false) becomes", "false"),
-        ],
-    ),
-    describe_function("shoes_on", &["left: bool", "right: bool"], None,
-        "use the || operator to check if either boolean is true
-        then, use a match statement to:
-          - Print \"Take your shoes off!\" if true.
-          - Print \"Good kid!\" if false.",
-    ),
-    Some("Do not use an if statement, match statements only"),
-    None
-);
-
-make_test_info!(
-    task3_7_info, "&& Operator",
-    describe_type("'&&' Operator",
-        "The && (and) Operator evaluates two boolean expressions and returns true only if both expressions are true.",
-        (true, &[]),
-        &[
-            ("(true && true) becomes", "true"),
-            ("(false && true) becomes", "false"),
-            ("(false && false) becomes", "false"),
-        ],
-    ),
-    describe_function("ready_to_go", &["shoes: bool", "coat: bool"], None,
-        "use the && operator to check if coat and shoes are both true
-        then, use a match statement to:
-          - Print \"Ready to go!\" if both are true.
-          - Print \"Not ready to go yet!\" if either or both conditions are false.",
-    ),
-    Some("Do not use an if statement, match statements only"),
-    None
-);
-
-make_test_info!(
-    task3_8_info, "Chained Operators",
-    describe_type("Chained Operators",
-        "Operators can also be chained together to make multiple operations at once.
-        But, you must be careful not to confuse things.
-        It is recommendend to always wrap your operations in parentheses.
-        Running 'cargo clippy' will let you know when the parentheses are not needed.",
-        (false, &[
-            "Here is how the chained expression evaluates with ():",
-            "(false && true) || true",
-            "false || true",
-            "true",
-            "But without them specified the compiler guesses resulting in:",
-            "false && true || true",
-            "false && (true || true) <- compiler guessing",
-            "false && true",
-            "false"
-        ]),
-        &[],
-    ),
-    describe_function("ready_to_play", &["shoes: bool", "is_hot: bool", "coat: bool"], Some("bool"),
-        "use || and && to return true if:
-            shoes are true and (is_hot or coat) is true",
+            \"venus\", then print \"About 41 million kilometers away.\"
+            
+            \"neptune\", then print \"About 4.3 billion kilometers away.\"
+            
+            if it's anything else, use a _, then print \"Undiscovered planet.\""
     ),
     None,
     None
 );
+
+make_test_info!(
+    task3_4_info, "Match Statements on booleans",
+    describe_type("Match Statement",
+        "
+        We can also match on a boolean (a box that either contains true or false)",
+        (true, &[]),
+        &[
+            ("Example",
+            "let is_alive: bool = true;
+
+            match is_alive {
+                true => print!(\"Yes! I am still alive.\"),
+                false => print!(\"No, I have died.\")
+            }"),
+        ],
+    ),
+    describe_function("underwater", &["is_underwater: bool"], None,
+        "create a match statement for the parameter 'is_underwater'
+        
+        if the content of 'is_underwater' is:
+        
+            true, then print \"I am underwater\"
+
+            false, then print \"Not underwater\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm"
+    ),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task3_5_info, "Match Statements on operations",
+    describe_type("Match Statement",
+        "
+        We can also match on the result of an operation (as long as that operation results in a boolean)",
+        (true, &[]),
+        &[
+            ("Example",
+            "match 10 == 10 {
+                true => print!(\"This is equal\"),
+                false => print!(\"This is not equal\")
+            }"),
+        ],
+    ),
+    describe_function("say_is_equal", &["a: u8, b: u8"], None,
+        "create a match statement to see if a == b
+        
+        if the result is:
+        
+            true, then print \"a is the same as b\"
+
+            false, then print \"as is not the same as b\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_6_info, "Not Operator",
+    describe_type("'!' Operator",
+        "
+        The ! operator is called the 'not' operator. 
+        It inverts or flips a boolean value. 
+
+        If a value is true, ! changes it to false. 
+        If the value is false, ! changes it to true.",
+        (true, &[]),
+        &[
+            ("Example", "let light_on = true; // The light is on (true)
+    
+            let light_off = !light_on; // The ! operator flips it, making it false (off)")
+        ],
+    ),
+    describe_function("power_status", &["is_active: bool"], Some("bool"),
+        "flip the is_active boolean using the ! operator and return it"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_7_info, "|| Operator",
+    describe_type("'||' Operator",
+        "The || (or) operator checks two booleans and if either is true, then the expression will result in true
+        If both of the booleans are false, then the expression will result in false",
+        (true, &[]),
+        &[
+            ("(false || true) is", "true - because one of the booleans is true"),
+            ("(true || false) is", "true - because one of the booleans is true"),
+            ("(false || false) is", "false - because neither of the booleans are true"),
+        ],
+    ),
+    describe_function("decide_battle", &["is_dragon_sleeping: bool", "is_giant_away: bool"], None,
+        "create a match statement to see if is_dragon_sleeping || is_giant_away
+        
+        if the result is:
+        
+            true, then print \"Run!\"
+
+            false, then print \"Fight!\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm",
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task3_8_info, "&& Operator",
+    describe_type("'&&' Operator",
+        "The && (and) operator checks two booleans and if both is true, then the expression will result in true
+        If either of the booleans are false, then the expression will result in false",
+        (true, &[]),
+        &[
+            ("(true && true) is", "true - because both of the booleans are true"),
+            ("(false && true) is", "false - because one of the booleans is false"),
+            ("(false && false) is", "false - because one of the booleans is false"),
+        ],
+    ),
+    describe_function("has_access", &["has_pass: bool", "has_permission: bool"], None,
+        "create a match statement to see if has_pass && has_permission
+        
+        if the result is:
+        
+            true, then print \"You can enter!\"
+
+            false, then print \"Access denied.\"
+            
+        p.s. We have covered the only options, so we do not need an underscore arm",
+    ),
+    None,
+    None
+);
+
+// Haven't covered:
+    // Chained Operators
+    // Is greater than
+    // Is less than
+    // Is greater than or equal to
+    // Is less than or equal to
+    // Is not equal
 
 make_test_info!(
     task4_1_info, "First Structure",
     describe_type("Structures",
-        "Structures are exactly like Types but they can be constructed by anyone. All
-        Structures consist of 5 parts",
-        (true, &[
-            "pub struct: Is the keyword to declare a structure",
-            "Name: The name of a structure is always CammelCase, Meaning the first
-            letter of every word is capitalized and there are no spaces or underscores.",
-            "fields: Fields are the variables that the structure has inside of it.
-                All fields must be prefixed with pub as well!",
-            "Constructors: These are functions that may accept parameters but always
-            return the structure",
-            "Methods: These are functions that can be run on a structure, they can accept parameters, but they also have access to all the fields of a structure."
+        "
+        A struct (structure) is like a custom box where you can put different pieces
+        of related information together.
+        
+        Think of it as a container for things that belong together. 
+        Each item inside the container has a name and type.",
+        (false, &[
+            "Think of a Tank ready for war. 
+
+            Every Tank has a few key things: 
+                - Armor
+                - Shells
+                - Speed
+
+            These are all different but important pieces of information that belong together.
+            In Rust, we use a struct to group this info into one place, 
+            just like carrying all the tank's important details on a card.
+            "
         ]),
         &[
             (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-                pub field_name: FieldType,
+            "Example",
+            "pub struct Tank {
+                pub armor: u8,
+                pub shells: u8,
+                pub speed: u8
             }
-
-            //Constructors and Methods go in an implmentation shown later
             "
             ),
             (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }"
+            "Explanation",
+            "- pub struct: This tells the computer that we are creating a public structure
+            - Tank: We named this struct Tank
+            - armor, shells, speed: These are the fields in our Tank. 
+                - Fields are the individual pieces of data inside the struct.
+                - Each field holds a specific value that describes a part of the struct.
+            "
             ),
         ],
     ),
     describe_structure(
-        "DriversLicense",
-        &["pub issued: u8", "pub expires: u8"],
+        "Warship",
+        &["pub cannons: u8", "pub torpedoes: u8", "pub speed: u8"],
         &[],
         &[],
     ),
@@ -622,36 +732,44 @@ make_test_info!(
 );
 
 make_test_info!(
-    task4_2_info, "Brace Constructor",
-    describe_type("Brace '{}' constructor",
-        "The brace constructor is used to create an instance of your structure. Previously
-        you described the Type DriversLicense which is like any other type &str or u8 etc.
-        But now you are assigning it a value like \"hello, world\" to &str.",
+    task4_2_info, "Struct Instances",
+    describe_type("Creating a Struct Instance",
+        "
+        When you create a struct instance, you're making a variable that holds all
+        the values of that struct. 
+        
+        This is like building a Tank - once it's made you can use it and check its stats.",
         (false, &[]),
         &[
             (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
+            "Example",
+            "pub struct Tank {
+                pub armor: u8,
+                pub shells: u8,
+                pub speed: u8
             }
 
-            let my_struct: Name = Name{field_name: value);"
+            let my_tank: Tank = Tank {
+                armor: 10,
+                shells: 24,
+                speed: 100,
+            };"
             ),
             (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
-
-            let my_date = Date{year: 24, month: 12, day: 25};"
+            "Explanation",
+            "let my_tank: Tank - We create a Tank based off our struct
+            Tank {} - We start our struct by using the struct's name and curly braces {}
+            armor: 10, shells: 24, speed: 100 - We set the values of each field for this tank"
             ),
         ],
     ),
     describe_function(
-        "my_new_dl", &[], Some("DriversLicense"),
-        "Create a new drivers license with the brace constructor, issued is 4 and expires is 12"
+        "create_warship", &[], Some("Warship"),
+        "Return an instance of your Warship structure.
+
+        Set cannons to 12,
+        Set torpedoes to 24,
+        Set speed to 100"
     ),
     None,
     None
@@ -660,97 +778,96 @@ make_test_info!(
 make_test_info!(
     task4_3_info, "Using Fields",
     describe_type("Structure Fields",
-        "Structure fields are exactly like variables, contained inside of the structure.
-        To 'access' them you need to state the structure name followed by '.' and the field name.",
+        "
+        Structure fields are exactly like variables.
+        To 'access' them you need to state the variable name followed by '.' and the field name.",
         (true, &[]),
         &[
             (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-            }
+            "Example",
+            "let my_tank: Tank = Tank {
+                armor: 10,
+                shells: 24,
+                speed: 100,
+            };
 
-            let my_struct: Name = Name{field_name: field_value};
-
-            print!(\"my field contains {}\", my_struct.field_name);"
+            To see how many shells you have left: my_tank.shells"
             ),
             (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
-
-            let my_date = Date{year: 1, month: 12, day: 14};
-
-            print!(\"The year is {}\", my_date.year); //Prints \"The year is 1"
+            "To print shells left",
+            "print!(\"My tank has {} shells left\", my_tank.shells);"
             ),
         ],
     ),
     describe_function(
-        "print_drivers_license",
-        &["a_dl: DriversLicense"],
+        "cannon_count",
+        &["warship: Warship"],
         None,
-        "print the issued year and the expires year of a_dl with a '-' inbetween",
+        "print the cannons field in the warship parameter like this: 
+        
+            \"My warship has 5 cannons left\"
+        ",
     ),
     None,
     None
 );
 
 make_test_info!(
-    task4_4_info, "Constructors",
-    describe_type("Structure Constructors",
-        "Constructors are functions that are attached to the Structure Type,
-        To attach constructors or methods to a Structure Type you must place them
-        in an (impl)ementation block for the Structure. A Structure can only have one
-        impl block but you can place any methods or constructors inside",
-        (false, &[
-            "Constructors are used to build or construct the structure often limiting or providing
-            data for the structure.",
-            "Constructors always go at the top of the (impl)ementation block.",
-            "Constructors are almost always named 'new' and sometimes 'from'",
-            "Constructors must be called on the Structure TypeName using '::' to call it",
-            "'::' is a Path Seperator used for accessing the inside of Types and Modules"
-        ]),
+    task4_4_info, "Impl Block",
+    describe_type("Structure Impl",
+        "
+        Usually when we create a structure, 
+        we also want functions that are specific to that structure.
+        
+        To Implement these functions, you create an 'impl' block
+        to tell the computer which functions are specific to which structures",
+        (false, &[]),
         &[
             (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
+            "Example",
+            "pub struct Tank {
+                pub armor: u8,
+                pub shells: u8,
+                pub speed: u8
             }
 
-            impl Name {
-                pub fn new(parameter_name: Type) -> Name {
-                    //Function body
+            impl Tank {
+                pub fn new() -> Tank {
+                    Tank {
+                        armor: 10,
+                        shells: 24,
+                        speed: 100,
+                    }
                 }
-            }
-
-            let my_struct: Name = Name::new(parameter_value);"
+            }"
             ),
             (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
+            "Explanation",
+            "new() is a function that most structs will have. 
+            new() is classified as a 'constructor' function because it
+            creates (constructs) an instance of the struct."
+            ),
+            (
+                "Calling new(): let my_tank: Tank = Tank::new(250)",
+                "let my_tank: Tank - The start of a variable
 
-            impl Date {
-                pub fn new(my_year: u8) -> Date {
-                    Date{year: my_year, month: 12, day: 25}
-                }
-            }
+            Tank:: - This tells the computer that we are about to call a 
+                     function from inside the Impl block of the Tank struct
 
-            let christams_of_24 = Date::new(24);"
+            new() - Calling the new function"
             ),
         ],
     ),
-    "Add a constructor to an impl block for DriversLicense:\n        ".to_string()
+    "Create an impl block for Warship.
+
+    Inside this impl Warship block: \n\n        ".to_string()
     +&describe_function(
-        "new", &["issued: u8"], Some("DriversLicense"),
-        "Create a new DriversLicense where issued is given from the parameter
-        and expires is issued plus 8"
+        "new", &["max_speed: u8"], Some("Warship"),
+        "Return an instance of your Warship structure.
+
+        Set cannons to 12,
+        Set torpedoes to 24,
+        Set speed to the max_speed parameter"
     ).replace("\n", "\n    "),
     None,
     None
@@ -758,116 +875,88 @@ make_test_info!(
 
 make_test_info!(
     task4_5_info, "Methods",
-    describe_type("More Operators",
-        "More Operators that will be handy in this task each of these takes two numbers and
-        returns a bool",
-        (false, &[
-            "> (Greater than): checks if one number is greater than the other",
-            "< (Less than): checks if one number is less than the other",
-            "<= (Less than or equal): checks if one number is less than or equal to the other",
-            ">= (Greater than or equal): checks if one number is greater than or equal to the other",
-        ]),
-        &[
-            ("(5 > 5) becomes", "false"),
-            ("(5 > 6) becomes", "false"),
-            ("(5 > 3) becomes", "true"),
-            ("(5 < 5) becomes", "false"),
-            ("(5 < 6) becomes", "true"),
-            ("(5 < 3) becomes", "false"),
-            ("(5 <= 5) becomes", "true"),
-            ("(5 <= 6) becomes", "true"),
-            ("(5 <= 3) becomes", "false"),
-            ("(5 >= 5) becomes", "true"),
-            ("(5 >= 6) becomes", "false"),
-            ("(5 >= 3) becomes", "true"),
-        ],
-    )+TYPE_SEP+
-    &describe_type("Structure Methods",
-        "Methods are functions that can be run on an instance of a structure.",
-        (false, &[
-            "Methods are functions in the impl block that have a self parameter",
-            "self is a reserved parameter name that allows this method to be run
-            on an instance of the Structure",
-            "Methods are called by doing struct_variable.method_name(params)"
-        ]),
+    describe_type("Structure Methods",
+        "A method is another kind function that belongs to a struct.
+
+        This type of function requires an instance of the struct as a parameter.
+        The struct parameter is passed in differently than most functions.",
+        (false, &[]),
         &[
             (
-            "Format",
-            "pub struct Name {
-                pub field_name: FieldType,
-            }
-
-            impl Name {
-                pub fn my_method(self: Name, parameter_name: Type) -> ReturnType {
-                    //Function body
+            "Example of a 'method' function",
+            "impl Tank {
+                pub fn check_speed(self) {
+                    print!(\"Speed is currently at {}\", self.speed);
                 }
-            }
-
-            let my_struct: Name = Name{field_name: field_value};
-
-            let my_value: ReturnType = my_struct.my_method(parameter_value);"
+            }"
             ),
             (
-            "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
-            }
-
-            impl Date {
-                pub fn months_till_christmas(self: Date) -> u8 {
-                    12 - self.month
-                }
-            }
-
-            let my_date = Date{year: 1, month: 7, day: 14};
-
-            my_date.months_till_christmas() == 5;"
+            "Explanation",
+            "In order to call a method, you will need an instance of the struct.
+            
+            let my_tank: Tank = Tank::new();
+            
+            Now, lets call the check_speed method on my_tank:
+            
+            my_tank.check_speed()
+            
+            Since we are attaching check_speed to my_tank, 
+            check_speed will use my_tank as the 'self' parameter"
             ),
         ],
     ),
-    "Add a method to the bottom of the  impl block for DriversLicense:\n        ".to_string()
+    "Inside your impl Warship block, beneath the new function:\n        ".to_string()
     +&describe_function(
-        "is_valid", &["self: DriversLicense", "current_year: u8"], Some("bool"),
-        "Return true if current_year is greater or equal to issued, and is less than expires"
+        "torpedo_check", &["self: Warship"], None,
+        "print the torpedo field of the self parameter like this: 
+        
+            \"I have 5 torpedoes left\""
     ).replace("\n", "\n    "),
     None,
     None
 );
 
+
 make_test_info!(
-    task4_6_info, "Matching on Types",
-    describe_type("'_' WildCard",
-        "In section 3 we matched on the 'bool' type which only had two values 'true' or 'false'.
-        But the match statement can be used on most any Type. But if you were to match on the u8
-        that would be 128 branches of the match statement, because a u8 can be 0 to 127.
-        There are two solutions, the first is the wildcard pattern '_'. This will run no matter
-        what the value is.",
+    task4_6_info, "Matching & Wildcards",
+    describe_type("Matching",
+        "
+        Just like we can match using a boolean, we can match on any Type.
+        But, when creating a match statment you have to cover every single case.
+        With booleans, True and False are the only cases.
+        But with u8s, there are 255 cases.
+        
+        In order to not have to create 255 match arms, 
+        we use a special character to catch all other cases",
         (true, &[]),
         &[
             (
-            "Example",
+                "The Wildcard _",
+                "You can use _ to catch 'all other cases'"
+            ),
+            (
+            "Example using u8s",
             "match 24 {
                 3 => {
                     print!(\"I am 3!\");
                 },
                 18 => {
-                    print!(\"18 years old!\");
+                    print!(\"I am 18!\");
                 },
                 _ => {
-                    print!(\"I am not 3 or 18 years old.\");
+                    print!(\"I am not 3 or 18.\");
                 }
             }"
             )
         ],
     ),
     describe_function("print_apples", &["apples: u8"], None,
-        "Use a match statement on age to print:
+        "Use a match statement on the apples parameter to print:
+
             if apples is 1 print \"One apple\",
             if apples is 2 print \"Two apples\",
             if apples is 3 print \"Three apples\",
-            Otherwise print \"More than three apples\""
+            Otherwise, print \"More than three apples\""
     ),
     None,
     None
@@ -876,8 +965,8 @@ make_test_info!(
 make_test_info!(
     task4_7_info, "Matching on Types",
     describe_type("Variable Catch",
-        "The second solution is using a variable to catch the value of the variable if none
-        of the other match branches succeeded.",
+        "
+        The second solution is to catch the value into a variable",
         (true, &[]),
         &[
             (
@@ -887,21 +976,22 @@ make_test_info!(
                     print!(\"I am 3!\");
                 },
                 18 => {
-                    print!(\"18 years old!\");
+                    print!(\"I am 18!\");
                 },
                 age => {
-                    print!(\"{} years am I\", age);
+                    print!(\"I am {}!\", age);
                 }
-            }//Prints \"20 years am I\""
+            }"
             ),
         ],
     ),
     describe_function("print_oranges", &["oranges: u8"], None,
-        "Use a match statement on age to print:
+        "Use a match statement on oranges to print:
+
             if oranges is 1 print \"One orange\",
             if oranges is 2 print \"Two oranges\",
             if oranges is 3 print \"Three oranges\",
-            Otherwise print the number of oranges followed by \" oranges\""
+            Otherwise, print the number of oranges followed by \" oranges\""
     ),
     None,
     None
@@ -910,50 +1000,53 @@ make_test_info!(
 make_test_info!(
     task4_8_info, "Matching on Structures",
     describe_type("Structure Matching",
-        "Not only can you match on regular types but you can also match on entire Structures.
-        Matching on a structure uses the braces to build the patterns. Match statements
-        always start from top to bottom. If more than two branches would be valid it always
-        takes the top most one.",
+        "
+        Not only can you match on regular types but you can also match on entire Structures.",
         (true, &[]),
         &[
             (
             "Example",
-            "pub struct Date {
-                pub year: u8,
-                pub month: u8,
-                pub day: u8,
+            "pub struct Bandit {
+                pub is_wanted: bool,
+                pub bounty: u8,
             }
 
-            let my_date: Date = Date{year: 1, month: 8, day: 24};
+            let wilbur = Bandit {
+                is_wanted: true,
+                bounty: 250,
+            };
 
-            match my_date {
-                Date{year: 24, month: 12, day: 25 => {
-                    print!(\"It's Christmas of the year '24\");
+            match wilbur {
+                Bandit { is_wanted: false, bounty: _ } => {
+                    print!(\"Wilbur is a free man\");
                 },
-                Date{year: _, month: 1, day: 1 => {
-                    print!(\"It's New Years! I don't know which year though!\");
-                },
-                Date{year: the_year, month: 1, day: 1 => {
-                    print!(\"It's New Years, of the year {}!\", the_year);
+                Bandit { is_wanted: true, bounty: 250 } => {
+                    print!(\"Wilbur is an expensive wanted man\");
                 },
                 _ => {
-                    print!(\"It Someday!!!!\");
-                }
+                    print!(\"Wilbur is a man\");
+                },
             }"
             ),
         ],
     ),
-    "Add a method to the bottom of the  impl block for DriversLicense:\n        ".to_string()
-    +&describe_function("examine", &["self: DriversLicense"], None,
-        "Use a match statement on self to print:
-            If the issued is 20, and the expires is 28 print:
-                \"Hey that's my drivers license\",
-            If the issued is 22, no matter the expires(wildcard):
-                \"Drivers license issued during covid\",
-            If the expires is 24:
-                \"Expires on the 24 and was issued on \" followed by the issued year
-            Otherwise:
-                \"No comment\""
+    "Inside your Impl Warship block, beneath the torpedo_check function:
+    \n        ".to_string()
+    +&describe_function(
+        "examine", &["self: Warship"], None,
+        "Use a match statement on self:
+
+            In the case where cannons is 5, torpedoes is 10, speed is 100 
+
+                - print: \"This ship is stocked up and ready to go\"
+
+            In the case where cannons is 0, torpedoes is 1, speed is 24 
+
+                - print: \"This ship is low and slow\"
+            
+            In any other case, 
+
+                - print: \"This ship is a mystery\""
     ).replace("\n", "\n    "),
     None,
     None
@@ -962,32 +1055,29 @@ make_test_info!(
 make_test_info!(
     task5_1_info, "Enumerators",
     describe_type("Enumerator",
-        "An enumerator is a Type where its value can be one of a list of sub-structs",
-        (false, &[
-            "All the sub-structs for an enumerator a defined with the enumerator",
-            "An enumerator can be matched on, to figure out what sub-struct it is",
-            "Enumerators have an impl block that can contain methods and constructors",
-            "To declare an Enum you use the TypePath Seperator '::' to choose the sub-struct"
-        ]),
+        "
+        An enumerator is a container of structs",
+        (false, &[]),
         &[
             (
-            "Example",
-            "pub enum Weather {
-                Clear{},
-                Rain{},
-                Snow{}
-            }
-            //Enum TypeName is Weather
-            //Clear, Rain, Snow are sub-structs
-
-            let current_weather: Weather = Weather::Rain{};
-            let preferred_weather: Weather = Weather::Snow{};"
+                "Example using empty structs",
+                "pub enum Treasure {
+                Gold {},
+                Gems {},
+                Artifact {},
+            }"
+            ),
+            (
+                "Explanation",
+                "pub enum - This tells the computer \"I am now going to create a 'public enumerator'
+            Treasure - This is the name of our enumerator
+            Gold {}, Gems {}, Artifact {} - These are the struct variants inside our enum"
             ),
         ],
     ),
     describe_enum(
-        "Color",
-        &["Blue{}", "Red{}", "Green{}", "Yellow{}"],
+        "Spacecraft",
+        &["\n\tFighter {}", "Cargo {}", "Colonizer {}", "Explorer {}"],
         &[],
         &[],
     ),
@@ -996,341 +1086,382 @@ make_test_info!(
 );
 
 make_test_info!(
-    task5_2_info, "Matching on Enums",
+    task5_2_info, "Enumerators",
+    describe_type("Instance of enumerator variant",
+        "
+        To create a variable containing a variant of an enumerator",
+        (false, &[]),
+        &[
+            (
+                "Example",
+                "pub enum Treasure {
+                Gold {},
+                Gems {},
+                Artifact {},
+            }
+                
+            let my_treasure = Treasure::Gems{};"
+            ),
+            (
+                "Explanation",
+                "let my_treasure - Creating a variable called my_treasure
+            Treasure:: - Tells the computer we want to instantiate a variant of the Treasure enum
+            Gems{} - The variant that we chose"
+            ),
+        ],
+    ),
+    describe_function("get_fighter", &[], Some("Spacecraft"),
+        "return an instance of the Fighter {} variant from your Spacecraft enum"
+    ),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_3_info, "Matching on Enums",
     describe_type("Enum Matching",
-        "Just like structures you can attach methods or constructors with an impl block.
-        As well as matching on the sub-structs and values of an enum",
+        "
+        Just like structures you can attach methods or constructors with an impl block.
+        As well as matching on the sub-structs and values of an enum.",
         (true, &[]),
         &[
             (
             "Example",
-            "pub enum Weather {
-                Clear{},
-                Rain{},
-                Snow{}
+            "pub enum Treasure {
+                Gold {},
+                Gems {},
+                Artifact {},
             }
-
-            impl Weather {
-                pub fn print(self: Weather) {
+                
+            impl Treasure {
+                pub fn print(self: Treasure) {
                     match self {
-
-                       Weather::Clear{} => print!(\"Clear and sunny skies\"),
-                        Weather::Rain{} => print!(\"Rain and light clouds\"),
-                        Weather::Snow{} => print!(\"Snow and heavy clouds\"),
+                        Treasuer::Gold{} => print!(\"Wow! Real gold!\"),
+                        Treasure::Gems{} => print!(\"Beautiful gems!\"),
+                        Treasure::Artifact{} => print!(\"A priceless artifact!\"),
                     }
                 }
             }"
             ),
         ],
     ),
-    "Add and impl block to the Color enum and add a method to it:\n        ".to_string()
-    +&describe_function("is_primary", &["self: Color"], Some("bool"),
-        "Use a match statement to return true if the Color sub-struct is Blue, Red, or Green"
+    "Create an impl block for the Spacecraft enum,
+    and inside:
+    \n        ".to_string()
+    +&describe_function("is_passenger", &["self: Spacecraft"], Some("bool"),
+        "Use a match statement to return true if 
+        self is Fighter, Colonizer, or Explorer"
     ).replace("\n", "\n    "),
     None,
     None
 );
 
 make_test_info!(
-    task5_3_info, "Fields",
-    describe_type("Sub-Struct Fields",
-        "Like structures Sub-Structs can have fields too, to access the fields you'll have
-        to match the enum just like structure matching.",
+    task5_4_info, "Fields",
+    describe_type("Fields",
+        "
+        Like regular Structs, enumerator Sub-Structs can have fields too.",
         (false, &[
             "The sub-struct fields do not need to be prefixed with pub, explanation later"
         ]),
         &[
             (
             "Example",
-            "pub enum Weather {
-                Clear{chance: u8},
-                Rain{chance: u8},
-                Snow{chance: u8}
+            "pub enum Treasure {
+                Gold { count: u8 },
+                Gems { count: u8 },
+                Artifact { count: u8 },
             }
 
-            impl Weather {
-                pub fn print(self: Weather) {
-                    match self {
-                       Weather::Clear{chance: the_chance} => print!(\"{}% of Clear\", the_chance),
-                        Weather::Rain{chance: the_chance} => print!(\"{}% of Rain\", the_chance),
-                        Weather::Snow{chance: the_chance} => print!(\"{}% of Snow\", the_chance),
-                    }
-                }
-            }"
+            let chest = Treasure::Gold { count: 48 };
+
+            let gold_count = chest.count;"
             ),
         ],
     ),
     describe_enum(
-        "Furniture",
-        &["Couch{
-            legs: u8,
-            cushions: u8
-        },", "Chair{
-            legs: u8
-        },", "Table{
-            legs: u8,
-            plates: u8,
-        }"],
+        "Potion",
+        &["Invisibility { strength: u8 },", 
+        "Healing { strength: u8 },", 
+        "Poison { strength: u8 },"],
         &[],
-        &[describe_function("get_legs", &["self: Furniture"], Some("u8"),
-            "match on the furniture and return the number of legs each piece of furniture has"
-        )],
+        &[],
     ),
     None,
-    Some("Remember to use WildCard '_' to ignore unneeded fields")
+    None
 );
 
+
 make_test_info!(
-    task5_4_info, "Type Parameter",
-    describe_type("T: TypeParameter",
-        "There is a special feature of Types, including structures and enums, that allow you
-        to accept a TypeParemeter, This is for situations where you want a type that can be
-        used to store any type in a field.",
+    task5_5_info, "Fields",
+    describe_type("Fields",
+        "
+        Like regular Structs, enumerator Sub-Structs can have fields too.",
         (false, &[
-            "To declare a Type Parameter place arrow braces after the Structure Name",
-            "To use the structure you have to provide the TypeParameter this is done
-            using the :: TypePathSeperator and Arrow Braces <>"
+            "The sub-struct fields do not need to be prefixed with pub, explanation later"
         ]),
         &[
             (
             "Example",
-            "pub enum Result<T> {
-                Ok{
-                    value: T
+            "pub enum Treasure {
+                Gold { count: u8 },
+                Gems { count: u8 },
+                Artifact { count: u8 },
+            }
+
+            let chest = Treasure::Gold { count: 48 };
+
+            match chest {
+                Treasure::Gold { count: gold } => {
+                    print!(\"{} gold!\", gold)
                 },
-                Error{
-                    code: u8
-                }
-            }
-
-            let my_ok_result = Result::<u8>::Ok{value: 125};//125 is a u8 replacing the T
-            let my_err_result = Result::<&str>::Error{code: 2};
-            //For the Error we still have to specify the Type Param even though it is unused
-            "
-            ),
-        ],
-    ),
-    describe_enum(
-        "Option<T>",
-        &["Some{
-            value: T,
-        },",
-        "None{}"
-        ],
-        &[],
-        &[],
-    ),
-    None,
-    None
-);
-
-make_test_info!(
-    task5_5_info, "Impl TypeParamater",
-    describe_type("TypeParam Constructor",
-        "TypeParameters can be a bit of a pain to deal with since you won't know what
-        Type your dealing when creating methods or constructors",
-        (false, &[
-            "In order to impl a TypeParameter Structure you have to include the TypeParam
-            in the impl block definition as shown in the example.",
-            "To create or construct a Structure with a Type Parameter you have to include
-            the type as apart of the brace constructor Name::<Type>::SubStruct{...}",
-        ]),
-        &[
-            (
-            "Example",
-            "pub enum Result<T> {
-                Ok{
-                    value: T
+                Treasure::Gems { count: gems } => {
+                    print!(\"{} gems!\", gems)
                 },
-                Error{
-                    code: u8
-                }
-            }
-
-            impl<T> Result<T> {
-                //For a method that accepts any Type T
-                pub fn new_ok(value_param: T) -> Result<T> {
-                    Result::<T>::Ok{value: value_param}
-                }
-
-                //To just create a Result with a u8
-                pub fn new_ok_u8(value_param: u8) -> Result<u8> {
-                    Result::<u8>::Ok{value: value_param}
-                }
-
-                //For a new error, even if the TypeParam is unused it still has to be specified
-                pub fn new_err(code_param: u8) -> Result<T> {
-                    Result::<T>::Error{code: code_param}
-                }
-            }"
-            ),
-        ],
-    ),
-    "Add and impl<T> block to the Option<T> enum and add a constructor to it:\n        ".to_string()
-    +&describe_function("new_some", &["value_param: T"], Some("Option<T>"),
-        "Construct the Some SubStrucure of Option and use value_param as the value"
-    ).replace("\n", "\n    "),
-    None,
-    None
-);
-
-make_test_info!(
-    task5_6_info, "Impl TypeParamater",
-    describe_type("TypeParam Method",
-        "Another downside is that returning a value with a TypeParamater is much harder,
-        since you cannot provide a value that could be one Type or another. But a match
-        statement can still come in handy here.",
-        (false, &[]),
-        &[
-            (
-            "Example",
-            "pub enum Result<T> {
-                Ok{
-                    value: T
+                Treasure::Artifact { count: artifacts } => {
+                    print!(\"{} artifacts!\", artifacts)
                 },
-                Error{
-                    code: u8
-                }
-            }
-
-            impl<T> Result<T> {
-                pub fn get_error_code(self: Result<T>) -> u8 {
-                    match self {
-                        Result::<T>::Ok{value: _} => 0,//Zero error code is no error
-                        Result::<T>::Error{code: err_code} => err_code,
-                    }
-                }
-            }"
-            ),
-        ],
-    ),
-    "Add a method to the impl<T> Option<T> Block:\n        ".to_string()
-    +&describe_function("is_some", &["self: Option<T>"], Some("bool"),
-        "Use a match statement to return true if the Option sub-struct is Some"
-    ).replace("\n", "\n    "),
-    None,
-    None
-);
-
-make_test_info!(
-    task5_7_info, "TypeParam Structure",
-    describe_type("Structure TypeParam",
-        "Structures can accept Type Parameters exactly the same way as enums",
-        (false, &[]),
-        &[
-            (
-            "Example",
-            "pub struct Box<T> {
-                pub boxed_value: T,
-                pub count: u8
-            }
-
-            let my_box = Box::<u8>{boxed_value: 10, count: 1};
-            "
-            ),
-        ],
-    ),
-    describe_structure(
-        "Box<T>",
-        &[
-            "pub boxed_value: T",
-            "pub count: u8"
-        ],
-        &[describe_function("new", &["value: T, count: u8"], Some("Box<T>"),
-            "Create a new Box<T> and set the boxed_value to value, and count to the count param"
-        )],
-        &[describe_function("add_one", &["self: Box<T>"], Some("Box<T>"),
-            "Take in self and create a new Box<T> setting boxed_value to self.boxed_value,
-            But set count to the old count plus one"
-        )],
-    ),
-    None,
-    Some("While add_one does return a Box<T> like a constructor, because it accepts self: Box<T>
-    its considered to be a method and ran just like any other method.")
-);
-
-make_test_info!(
-    task5_8_info, "Nested TypeParam",
-    describe_type("Nested TypeParam",
-        "You can use your structure or enums inside other structures or enums just like
-        any other type. But when you have types that require a Type Param you have to
-        specify the TypeParam in every place you use it. And when you do this you
-        will likely end up with nested TypeParams, fortunately this is possible by simply
-        nesting the arrow braces.",
-        (false, &[]),
-        &[
-            (
-            "Example",
-            "pub struct Box<T> {
-                pub boxed_value: T,
-                pub count: u8
-            }
-
-            pub enum Result<T> {
-                Ok{value: T},
-                Error{code: u8}
-            }
-
-            impl<T> Result<T> {
-                pub fn new_ok(my_value: T) -> Result<T> {
-                    Result::<T>::Ok{value: my_value}
-                }
-            }
-
-            let my_boxed_result: Box<Result<u8>> = Box::<Result<u8>>{
-                boxed_value: Result::<u8>::new_ok(10),
-                count: 1
             };"
             ),
         ],
     ),
-    describe_function(
-        "create_boxed_option", &["value: u8"], Some("Box<Option<u8>>"),
-        "Accept value which is a u8, use a match statement and '>' to check:
-        If value is greater than 50:
-            Return the Option Some substructure with value equal to the param
-            Box the Option Some with count 10
-        Otherwise:
-            Return None SubStructure Boxed with count 20"
-    ),
+    "Create an impl block for the Spacecraft enum,
+    and inside:
+    \n        ".to_string()
+    +&describe_function("say_strength", &["self: Potion"], None,
+        "use a match statement to print each potions strength:
+
+            \"You found an Invisibility potion with _ strength\"
+            \"You found a Healing potion with _ strength\"
+            \"You found a Poison potion with _ strength\""
+    ).replace("\n", "\n    "),
     None,
-    Some("Use the Box::<Option<u8>>::new() and the Option::<u8>::new_some() constructors")
+    Some("**  THIS IS CURRENTLY THE LAST TASK  **")
 );
 
-//  make_test_info!(
-//      task4_5_info, "Methods on Types",
-//      describe_type("String",
-//          "The String Type is exactly like a &str but it can be stored in structures.
-//          All rust Types are just Structures and have methods and constructors:
-//          the &str Type has a .to_string() method to convert it to a String.
-//          The &str Type cannot be stored because it is borrowed(more on that later)
-//          To store a string you must convert the &str to a String with '.to_string()'",
-//          (false, &[]),
-//          &[
-//              (
-//              "Example",
-//              "let my_str: &str = \"Hello\";
-//              let my_string: String = my_str.to_string();
+// make_test_info!(
+//     task5_4_info, "Type Parameter",
+//     describe_type("T: TypeParameter",
+//         "There is a special feature of Types, including structures and enums, that allow you
+//         to accept a TypeParemeter, This is for situations where you want a type that can be
+//         used to store any type in a field.",
+//         (false, &[
+//             "To declare a Type Parameter place arrow braces after the Structure Name",
+//             "To use the structure you have to provide the TypeParameter this is done
+//             using the :: TypePathSeperator and Arrow Braces <>"
+//         ]),
+//         &[
+//             (
+//             "Example",
+//             "pub enum Result<T> {
+//                 Ok{
+//                     value: T
+//                 },
+//                 Error{
+//                     code: u8
+//                 }
+//             }
 
-//              Or more directly:
+//             let my_ok_result = Result::<u8>::Ok{value: 125};//125 is a u8 replacing the T
+//             let my_err_result = Result::<&str>::Error{code: 2};
+//             //For the Error we still have to specify the Type Param even though it is unused
+//             "
+//             ),
+//         ],
+//     ),
+//     describe_enum(
+//         "Option<T>",
+//         &["Some{
+//             value: T,
+//         },",
+//         "None{}"
+//         ],
+//         &[],
+//         &[],
+//     ),
+//     None,
+//     None
+// );
 
-//              let my_string: String = \"Hello\".to_string();"
-//              ),
-//          ],
-//      ),
-//      describe_structure(
-//          "FullName",
-//          &["first: String", "last: String"],
-//          &[describe_function("new", &["first: &str", "last: &str"], Some("FullName"),
-//              "Create a new FullName by runing .to_string() on the parameters"
-//          )],
-//          &[describe_function("print", &["full_name: &FullName"], None,
-//              "print the first and last name with a space between them"
-//          )]
-//      ),
-//      None,
-//      None
-//  );
+// make_test_info!(
+//     task5_5_info, "Impl TypeParamater",
+//     describe_type("TypeParam Constructor",
+//         "TypeParameters can be a bit of a pain to deal with since you won't know what
+//         Type your dealing when creating methods or constructors",
+//         (false, &[
+//             "In order to impl a TypeParameter Structure you have to include the TypeParam
+//             in the impl block definition as shown in the example.",
+//             "To create or construct a Structure with a Type Parameter you have to include
+//             the type as apart of the brace constructor Name::<Type>::SubStruct{...}",
+//         ]),
+//         &[
+//             (
+//             "Example",
+//             "pub enum Result<T> {
+//                 Ok{
+//                     value: T
+//                 },
+//                 Error{
+//                     code: u8
+//                 }
+//             }
+
+//             impl<T> Result<T> {
+//                 //For a method that accepts any Type T
+//                 pub fn new_ok(value_param: T) -> Result<T> {
+//                     Result::<T>::Ok{value: value_param}
+//                 }
+
+//                 //To just create a Result with a u8
+//                 pub fn new_ok_u8(value_param: u8) -> Result<u8> {
+//                     Result::<u8>::Ok{value: value_param}
+//                 }
+
+//                 //For a new error, even if the TypeParam is unused it still has to be specified
+//                 pub fn new_err(code_param: u8) -> Result<T> {
+//                     Result::<T>::Error{code: code_param}
+//                 }
+//             }"
+//             ),
+//         ],
+//     ),
+//     "Add and impl<T> block to the Option<T> enum and add a constructor to it:\n        ".to_string()
+//     +&describe_function("new_some", &["value_param: T"], Some("Option<T>"),
+//         "Construct the Some SubStrucure of Option and use value_param as the value"
+//     ).replace("\n", "\n    "),
+//     None,
+//     None
+// );
+
+// make_test_info!(
+//     task5_6_info, "Impl TypeParamater",
+//     describe_type("TypeParam Method",
+//         "Another downside is that returning a value with a TypeParamater is much harder,
+//         since you cannot provide a value that could be one Type or another. But a match
+//         statement can still come in handy here.",
+//         (false, &[]),
+//         &[
+//             (
+//             "Example",
+//             "pub enum Result<T> {
+//                 Ok{
+//                     value: T
+//                 },
+//                 Error{
+//                     code: u8
+//                 }
+//             }
+
+//             impl<T> Result<T> {
+//                 pub fn get_error_code(self: Result<T>) -> u8 {
+//                     match self {
+//                         Result::<T>::Ok{value: _} => 0,//Zero error code is no error
+//                         Result::<T>::Error{code: err_code} => err_code,
+//                     }
+//                 }
+//             }"
+//             ),
+//         ],
+//     ),
+//     "Add a method to the impl<T> Option<T> Block:\n        ".to_string()
+//     +&describe_function("is_some", &["self: Option<T>"], Some("bool"),
+//         "Use a match statement to return true if the Option sub-struct is Some"
+//     ).replace("\n", "\n    "),
+//     None,
+//     None
+// );
+
+// make_test_info!(
+//     task5_7_info, "TypeParam Structure",
+//     describe_type("Structure TypeParam",
+//         "Structures can accept Type Parameters exactly the same way as enums",
+//         (false, &[]),
+//         &[
+//             (
+//             "Example",
+//             "pub struct Box<T> {
+//                 pub boxed_value: T,
+//                 pub count: u8
+//             }
+
+//             let my_box = Box::<u8>{boxed_value: 10, count: 1};
+//             "
+//             ),
+//         ],
+//     ),
+//     describe_structure(
+//         "Box<T>",
+//         &[
+//             "pub boxed_value: T",
+//             "pub count: u8"
+//         ],
+//         &[describe_function("new", &["value: T, count: u8"], Some("Box<T>"),
+//             "Create a new Box<T> and set the boxed_value to value, and count to the count param"
+//         )],
+//         &[describe_function("add_one", &["self: Box<T>"], Some("Box<T>"),
+//             "Take in self and create a new Box<T> setting boxed_value to self.boxed_value,
+//             But set count to the old count plus one"
+//         )],
+//     ),
+//     None,
+//     Some("While add_one does return a Box<T> like a constructor, because it accepts self: Box<T>
+//     its considered to be a method and ran just like any other method.")
+// );
+
+// make_test_info!(
+//     task5_8_info, "Nested TypeParam",
+//     describe_type("Nested TypeParam",
+//         "You can use your structure or enums inside other structures or enums just like
+//         any other type. But when you have types that require a Type Param you have to
+//         specify the TypeParam in every place you use it. And when you do this you
+//         will likely end up with nested TypeParams, fortunately this is possible by simply
+//         nesting the arrow braces.",
+//         (false, &[]),
+//         &[
+//             (
+//             "Example",
+//             "pub struct Box<T> {
+//                 pub boxed_value: T,
+//                 pub count: u8
+//             }
+
+//             pub enum Result<T> {
+//                 Ok{value: T},
+//                 Error{code: u8}
+//             }
+
+//             impl<T> Result<T> {
+//                 pub fn new_ok(my_value: T) -> Result<T> {
+//                     Result::<T>::Ok{value: my_value}
+//                 }
+//             }
+
+//             let my_boxed_result: Box<Result<u8>> = Box::<Result<u8>>{
+//                 boxed_value: Result::<u8>::new_ok(10),
+//                 count: 1
+//             };"
+//             ),
+//         ],
+//     ),
+//     describe_function(
+//         "create_boxed_option", &["value: u8"], Some("Box<Option<u8>>"),
+//         "Accept value which is a u8, use a match statement and '>' to check:
+//         If value is greater than 50:
+//             Return the Option Some substructure with value equal to the param
+//             Box the Option Some with count 10
+//         Otherwise:
+//             Return None SubStructure Boxed with count 20"
+//     ),
+//     None,
+//     Some("Use the Box::<Option<u8>>::new() and the Option::<u8>::new_some() constructors")
+// );
+
+
+
+
+
+
+
 
 //  make_test_info!(
 //      task4_6_info, "Pointers/Borrowing",
@@ -1367,3 +1498,34 @@ make_test_info!(
 //  );
 
 
+
+// make_test_info!(
+//     task4_1_info, "Ownership",
+//     describe_type("Understanding Ownership",
+//         "
+//         Only one variable can 'own' a piece of data at a time.
+//         When ownership is 'transferred', the original variable can no longer access that data.",
+//         (false, &[]),
+//         &[
+//             (
+//                 "Here's an example showing ownership being moved from x to y",
+//                 "let x: u8 = 48;
+//             let y = x;"
+//             ),
+//             (
+//                 "In this example",
+//                 "Ownership of the value 48 is with x.
+//             When y = x is executed, ownership of 48 is moved to y
+//             After the transfer, trying to access x results in an error because ownership was moved."
+//             )
+//         ],
+//     ),
+//     describe_function("move_value", &["a: u8"], None,
+//         "Move ownership of a's value to a variable you create called b.
+//         Then, print the value of b like this:
+
+//             print!(\"b has ownership of {}\", b)",
+//     ),
+//     None,
+//     None
+// );

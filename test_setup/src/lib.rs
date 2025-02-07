@@ -15,7 +15,6 @@ pub fn make_test(items: TokenStream) -> TokenStream {
         #[cfg(feature = \"{feat}\")]
         #[test]
         fn {feat}() {{
-        	rules();
         	task_info::{feat}_info();
         	{expr}
 

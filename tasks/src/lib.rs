@@ -74,7 +74,8 @@ pub fn describe_structure(name: &str, fields: &[&str], constructors: &[String], 
     if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a structure with:
-        Name: {name}
+
+    Name: {name}
 
     Fields:
         {fields}
@@ -99,7 +100,8 @@ pub fn describe_enum(name: &str, fields: &[&str], constructors: &[String], metho
     if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a enum with:
-        Name: {name}
+
+    Name: {name}
 
     Variants:
         {fields}
@@ -278,8 +280,8 @@ test_setup::make_test!(task2_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_5_info'
-    assert_stdout_eq!(tasks::say_add(1, 5), "The result was 6");
-    assert_stdout_eq!(tasks::say_add(61, 42), "The result was 103");
+    assert_eq!(tasks::subtract(8, 4), 4);
+    assert_eq!(tasks::subtract(61, 42), 19);
     //----------------------------------------------------------------------
 }, task2_6);
 
@@ -287,8 +289,7 @@ test_setup::make_test!(task2_6, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_6_info'
-    assert_eq!(tasks::subtract(8, 4), 4);
-    assert_eq!(tasks::subtract(61, 42), 19);
+    assert_stdout_eq!(tasks::jonah(), "Their name is Jonah");
     //----------------------------------------------------------------------
 }, task2_7);
 
@@ -296,8 +297,8 @@ test_setup::make_test!(task2_7, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task2_7_info'
-    assert_eq!(tasks::add_three(8, 4, 45), 57);
-    assert_eq!(tasks::add_three(61, 42, 1), 104);
+    assert_stdout_eq!(tasks::say_add(8, 4), "The result is 12");
+    assert_stdout_eq!(tasks::say_add(61, 42), "The result is 103");
     //----------------------------------------------------------------------
 }, task2_8);
 
@@ -320,12 +321,7 @@ test_setup::make_test!(task3_1, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_1_info'
-    assert_stdout_eq!(
-    	tasks::say_bool(true), "My boolean is: true"
-    );
-    assert_stdout_eq!(
-    	tasks::say_bool(false), "My boolean is: false"
-    );
+    assert_eq!(tasks::is_awesome(), true);
     //----------------------------------------------------------------------
 }, task3_2);
 
@@ -343,9 +339,10 @@ test_setup::make_test!(task3_3, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_3_info'
-    assert_stdout_eq!(tasks::say_is_equals(8, 2), "Values are not equal");
-    assert_stdout_eq!(tasks::say_is_equals(8, 4), "Values are not equal");
-    assert_stdout_eq!(tasks::say_is_equals(8, 8), "Values are equal");
+    assert_stdout_eq!(tasks::your_planet("mercury"), "About 77 million kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("venus"), "About 41 million kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("neptune"), "About 4.3 billion kilometers away.");
+    assert_stdout_eq!(tasks::your_planet("ukraine"), "Undiscovered planet.");
     //----------------------------------------------------------------------
 }, task3_4);
 
@@ -353,9 +350,8 @@ test_setup::make_test!(task3_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_4_info'
-    assert_eq!(tasks::is_not_equal(8, 2), true);
-    assert_eq!(tasks::is_not_equal(8, 4), true);
-    assert_eq!(tasks::is_not_equal(8, 8), false);
+    assert_stdout_eq!(tasks::underwater(true), "I am underwater");
+    assert_stdout_eq!(tasks::underwater(false), "Not underwater");
     //----------------------------------------------------------------------
 }, task3_5);
 
@@ -363,26 +359,36 @@ test_setup::make_test!(task3_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_5_info'
-    assert_eq!(tasks::is_not_equal_again(8, 2), true);
-    assert_eq!(tasks::is_not_equal_again(8, 4), true);
-    assert_eq!(tasks::is_not_equal_again(8, 8), false);
+    assert_stdout_eq!(tasks::say_is_equal(5, 5), "a is the same as b");
+    assert_stdout_eq!(tasks::say_is_equal(10, 12), "a is not the same as b");
     //----------------------------------------------------------------------
 }, task3_6);
+
 
 test_setup::make_test!(task3_6, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_6_info'
-    assert_stdout_eq!(tasks::shoes_on(true, true), "Take your shoes off!");
-    assert_stdout_eq!(tasks::shoes_on(true, false), "Take your shoes off!");
-    assert_stdout_eq!(tasks::shoes_on(false, false), "Good kid!");
+    assert_eq!(tasks::power_status(true), false);
+    assert_eq!(tasks::power_status(false), true);
     //----------------------------------------------------------------------
 }, task3_7);
 
+
+// test_setup::make_test!(task3_6, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_6_info'
+//     assert_stdout_eq!(tasks::shoes_on(true, true), "Take your shoes off!");
+//     assert_stdout_eq!(tasks::shoes_on(true, false), "Take your shoes off!");
+//     assert_stdout_eq!(tasks::shoes_on(false, false), "Good kid!");
+//     //----------------------------------------------------------------------
+// }, task3_7);
+
 test_setup::make_test!(task3_7, {
-    assert_stdout_eq!(tasks::ready_to_go(true, true), "Ready to go!");
-    assert_stdout_eq!(tasks::ready_to_go(true, false), "Not ready to go yet!");
-    assert_stdout_eq!(tasks::ready_to_go(false, false), "Not ready to go yet!");
+    assert_stdout_eq!(tasks::decide_battle(true, true), "Run!");
+    assert_stdout_eq!(tasks::decide_battle(true, false), "Run!");
+    assert_stdout_eq!(tasks::decide_battle(false, false), "Fight!");
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_7_info'
@@ -390,17 +396,12 @@ test_setup::make_test!(task3_7, {
 }, task3_8);
 
 test_setup::make_test!(task3_8, {
+    assert_stdout_eq!(tasks::has_access(true, true), "You can enter!");
+    assert_stdout_eq!(tasks::has_access(true, false), "Access denied.");
+    assert_stdout_eq!(tasks::has_access(false, false), "Access denied.");
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_8_info'
-    assert_eq!(tasks::ready_to_play(false, false, false), false);
-    assert_eq!(tasks::ready_to_play(true, false, false), false);
-    assert_eq!(tasks::ready_to_play(false, true, false), false);
-    assert_eq!(tasks::ready_to_play(true, true, false), true);
-    assert_eq!(tasks::ready_to_play(false, false, true), false);
-    assert_eq!(tasks::ready_to_play(true, false, true), true);
-    assert_eq!(tasks::ready_to_play(false, true, true), false);
-    assert_eq!(tasks::ready_to_play(true, true, true), true);
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task3_7_info'
     //----------------------------------------------------------------------
 }, task4_1);
 
@@ -409,7 +410,7 @@ test_setup::make_test!(task4_1, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_1_info'
 
-    let _test = tasks::DriversLicense{issued: 34, expires: 76};
+    let _test = tasks::Warship{cannons: 34, torpedoes: 76, speed: 100};
     //----------------------------------------------------------------------
 }, task4_2);
 
@@ -417,9 +418,10 @@ test_setup::make_test!(task4_2, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_2_info'
-    let test = tasks::my_new_dl();
-    assert_eq!(test.issued, 4);
-    assert_eq!(test.expires, 12);
+    let test = tasks::create_warship();
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
+    assert_eq!(test.speed, 100);
     //----------------------------------------------------------------------
 }, task4_3);
 
@@ -428,12 +430,12 @@ test_setup::make_test!(task4_3, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_3_info'
     assert_stdout_eq!(
-        tasks::print_drivers_license(tasks::DriversLicense{issued: 34, expires: 42}),
-        "34-42"
+        tasks::cannon_count(tasks::Warship{cannons: 34, torpedoes: 76, speed: 100}),
+        "My warship has 34 cannons left"
     );
     assert_stdout_eq!(
-        tasks::print_drivers_license(tasks::DriversLicense{issued: 72, expires: 80}),
-        "72-80"
+        tasks::cannon_count(tasks::Warship{cannons: 7, torpedoes: 76, speed: 100}),
+        "My warship has 7 cannons left"
     );
     //----------------------------------------------------------------------
 }, task4_4);
@@ -443,13 +445,15 @@ test_setup::make_test!(task4_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_4_info'
-    let test = tasks::DriversLicense::new(34);
-    assert_eq!(test.issued, 34);
-    assert_eq!(test.expires, 42);
+    let test = tasks::Warship::new(34);
+    assert_eq!(test.speed, 34);
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
 
-    let test = tasks::DriversLicense::new(57);
-    assert_eq!(test.issued, 57);
-    assert_eq!(test.expires, 65);
+    let test = tasks::Warship::new(200);
+    assert_eq!(test.speed, 200);
+    assert_eq!(test.cannons, 12);
+    assert_eq!(test.torpedoes, 24);
     //----------------------------------------------------------------------
 }, task4_5);
 
@@ -458,11 +462,15 @@ test_setup::make_test!(task4_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_5_info'
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(33), false);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(34), true);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(40), true);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(42), false);
-    assert_eq!(tasks::DriversLicense{issued: 34, expires: 42}.is_valid(45), false);
+    assert_stdout_eq!(
+        tasks::Warship{cannons: 7, torpedoes: 2, speed: 100}.torpedo_check(),
+        "I have 2 torpedoes left"
+    );
+
+    assert_stdout_eq!(
+        tasks::Warship{cannons: 7, torpedoes: 76, speed: 100}.torpedo_check(),
+        "I have 76 torpedoes left"
+    );
 
     //----------------------------------------------------------------------
 }, task4_6);
@@ -499,33 +507,18 @@ test_setup::make_test!(task4_8, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 20, expires: 28}.examine(),
-        "Hey that's my drivers license"
+        tasks::Warship{cannons: 5, torpedoes: 10, speed: 100}.torpedo_check(),
+        "This ship is stocked up and ready to go"
     );
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 28}.examine(),
-        "Drivers license issued during covid"
+        tasks::Warship{cannons: 0, torpedoes: 1, speed: 25}.torpedo_check(),
+        "This ship is low and slow"
     );
 
     assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 45}.examine(),
-        "Drivers license issued during covid"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 22, expires: 24}.examine(),
-        "Drivers license issued during covid"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 18, expires: 24}.examine(),
-        "Expires on the 24 and was issued on 18"
-    );
-
-    assert_stdout_eq!(
-        tasks::DriversLicense{issued: 10, expires: 24}.examine(),
-        "Expires on the 24 and was issued on 10"
+        tasks::Warship{cannons: 51, torpedoes: 12, speed: 90}.torpedo_check(),
+        "This ship is a mystery"
     );
     //----------------------------------------------------------------------
 }, task5_1);
@@ -535,10 +528,10 @@ test_setup::make_test!(task5_1, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_1_info'
 
-    let blue = tasks::Color::Blue{};
-    let red = tasks::Color::Red{};
-    let green = tasks::Color::Green{};
-    let yellow = tasks::Color::Yellow{};
+    let fighter = tasks::Spacecraft::Fighter{};
+    let cargo = tasks::Spacecraft::Cargo{};
+    let colonizer = tasks::Spacecraft::Colonizer{};
+    let explorer = tasks::Spacecraft::Explorer{};
 
     //----------------------------------------------------------------------
 }, task5_2);
@@ -548,10 +541,7 @@ test_setup::make_test!(task5_2, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_2_info'
 
-    assert_eq!(tasks::Color::Blue{}.is_primary(), true);
-    assert_eq!(tasks::Color::Red{}.is_primary(), true);
-    assert_eq!(tasks::Color::Green{}.is_primary(), true);
-    assert_eq!(tasks::Color::Yellow{}.is_primary(), false);
+    let test = tasks::get_fighter();
 
     //----------------------------------------------------------------------
 }, task5_3);
@@ -561,12 +551,10 @@ test_setup::make_test!(task5_3, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    assert_eq!(tasks::Furniture::Couch{legs: 8, cushions: 1}.get_legs(), 8);
-    assert_eq!(tasks::Furniture::Couch{legs: 24, cushions: 43}.get_legs(), 24);
-    assert_eq!(tasks::Furniture::Chair{legs: 83}.get_legs(), 83);
-    assert_eq!(tasks::Furniture::Chair{legs: 22}.get_legs(), 22);
-    assert_eq!(tasks::Furniture::Table{legs: 49, plates: 12}.get_legs(), 49);
-    assert_eq!(tasks::Furniture::Table{legs: 29, plates: 13}.get_legs(), 29);
+    assert_eq!(tasks::Spacecraft::Fighter{}.is_passenger(), true);
+    assert_eq!(tasks::Spacecraft::Cargo{}.is_passenger(), false);
+    assert_eq!(tasks::Spacecraft::Colonizer{}.is_passenger(), true);
+    assert_eq!(tasks::Spacecraft::Explorer{}.is_passenger(), true);
 
     //----------------------------------------------------------------------
 }, task5_4);
@@ -574,12 +562,11 @@ test_setup::make_test!(task5_3, {
 test_setup::make_test!(task5_4, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    let some_u8 = tasks::Option::<u8>::Some{value: 134};
-    let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
-    let none_u8 = tasks::Option::<u8>::None{};
-    let none_string = tasks::Option::<String>::None{};
+    let invisibility = tasks::Potion::Invisibility{ strength: 12 };
+    let healing = tasks::Potion::Healing{ strength: 14 };
+    let poison = tasks::Potion::Poison{ strength: 8 };
 
     //----------------------------------------------------------------------
 }, task5_5);
@@ -587,13 +574,46 @@ test_setup::make_test!(task5_4, {
 test_setup::make_test!(task5_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    let _test = tasks::Option::<u8>::new_some(10);
-    let _test = tasks::Option::<String>::new_some("test".to_string());
+    assert_stdout_eq!(
+        tasks::Potion::Invisibility{strength: 51}.say_strength(),
+        "You found an Invisibility potion with 51 strength"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Healing{strength: 15}.say_strength(),
+        "You found a Healing potion with 15 strength"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Poison{strength: 12}.say_strength(),
+        "You found a Poison potion with 12 strength"
+    );
 
     //----------------------------------------------------------------------
 }, task5_6);
+// test_setup::make_test!(task5_4, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
+
+//     let some_u8 = tasks::Option::<u8>::Some{value: 134};
+//     let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
+//     let none_u8 = tasks::Option::<u8>::None{};
+//     let none_string = tasks::Option::<String>::None{};
+
+//     //----------------------------------------------------------------------
+// }, task5_5);
+
+// test_setup::make_test!(task5_5, {
+//     //----------------------------------------------------------------------
+//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
+
+//     let _test = tasks::Option::<u8>::new_some(10);
+//     let _test = tasks::Option::<String>::new_some("test".to_string());
+
+//     //----------------------------------------------------------------------
+// }, task5_6);
 
 test_setup::make_test!(task5_6, {
     //----------------------------------------------------------------------
