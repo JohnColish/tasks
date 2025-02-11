@@ -805,7 +805,7 @@ make_test_info!(
         None,
         "print the cannons field in the warship parameter like this: 
         
-            \"My warship has 5 cannons left\"
+            \"My warship has _ cannons left\"
         ",
     ),
     None,
@@ -910,7 +910,7 @@ make_test_info!(
         "torpedo_check", &["self: Warship"], None,
         "print the torpedo field of the self parameter like this: 
         
-            \"I have 5 torpedoes left\""
+            \"I have _ torpedoes left\""
     ).replace("\n", "\n    "),
     None,
     None
@@ -1193,13 +1193,11 @@ make_test_info!(
 
 
 make_test_info!(
-    task5_5_info, "Fields",
-    describe_type("Fields",
+    task5_5_info, "Matching with Enumerators",
+    describe_type("Enum Matching",
         "
-        Like regular Structs, enumerator Sub-Structs can have fields too.",
-        (false, &[
-            "The sub-struct fields do not need to be prefixed with pub, explanation later"
-        ]),
+        When matching on an enumerator variant, we must 'collect' the value of each field in a variable",
+        (false, &[]),
         &[
             (
             "Example",
@@ -1212,20 +1210,22 @@ make_test_info!(
             let chest = Treasure::Gold { count: 48 };
 
             match chest {
-                Treasure::Gold { count: gold } => {
-                    print!(\"{} gold!\", gold)
-                },
-                Treasure::Gems { count: gems } => {
-                    print!(\"{} gems!\", gems)
-                },
-                Treasure::Artifact { count: artifacts } => {
-                    print!(\"{} artifacts!\", artifacts)
-                },
+                Treasure::Gold { count: gold } => print!(\"{} gold!\", gold),
+                Treasure::Gems { count: gems } => print!(\"{} gems!\", gems),
+                Treasure::Artifact { count: artifacts } => print!(\"{} artifacts!\", artifacts),
             };"
-            ),
+            ), 
+            (
+                "Explanation",
+                "Treasure::Gold { count: gold } 
+                - Here we are 'collecting' count value in a variable named gold
+                
+            print!(\"{} gold!\", gold),
+                - Now, we print the value of gold"
+            )
         ],
     ),
-    "Create an impl block for the Spacecraft enum,
+    "Create an impl block for the Potion enum,
     and inside:
     \n        ".to_string()
     +&describe_function("say_strength", &["self: Potion"], None,
@@ -1236,296 +1236,426 @@ make_test_info!(
             \"You found a Poison potion with _ strength\""
     ).replace("\n", "\n    "),
     None,
-    Some("**  THIS IS CURRENTLY THE LAST TASK  **")
+    None
 );
 
+
+make_test_info!(
+    task5_6_info, "Matching with Enumerators",
+    describe_type("Using _ to collect field values",
+        "
+        Sometimes, we don't want to do anything with a field's value.
+        
+        So, we 'collect' this value with an underscore _",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "match chest {
+                Treasure::Gold { count: _ } => print!(\"This is gold. I want artifacts!\"),
+                Treasure::Gems { count: _ } => print!(\"These are gems. I want artifacts!\"),
+                Treasure::Artifact { count: artifacts } => print!(\"{} artifacts!\", artifacts),
+            };"
+            ), 
+            (
+                "Explanation",
+                "Treasure::Gold { count: _ } 
+                - We don't care what the value of count is, so we 'collect' it in _"
+            )
+        ],
+    ),
+    "Create an impl block for the Potion enum,
+    and inside:
+    \n        ".to_string()
+    +&describe_function("poison_strength", &["self: Potion"], None,
+        "use a match statement to print potions. Only the strength of the poison variant:
+
+            \"Invisibility potion\"
+            \"Healing potion\"
+            \"_ strength poison potion\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task5_7_info, "Explicit Returning",
+    describe_type("return keyword",
+        "
+        Sometimes, we want to return a variable we've already created. 
+        Without creating a new one.
+        
+        We can use the 'return' keyword",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "pub fn make_sandwich() -> &str {
+                let sandwich = \"Chicken Sandwich\";
+                print!(\"Here is a {}\", sandwich);
+                return sandwich
+            }"
+            ), 
+            (
+                "Explanation",
+                "let sandwich = \"Chicken Sandwich\"; - Created a sandwich variable
+            print!(\"Here is a {}\", sandwich); - Printed the sandwich value
+            return sandwich - Now the function will return sandwich"
+            )
+        ],
+    ),
+    describe_function("my_trucks", &[], Some("u8"),
+        "create a variable called trucks, with the type u8
+        set the value to 4
+        print the 'trucks' variable: \"I have {} trucks\"
+        return the 'trucks' variable using the 'return' keyword"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task5_8_info, "Optional Value",
+    describe_type("Some & None",
+        "
+        Option<> is a type of value that can either contain something, or contain nothing",
+        (false, &[]),
+        &[
+            (
+            "Example",
+            "pub fn vending_machine(choice: &str) -> Option<&str> {
+                match choice {
+                    \"chips\" => Some(\"You got a bag of chips!\"),
+                    \"soda\" => Some(\"A refreshing soda appears!\"),
+                    \"candy\" => Some(\"Sweet! You got a candy bar!\"),
+                    _ => None, // The machine is out of stock!
+                }
+            }"
+            ),
+            (
+            "Explanation",
+            "pub fn vending_machine(choice: &str) -> - the start of a function
+
+            Option<&str> - this function will either return an &str or None
+
+            When returning an optional value, you have to wrap the value in Some()
+            Some(\"You got a bag of chips!\")
+
+            _ => None - If the choice was none of the above, return None
+            "
+            )
+        ],
+    ),
+    describe_function("gold_coins", &["island: &str"], Some("Option<u8>"),
+        "Create a match statement for island and if 
+
+        \"Galapagos\", then return Some(50)
+        \"Madagascar\", then return Some(100)
+        \"Maldives\", then return Some(50)
+
+        If anything else, use an underscore _ and return None"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task6_1_info, "First Collection",
+    describe_type("Vectors",
+        "
+        A vector is a type that can contain multiple values",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let creatures: Vec<&str> = vec![\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\"];"
+            ),
+            (
+            "Explanation",
+            "let creatures: - We create a variable called creatures
+            
+            Vec<&str> - This variable's type is a Vector of &str
+            
+            = vec![] - This is how you create a Vector
+            
+            \"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\" 
+                - The values that our vector contains, separated by commas"
+            )
+        ],
+    ),
+    describe_function("kms_this_week", &[], Some("Vec<u8>"),
+        "return a vector with the values 5, 7, 10, 5, 7, 5, 10"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task6_2_info, "Printing Vectors",
+    describe_type("Debug Formatting",
+        "
+        We cannot print a complex data type like a vector in rust using {} as the blankspace.
+        Rust will not know how to display vectors properly.
+
+        We have to use {:?} as the blankspace. 
+        Using {:?} tells the computer to do its best to display the value",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let creatures: Vec<&str> = vec![\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\"];
+            print!(\"In my house are {:?}, creatures);
+            "
+            ),
+            (
+            "This will print",
+            "\"In my house are [\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\"]"
+            )
+        ],
+    ),
+    describe_function("eggs_this_week", &[], None,
+        "create a variable called eggs with type Vec<u8>
+        set the values to 3, 5, 2, 4, 4, 2, 6
+        print the vector like this: \"I got _ eggs this week\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task6_3_info, "Second Collection",
+    describe_type("Tuples",
+        "
+        The values in a vector have to be all the same kind. 
+        To make a collection of values with different types, we use Tuples",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let my_friend: (&str, u8) = (\"Luke\", 24);
+            "
+            ),
+            (
+            "Explanation",
+            "let my_friend:  - the start of a variable
+            (&str, u8) - this tuple will contain a piece of text and a small number
+            = (\"Luke\", 24) - my_friend contains a tuple with \"Luke\" as the text and 24 as the number"
+            )
+        ],
+    ),
+    describe_function("mission", &[], None,
+        "create a tuple where the first value is the mission name: \"Apollo 11\" 
+        and the second is a u8 for passenger count: 3
+        
+        then print the variable like this: \"Mission, Passengers: _\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task6_4_info, "Printing Tuple Value",
+    describe_type("Indexing",
+        "
+        To 'access' a single value inside a tuple, 
+        you will need the variable/parameter name followed by a period . 
+        followed by the position of the value
+        
+        Collections in rust are 'zero indexed' which means the first value is at position 0,
+        the second value is at position 1,
+        the third value is at position 2,
+        and so on...",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let my_friend: (&str, u8) = (\"Luke\", 24)
+            "
+            ),
+            (
+            "print!(\"I have a friend named {}\", my_friend.0); will print",
+            "\"I have a friend named Luke\""
+            ),
+            (
+            "print!(\"My friend is {} years old\", my_friend.1); will print",
+            "\"My friend is 24 years old\""
+            )
+        ],
+    ),
+    describe_function("sports_car", &["car: (&str, u8)"], None,
+        "print the parameter like this: \"I have a _ with top speed _\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task6_5_info, "Third Collection",
+    describe_type("Hashmaps",
+        "
+        A HashMap is like this chest of labeled drawers:
+
+        Each label is called a key
+        The item inside is called a value
+
+        You use the key to find the value.
+        This is useful when you want to store and quickly look up things, like:
+        A phone book (names → phone numbers) 
+        A scoreboard (players → high scores)
+        A dictionary (word → definition)",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let monkeys: Hashmap<&str, &str> = HashMap::new();
+
+            monkeys.insert(\"Terence\", \"Capuchin\");
+            monkeys.insert(\"Alex\", \"Proboscis\");
+            "
+            ),
+            (
+            "Explanation",
+            "let monkeys: - the start of a variable
+            
+            Hashmap<&str, &str> - the type will be a Hashmap where the key and value are &str
+            
+            HashMap::new() - creates an new, empty hashmap
+            
+            monkeys.insert() - this is the method used to add the key and value
+
+            \"Terence\" - this is the key
+            \"Capuchin\" - this is the value"
+            ),
+        ],
+    ),
+    describe_function("soccer_player", &[], Some("Hashmap<u8, u8>"),
+        "Create a variable called 'players' with type Hashmap<u8, u8>
+        Set 'players' to a new Hashmap
+        Insert the key 12 with value 3 (12 being player's number, 3 being goals)
+        Return players"
+    ).replace("\n", "\n    "),
+    None,
+    Some("Hashmaps are not a type that comes by default. 
+    Add ' use std::collections::HashMap; ' to the top of your tasks.rs file")
+);
+
+make_test_info!(
+    task6_6_info, "Getting Hashmap Values",
+    describe_type(".get() method",
+        "
+        To get a value from a hashmap using a key, 
+        we use the .get() method on the variable and pass in the key as a parameter",
+        (true, &[]),
+        &[
+            (
+            "Example using monkeys from before",
+            "let terence_breed: &str = monkeys.get(\"Terence\");"
+            ),
+            (
+            "Explanation",
+            "let terence_breed: &str = - creating a variable
+            monkeys.get(\"Terence\") - using the get method with the key \"Terence\"
+            
+            terence_breed now contains \"Capuchin\""
+            ),
+        ],
+    ),
+    describe_function("salmon_count", &["todays_catch: Hashmap<&str, u8>"], Some("u8"),
+        "todays_catch is a hashmap of fish species (the &str) and amount caught (the u8) 
+        
+        Create a variable called 'salmon' containing value associated with the key \"Salmon\"
+        Print it like this: \"Today we caught _ salmon!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+// Unnamed struct/enum fields
+
+// Mut
+
+// Hashmaps
+// Vectors
+// Tuples
+
+// If Else
+// If Let
+
+// Some
+// None
+
+// Loop
+// While loop
+// For in loop
+
+// Generic types
+// Traits
+
+// Borrowing and Ownership
+// Lifetimes
+
+// Const
+// Macros
+
+// Break
+// Continue
+
+// Async
+// Await
+
 // make_test_info!(
-//     task5_4_info, "Type Parameter",
-//     describe_type("T: TypeParameter",
-//         "There is a special feature of Types, including structures and enums, that allow you
-//         to accept a TypeParemeter, This is for situations where you want a type that can be
-//         used to store any type in a field.",
-//         (false, &[
-//             "To declare a Type Parameter place arrow braces after the Structure Name",
-//             "To use the structure you have to provide the TypeParameter this is done
-//             using the :: TypePathSeperator and Arrow Braces <>"
-//         ]),
-//         &[
-//             (
-//             "Example",
-//             "pub enum Result<T> {
-//                 Ok{
-//                     value: T
-//                 },
-//                 Error{
-//                     code: u8
-//                 }
-//             }
-
-//             let my_ok_result = Result::<u8>::Ok{value: 125};//125 is a u8 replacing the T
-//             let my_err_result = Result::<&str>::Error{code: 2};
-//             //For the Error we still have to specify the Type Param even though it is unused
-//             "
-//             ),
-//         ],
-//     ),
-//     describe_enum(
-//         "Option<T>",
-//         &["Some{
-//             value: T,
-//         },",
-//         "None{}"
-//         ],
-//         &[],
-//         &[],
-//     ),
-//     None,
-//     None
-// );
-
-// make_test_info!(
-//     task5_5_info, "Impl TypeParamater",
-//     describe_type("TypeParam Constructor",
-//         "TypeParameters can be a bit of a pain to deal with since you won't know what
-//         Type your dealing when creating methods or constructors",
-//         (false, &[
-//             "In order to impl a TypeParameter Structure you have to include the TypeParam
-//             in the impl block definition as shown in the example.",
-//             "To create or construct a Structure with a Type Parameter you have to include
-//             the type as apart of the brace constructor Name::<Type>::SubStruct{...}",
-//         ]),
-//         &[
-//             (
-//             "Example",
-//             "pub enum Result<T> {
-//                 Ok{
-//                     value: T
-//                 },
-//                 Error{
-//                     code: u8
-//                 }
-//             }
-
-//             impl<T> Result<T> {
-//                 //For a method that accepts any Type T
-//                 pub fn new_ok(value_param: T) -> Result<T> {
-//                     Result::<T>::Ok{value: value_param}
-//                 }
-
-//                 //To just create a Result with a u8
-//                 pub fn new_ok_u8(value_param: u8) -> Result<u8> {
-//                     Result::<u8>::Ok{value: value_param}
-//                 }
-
-//                 //For a new error, even if the TypeParam is unused it still has to be specified
-//                 pub fn new_err(code_param: u8) -> Result<T> {
-//                     Result::<T>::Error{code: code_param}
-//                 }
-//             }"
-//             ),
-//         ],
-//     ),
-//     "Add and impl<T> block to the Option<T> enum and add a constructor to it:\n        ".to_string()
-//     +&describe_function("new_some", &["value_param: T"], Some("Option<T>"),
-//         "Construct the Some SubStrucure of Option and use value_param as the value"
-//     ).replace("\n", "\n    "),
-//     None,
-//     None
-// );
-
-// make_test_info!(
-//     task5_6_info, "Impl TypeParamater",
-//     describe_type("TypeParam Method",
-//         "Another downside is that returning a value with a TypeParamater is much harder,
-//         since you cannot provide a value that could be one Type or another. But a match
-//         statement can still come in handy here.",
-//         (false, &[]),
-//         &[
-//             (
-//             "Example",
-//             "pub enum Result<T> {
-//                 Ok{
-//                     value: T
-//                 },
-//                 Error{
-//                     code: u8
-//                 }
-//             }
-
-//             impl<T> Result<T> {
-//                 pub fn get_error_code(self: Result<T>) -> u8 {
-//                     match self {
-//                         Result::<T>::Ok{value: _} => 0,//Zero error code is no error
-//                         Result::<T>::Error{code: err_code} => err_code,
-//                     }
-//                 }
-//             }"
-//             ),
-//         ],
-//     ),
-//     "Add a method to the impl<T> Option<T> Block:\n        ".to_string()
-//     +&describe_function("is_some", &["self: Option<T>"], Some("bool"),
-//         "Use a match statement to return true if the Option sub-struct is Some"
-//     ).replace("\n", "\n    "),
-//     None,
-//     None
-// );
-
-// make_test_info!(
-//     task5_7_info, "TypeParam Structure",
-//     describe_type("Structure TypeParam",
-//         "Structures can accept Type Parameters exactly the same way as enums",
-//         (false, &[]),
-//         &[
-//             (
-//             "Example",
-//             "pub struct Box<T> {
-//                 pub boxed_value: T,
-//                 pub count: u8
-//             }
-
-//             let my_box = Box::<u8>{boxed_value: 10, count: 1};
-//             "
-//             ),
-//         ],
-//     ),
-//     describe_structure(
-//         "Box<T>",
-//         &[
-//             "pub boxed_value: T",
-//             "pub count: u8"
-//         ],
-//         &[describe_function("new", &["value: T, count: u8"], Some("Box<T>"),
-//             "Create a new Box<T> and set the boxed_value to value, and count to the count param"
-//         )],
-//         &[describe_function("add_one", &["self: Box<T>"], Some("Box<T>"),
-//             "Take in self and create a new Box<T> setting boxed_value to self.boxed_value,
-//             But set count to the old count plus one"
-//         )],
-//     ),
-//     None,
-//     Some("While add_one does return a Box<T> like a constructor, because it accepts self: Box<T>
-//     its considered to be a method and ran just like any other method.")
-// );
-
-// make_test_info!(
-//     task5_8_info, "Nested TypeParam",
-//     describe_type("Nested TypeParam",
-//         "You can use your structure or enums inside other structures or enums just like
-//         any other type. But when you have types that require a Type Param you have to
-//         specify the TypeParam in every place you use it. And when you do this you
-//         will likely end up with nested TypeParams, fortunately this is possible by simply
-//         nesting the arrow braces.",
-//         (false, &[]),
-//         &[
-//             (
-//             "Example",
-//             "pub struct Box<T> {
-//                 pub boxed_value: T,
-//                 pub count: u8
-//             }
-
-//             pub enum Result<T> {
-//                 Ok{value: T},
-//                 Error{code: u8}
-//             }
-
-//             impl<T> Result<T> {
-//                 pub fn new_ok(my_value: T) -> Result<T> {
-//                     Result::<T>::Ok{value: my_value}
-//                 }
-//             }
-
-//             let my_boxed_result: Box<Result<u8>> = Box::<Result<u8>>{
-//                 boxed_value: Result::<u8>::new_ok(10),
-//                 count: 1
-//             };"
-//             ),
-//         ],
-//     ),
-//     describe_function(
-//         "create_boxed_option", &["value: u8"], Some("Box<Option<u8>>"),
-//         "Accept value which is a u8, use a match statement and '>' to check:
-//         If value is greater than 50:
-//             Return the Option Some substructure with value equal to the param
-//             Box the Option Some with count 10
-//         Otherwise:
-//             Return None SubStructure Boxed with count 20"
-//     ),
-//     None,
-//     Some("Use the Box::<Option<u8>>::new() and the Option::<u8>::new_some() constructors")
-// );
-
-
-
-
-
-
-
-
-//  make_test_info!(
-//      task4_6_info, "Pointers/Borrowing",
-//      describe_type("Pointer",
-//          "Previously we spoke of reusing a parameter in 'hello_twice'. This was possible because
-//          the parameter was a &str (borrowed str) or better called (pointer to a str).",
-//          (false, &[
-//              "Values can only be used once unless they are (Copy)ied, (Clone)d, or pointed to(&)",
-//              "Copying is availble for certian types and is taken care of automatically",
-//              "Cloning is creating an exact duplicate with .clone() and is best avoided unless necessary",
-//              "Borrowing is creating a readonly pointer to the value.",
-//              "&str are always borrowed so they cannot be stored nor modified after creation",
-//              "(String)s are a version of string that can be stored and its created from a &str.",
-//              "Strings can be borrowed or a pointer can be created to it by placing a & behind it.
-//              This essentially turns it into a &str and this is useful when ever you need
-//              to simlpy read/print a value and not modifiy it."
-//          ]),
-//          &[
-//              (
-//              "Example",
-//              "let my_name: String = \"Alex\".to_string();
-
-//              hello_user(&my_name);"
-//              ),
-//          ],
-//      ),
-//      "Add a method to the bottom of the impl for FullName:\n        ".to_string()
-//      +&describe_function("hello", &["full_name: &FullName"], None,
-//          "Use 'formal_hello' to print the first and last name. Don't forget to borrow
-//          the fields as you pass them to formal_hello"
-//      ).replace("\n", "\n    "),
-//      None,
-//      None
-//  );
-
-
-
-// make_test_info!(
-//     task4_1_info, "Ownership",
-//     describe_type("Understanding Ownership",
+//     task6_3_info, "Adding to a vector",
+//     describe_type(".push() method",
 //         "
-//         Only one variable can 'own' a piece of data at a time.
-//         When ownership is 'transferred', the original variable can no longer access that data.",
-//         (false, &[]),
+//         Vectors have a method called push(), this is used to add a value to the end of a vector",
+//         (true, &[]),
 //         &[
 //             (
-//                 "Here's an example showing ownership being moved from x to y",
-//                 "let x: u8 = 48;
-//             let y = x;"
+//             "Example",
+//             "let creatures: Vec<&str> = vec![\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\"];
+//             creatures.push(\"John Colish\");
+//             "
 //             ),
 //             (
-//                 "In this example",
-//                 "Ownership of the value 48 is with x.
-//             When y = x is executed, ownership of 48 is moved to y
-//             After the transfer, trying to access x results in an error because ownership was moved."
+//             "The variable creatures after the push contains",
+//             "[\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\", \"John Colish\"]"
 //             )
 //         ],
 //     ),
-//     describe_function("move_value", &["a: u8"], None,
-//         "Move ownership of a's value to a variable you create called b.
-//         Then, print the value of b like this:
+//     describe_function("high_scores", &["scores: Vec<u8>, new_score: u8"], Some("Vec<u8>"),
+//         "push new_score onto the end of scores
+//         return the 'scores' variable"
+//     ).replace("\n", "\n    "),
+//     None,
+//     None
+// );
 
-//             print!(\"b has ownership of {}\", b)",
+// make_test_info!(
+//     task6_4_info, "Adding to a vector",
+//     describe_type(".pop() method",
+//         "
+//         Vectors have a method called pop(), this is used to remove a value from the end of a vector
+//         The .pop() method doesn't take in any parameters",
+//         (true, &[]),
+//         &[
+//             (
+//             "Example",
+//             "let creatures: Vec<&str> = vec![\"Dragon\", \"Kraken\", \"Griffin\", \"Wyvern\"];
+//             creatures.pop();
+//             "
+//             ),
+//             (
+//             "The variable creatures after the push contains",
+//             "[\"Dragon\", \"Kraken\", \"Griffin\"]"
+//             )
+//         ],
 //     ),
+//     describe_function("disqualified", &["scores: Vec<u8>"], Some("Vec<u8>"),
+//         "pop the end of scores
+//         return the 'scores' variable"
+//     ).replace("\n", "\n    "),
 //     None,
 //     None
 // );

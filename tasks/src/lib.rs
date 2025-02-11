@@ -1,6 +1,7 @@
 #[cfg(feature="tasks")]
 pub mod tasks;
 pub mod task_info;
+pub mod galaga;
 
 pub fn rules() {
     std::process::Command::new("clear").status().unwrap();
@@ -61,56 +62,77 @@ pub fn describe_function(name: &str, params: &[&str], return_type: Option<&str>,
         {description}")
 }
 
-pub fn describe_structure(name: &str, fields: &[&str], constructors: &[String], methods: &[String]) -> String {
+pub fn describe_async_function(name: &str, params: &[&str], return_type: Option<&str>, description: &str) -> String {
+    let return_type = return_type.unwrap_or("None");
+    let mut params = params.join("\n        ");
+    if params.is_empty() {params = "None".to_string();}
+    format!("Create an async function with:
+
+    Name: {name}
+
+    Parameters:
+
+        {params}
+
+    ReturnType: 
+    
+        {return_type}
+
+    This function must:
+
+        {description}")
+}
+
+pub fn describe_addition(name: &str, description: &str) -> String {
+    format!("Inside the {name} function:
+
+    {description}")
+}
+
+pub fn describe_structure(name: &str, fields: &[&str], _constructors: &[String], _methods: &[String]) -> String {
     let mut fields = fields.join("\n        ");
     if fields.is_empty() {fields = "None".to_string();}
 
-    let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
-    let mut constructors = constructors.join("\n        ");
-    if constructors.is_empty() {constructors = "None".to_string();}
+    // let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    // let mut constructors = constructors.join("\n        ");
+    // if constructors.is_empty() {constructors = "None".to_string();}
 
-    let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
-    let mut methods = methods.join("\n        ");
-    if methods.is_empty() {methods = "None".to_string();}
+    // let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    // let mut methods = methods.join("\n        ");
+    // if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a structure with:
 
     Name: {name}
 
     Fields:
-        {fields}
-
-    Constructors:
-        {constructors}
-
-    Methods:
-        {methods}")
+        {fields}")
 }
 
-pub fn describe_enum(name: &str, fields: &[&str], constructors: &[String], methods: &[String]) -> String {
+pub fn describe_enum(name: &str, fields: &[&str], _constructors: &[String], _methods: &[String]) -> String {
     let mut fields = fields.join("\n        ");
     if fields.is_empty() {fields = "None".to_string();}
 
-    let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
-    let mut constructors = constructors.join("\n        ");
-    if constructors.is_empty() {constructors = "None".to_string();}
+    // let constructors = constructors.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    // let mut constructors = constructors.join("\n        ");
+    // if constructors.is_empty() {constructors = "None".to_string();}
 
-    let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
-    let mut methods = methods.join("\n        ");
-    if methods.is_empty() {methods = "None".to_string();}
+    // let methods = methods.iter().map(|m| m.split("\n").collect::<Vec<_>>().join("\n    ")).collect::<Vec<_>>();
+    // let mut methods = methods.join("\n        ");
+    // if methods.is_empty() {methods = "None".to_string();}
 
     format!("Create a enum with:
 
     Name: {name}
 
     Variants:
-        {fields}
+        {fields}")
+}
 
-    Constructors:
-        {constructors}
+pub fn describe_goal(expectation: &str) -> String {
+    format!("After the code compiles:
 
-    Methods:
-        {methods}")
+    {expectation}")
 }
 
 #[macro_export]
@@ -151,6 +173,37 @@ HINT:
                 $desc,
                 rest,
                 hint
+            );
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! make_game_info {
+    ($test:ident, $sec_info:expr, $info:expr, $desc:expr, $expt:expr) => {
+        pub fn $test() {
+            println!("
+----------------------------------------------------------------------
+
+{}: {}
+
+INFO: {}
+
+TASK DESCRIPTION:
+
+    {}
+
+{}
+
+----------------------------------------------------------------------
+                ",
+                stringify!($test)
+                    .strip_suffix("_info").unwrap()
+                    .replace("_", " "),
+                $sec_info,
+                $info,
+                $desc,
+                $expt
             );
         }
     };
@@ -591,39 +644,24 @@ test_setup::make_test!(task5_5, {
 
     //----------------------------------------------------------------------
 }, task5_6);
-// test_setup::make_test!(task5_4, {
-//     //----------------------------------------------------------------------
-//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_4_info'
-
-//     let some_u8 = tasks::Option::<u8>::Some{value: 134};
-//     let some_string = tasks::Option::<String>::Some{value: "test".to_string()};
-//     let none_u8 = tasks::Option::<u8>::None{};
-//     let none_string = tasks::Option::<String>::None{};
-
-//     //----------------------------------------------------------------------
-// }, task5_5);
-
-// test_setup::make_test!(task5_5, {
-//     //----------------------------------------------------------------------
-//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_5_info'
-
-//     let _test = tasks::Option::<u8>::new_some(10);
-//     let _test = tasks::Option::<String>::new_some("test".to_string());
-
-//     //----------------------------------------------------------------------
-// }, task5_6);
 
 test_setup::make_test!(task5_6, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_6_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_3_info'
 
-    assert_eq!(tasks::Option::<u8>::Some{value: 134}.is_some(), true);
-    assert_eq!(tasks::Option::<String>::Some{value: "test".to_string()}.is_some(), true);
-    assert_eq!(tasks::Option::<u8>::None{}.is_some(), false);
-    assert_eq!(tasks::Option::<String>::None{}.is_some(), false);
+    assert_stdout_eq!(
+        tasks::Potion::Invisibility{strength: 51}.poison_strength(),
+        "Invisibility potion"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Healing{strength: 15}.poison_strength(),
+        "Healing potion"
+    );
+    assert_stdout_eq!(
+        tasks::Potion::Poison{strength: 12}.poison_strength(),
+        "12 strength poison potion"
+    );
 
     //----------------------------------------------------------------------
 }, task5_7);
@@ -633,34 +671,105 @@ test_setup::make_test!(task5_7, {
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_7_info'
 
-    let my_box = tasks::Box::<u8>::new(134, 20);
-    assert_eq!(my_box.boxed_value, 134);
-    assert_eq!(my_box.count, 20);
-
-    let my_box = tasks::Box::<String>::new("test".to_string(), 20);
-    assert_eq!(my_box.boxed_value, "test".to_string());
-    assert_eq!(my_box.count, 20);
-
-    let my_box = my_box.add_one();
-    assert_eq!(my_box.boxed_value, "test".to_string());
-    assert_eq!(my_box.count, 21);
+    assert_stdout_eq!(tasks::my_trucks(), "I have 4 trucks");
+    assert_eq!(tasks::my_trucks(), 4);
 
     //----------------------------------------------------------------------
-}, task5_7);
+}, task5_8);
+
 
 test_setup::make_test!(task5_8, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_8_info'
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_7_info'
 
-    let my_box = tasks::create_boxed_option(20);
-    assert_eq!(my_box.count, 20);
-    assert_eq!(my_box.boxed_value.is_some(), false);
-
-    let my_box = tasks::create_boxed_option(70);
-    assert_eq!(my_box.count, 10);
-    assert_eq!(my_box.boxed_value.is_some(), true);
-
+    assert_eq!(tasks::gold_coins("Galapagos"), Some(50));
+    assert_eq!(tasks::gold_coins("Madagascar"), Some(100));
+    assert_eq!(tasks::gold_coins("Maldives"), Some(50));
+    assert_eq!(tasks::gold_coins("Bahamas"), None);
+    assert_eq!(tasks::gold_coins("Iceland"), None);
+    assert_eq!(tasks::gold_coins("Fiji"), None);
 
     //----------------------------------------------------------------------
 }, task6_1);
+
+test_setup::make_test!(task6_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_1_info'
+    assert_eq!(tasks::kms_this_week(), [5, 7, 10, 5, 7, 5, 10]);
+    //----------------------------------------------------------------------
+}, task6_2);
+
+test_setup::make_test!(task6_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_2_info'
+    assert_stdout_eq!(tasks::eggs_this_week(), "I got [3, 5, 2, 4, 4, 2, 6] eggs this week");
+    //----------------------------------------------------------------------
+}, task6_3);
+
+test_setup::make_test!(task6_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_3_info'
+    assert_eq!(tasks::high_scores(vec![12, 16, 14], 8), [12, 16, 14, 8]);
+    assert_eq!(tasks::high_scores(vec![6, 23, 7, 12], 31), [6, 23, 7, 12, 31]);
+    assert_eq!(tasks::high_scores(vec![8, 8, 8], 8), [8, 8, 8, 8]);
+    //----------------------------------------------------------------------
+}, task6_4);
+
+test_setup::make_test!(task6_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_4_info'
+
+    //----------------------------------------------------------------------
+}, task6_5);
+
+test_setup::make_test!(task6_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_5_info'
+
+    //----------------------------------------------------------------------
+}, task6_6);
+
+test_setup::make_test!(task6_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_5_info'
+
+    //----------------------------------------------------------------------
+}, task6_7);
+
+test_setup::make_test!(task6_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_5_info'
+
+    //----------------------------------------------------------------------
+}, task6_8);
+
+test_setup::make_test!(task6_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task6_5_info'
+
+    //----------------------------------------------------------------------
+}, task6_8);
+
+
+
+
+
+
+
+test_setup::make_game_test!(galaga_1, {}, task6_8);
+test_setup::make_game_test!(galaga_2, {}, task6_8);
+test_setup::make_game_test!(galaga_3, {}, task6_8);
+test_setup::make_game_test!(galaga_4, {}, task6_8);
+test_setup::make_game_test!(galaga_5, {}, task6_8);
+test_setup::make_game_test!(galaga_6, {}, task6_8);
+test_setup::make_game_test!(galaga_7, {}, task6_8);
+test_setup::make_game_test!(galaga_8, {}, task6_8);

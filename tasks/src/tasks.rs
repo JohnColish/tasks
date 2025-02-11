@@ -188,49 +188,6 @@ pub fn print_oranges(oranges: u8) {
     }
 }
 
-
-pub enum Option<T> {
-    Some{
-        value: T
-    },
-    None{}
-}
-
-impl<T> Option<T> {
-    pub fn new_some(value_param: T) -> Option<T> {
-        Option::<T>::Some{value: value_param}
-    }
-
-    pub fn is_some(self: Option<T>) -> bool {
-        match self {
-            Option::<T>::Some{value: _} => true,
-            Option::<T>::None{} => false
-        }
-    }
-}
-
-pub struct Box<T> {
-    pub boxed_value: T,
-    pub count: u8
-}
-
-impl<T> Box<T> {
-    pub fn new(value: T, count: u8) -> Box<T> {
-        Box::<T>{boxed_value: value, count}
-    }
-
-    pub fn add_one(self: Box<T>) -> Box<T> {
-        Box::<T>{boxed_value: self.boxed_value, count: self.count+1}
-    }
-}
-
-pub fn create_boxed_option(value: u8) -> Box<Option<u8>> {
-    match value > 50 {
-        true => Box::<Option<u8>>::new(Option::<u8>::new_some(value), 10),
-        false => Box::<Option<u8>>::new(Option::<u8>::None{}, 20)
-    }
-}
-
 pub enum Spacecraft {
     Fighter {},
     Cargo {},
@@ -273,4 +230,42 @@ impl Potion {
             }
         }
     }
+
+    pub fn poison_strength(self: Potion) {
+        match self {
+            Potion::Invisibility {strength: _} => {
+                print!("Invisibility potion");
+            },
+            Potion::Healing {strength: _} => {
+                print!("Healing potion");
+            },
+            Potion::Poison {strength: x} => {
+                print!("{x} strength poison potion");
+            }
+        }
+    }
+}
+
+pub fn my_trucks() -> u8 {
+    let trucks = 4;
+    print!("I have {} trucks", trucks);
+    return trucks
+}
+
+pub fn gold_coins(island: &str) -> Option<u8> {
+    match island {
+        "Galapagos" => Some(50),
+        "Madagascar" => Some(100),
+        "Maldives" => Some(50),
+        _ => None,
+    }
+}
+
+pub fn kms_this_week() -> Vec<u8> {
+    vec![5, 7, 10, 5, 7, 5, 10]
+}
+
+pub fn eggs_this_week() {
+    let eggs: Vec<u8> = vec![3, 5, 2, 4, 4, 2, 6];
+    print!("I got {:?} eggs this week", eggs);
 }
