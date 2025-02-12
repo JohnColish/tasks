@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 pub fn hello_world() {
 	print!("Hello, World!")
 }
@@ -188,49 +190,6 @@ pub fn print_oranges(oranges: u8) {
     }
 }
 
-
-pub enum Option<T> {
-    Some{
-        value: T
-    },
-    None{}
-}
-
-impl<T> Option<T> {
-    pub fn new_some(value_param: T) -> Option<T> {
-        Option::<T>::Some{value: value_param}
-    }
-
-    pub fn is_some(self: Option<T>) -> bool {
-        match self {
-            Option::<T>::Some{value: _} => true,
-            Option::<T>::None{} => false
-        }
-    }
-}
-
-pub struct Box<T> {
-    pub boxed_value: T,
-    pub count: u8
-}
-
-impl<T> Box<T> {
-    pub fn new(value: T, count: u8) -> Box<T> {
-        Box::<T>{boxed_value: value, count}
-    }
-
-    pub fn add_one(self: Box<T>) -> Box<T> {
-        Box::<T>{boxed_value: self.boxed_value, count: self.count+1}
-    }
-}
-
-pub fn create_boxed_option(value: u8) -> Box<Option<u8>> {
-    match value > 50 {
-        true => Box::<Option<u8>>::new(Option::<u8>::new_some(value), 10),
-        false => Box::<Option<u8>>::new(Option::<u8>::None{}, 20)
-    }
-}
-
 pub enum Spacecraft {
     Fighter {},
     Cargo {},
@@ -273,4 +232,78 @@ impl Potion {
             }
         }
     }
+}
+
+const COOKIES_LEFT: u8 = 2;
+
+pub fn eat_cookie() {
+    match COOKIES_LEFT < 3 {
+        true => print!("Who is eating all the cookies?"),
+        false => print!("There are so many cookies. I will eat one!")
+    }
+}
+
+pub fn level_up() {
+    let mut player_level: u8 = 12;
+    player_level = player_level + 1;
+    print!("Level Up! Level is {}", player_level);
+}
+
+pub fn burn_candle(mut candles: u8) {
+    candles = candles - 1;
+    print!("I burned a candle and now I have {} left", candles);
+}
+
+pub fn kms_this_week() -> Vec<u8> {
+    vec![5, 7, 10, 5, 7, 5, 10]
+}
+
+pub fn eggs_this_week() {
+    let eggs: Vec<u8> = vec![3, 5, 2, 4, 4, 2, 6];
+    print!("I got {:?} eggs this week", eggs);
+}
+
+pub fn my_trucks() -> u8 {
+    let trucks = 4;
+    print!("I have {} trucks", trucks);
+    return trucks
+}
+
+pub fn gold_coins(island: &str) -> Option<u8> {
+    match island {
+        "Galapagos" => Some(50),
+        "Madagascar" => Some(100),
+        "Maldives" => Some(50),
+        _ => None,
+    }
+}
+
+pub fn high_scores(mut scores: Vec<u8>, new_score: u8) -> Vec<u8> {
+    scores.push(new_score);
+    return scores
+}
+
+pub fn disqualified(mut scores: Vec<u8>) -> Vec<u8> {
+    scores.pop();
+    return scores
+}
+
+pub fn mission() {
+    let moon_mission: (&str, u8) = ("Apollo 11", 3);
+    print!("Mission, Passengers: {:?}", moon_mission);
+}
+
+pub fn sports_car(car: (&str, u8)) {
+    print!("I have a {} with top speed {}", car.0, car.1)
+}
+
+pub fn soccer_player() -> HashMap<u8, u8> {
+    let mut players: HashMap<u8, u8> = HashMap::new();
+    players.insert(12, 3);
+    return players
+}
+
+pub fn salmon_count(todays_catch: HashMap<&str, u8>) {
+    let salmon = todays_catch.get("Salmon");
+    print!("Today we caught {:?} salmon!", salmon);
 }
