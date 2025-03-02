@@ -771,3 +771,125 @@ test_setup::make_test!(task7_3, {
     //----------------------------------------------------------------------
 }, task7_4);
 
+test_setup::make_test!(task7_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task7_4_info'
+
+    assert_eq!(tasks::make_n_drink(8, 3), (7, 4));
+    assert_eq!(tasks::make_n_drink(3, 3), (2, 4));
+    assert_eq!(tasks::make_n_drink(12, 2), (11, 3));
+
+    //----------------------------------------------------------------------
+}, task7_5);
+
+test_setup::make_test!(task7_5, {
+     //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task7_5_info'
+    //----------------------------------------------------------------------
+}, task7_6);
+
+test_setup::make_test!(task7_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task7_6_info'
+    assert_stdout_eq!(
+        tasks::throw_snowballs(6), 
+        "Snowball!Snowball!Snowball!Snowball!Snowball!Snowball!Snowball!"
+    );
+    assert_stdout_eq!(
+        tasks::throw_snowballs(1), 
+        "Snowball!Snowball!"
+    );
+    assert_stdout_eq!(
+        tasks::throw_snowballs(3), 
+        "Snowball!Snowball!Snowball!Snowball!"
+    );
+    //----------------------------------------------------------------------
+}, task7_7);
+
+test_setup::make_test!(task7_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task7_7_info'
+    assert_stdout_eq!(
+        tasks::feed_capybara(1), 
+        "I have fed 0 capybaras!I have fed 1 capybaras!"
+    );
+    assert_stdout_eq!(
+        tasks::feed_capybara(2), 
+        "I have fed 0 capybaras!I have fed 1 capybaras!I have fed 2 capybaras!"
+    );
+    assert_stdout_eq!(
+        tasks::feed_capybara(3), 
+        "I have fed 0 capybaras!I have fed 1 capybaras!I have fed 2 capybaras!I have fed 3 capybaras!"
+    );
+    //----------------------------------------------------------------------
+}, task7_8);
+
+test_setup::make_test!(task7_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task7_8_info'
+    assert_stdout_eq!(
+        tasks::feed_penguin(3), 
+        "I have fed 1 penguins!I have fed 2 penguins!I have fed 3 penguins!"
+    );
+    assert_stdout_eq!(
+        tasks::feed_penguin(1), 
+        "I have fed 1 penguins!"
+    );
+    assert_stdout_eq!(
+        tasks::feed_penguin(4), 
+        "I have fed 1 penguins!I have fed 2 penguins!I have fed 3 penguins!I have fed 4 penguins!"
+    );
+    //----------------------------------------------------------------------
+}, task8_1);
+
+test_setup::make_test!(task8_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_1_info'
+    assert_stdout_eq!(tasks::if_west(true), "Going west!");
+    assert_stdout_eq!(tasks::if_west(false), "Not going west!");
+    //----------------------------------------------------------------------
+}, task8_2);
+
+test_setup::make_test!(task8_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_2_info'
+    assert_stdout_eq!(tasks::take_order("water"), "Here is your water!");
+    assert_stdout_eq!(tasks::take_order("soda"), "Here is your soda!");
+    assert_stdout_eq!(tasks::take_order("juice"), "Here is your juice!");
+    assert_stdout_eq!(tasks::take_order("milk"), "We don't have that here.");
+    //----------------------------------------------------------------------
+}, task8_3);
+
+test_setup::make_test!(task8_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_3_info'
+    assert_stdout_eq!(tasks::give_gift(true), "Happy Birthday! I got you trucks");
+    assert_stdout_eq!(tasks::give_gift(false), "Happy Birthday! I got you candy");
+    //----------------------------------------------------------------------
+}, task8_4);
+
+test_setup::make_test!(task8_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_4_info'
+    assert_stdout_eq!(tasks::hunting_rifle(Some(12)), "My gun has 12 bullets left");
+    assert_stdout_eq!(tasks::hunting_rifle(Some(24)), "My gun has 24 bullets left");
+    assert_stdout_eq!(tasks::hunting_rifle(Some(4)), "My gun has 4 bullets left");
+    assert_stdout_eq!(tasks::hunting_rifle(None), "My gun has no bullets left");
+    //----------------------------------------------------------------------
+}, task8_5);
+
+test_setup::make_test!(task8_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_5_info'
+    //----------------------------------------------------------------------
+}, task8_6);

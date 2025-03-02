@@ -307,3 +307,72 @@ pub fn salmon_count(todays_catch: HashMap<&str, u8>) {
     let salmon = todays_catch.get("Salmon");
     print!("Today we caught {:?} salmon!", salmon);
 }
+
+pub fn make_n_drink(mut oranges: u8, mut orange_juice: u8) -> (u8, u8) {
+    oranges -= 1;
+    orange_juice += 1;
+
+    (oranges, orange_juice)
+}
+
+pub fn car_horn() {
+    loop {
+        print!("BEEP!");
+    }
+}
+
+pub fn throw_snowballs(snowballs: u8) {
+    for _snowball in 0..=snowballs {
+        print!("Snowball!");
+    }
+}
+
+pub fn feed_capybara(capybaras: u8) {
+    for capybara in 0..=capybaras {
+        print!("I have fed {} capybaras!", capybara);
+    }
+}
+
+pub fn feed_penguin(penguins: u8) {
+    for penguin in 1..=penguins {
+        print!("I have fed {} penguins!", penguin);
+    }
+}
+
+pub fn if_west(west: bool) {
+    if west {
+        print!("Going west!");
+    } else {
+        print!("Not going west!");
+    }
+}
+
+pub fn take_order(request: &str) {
+    if request == "water" {
+        print!("Here is your water!");
+    } else if request == "soda" {
+        print!("Here is your soda!");
+    } else if request == "juice" {
+        print!("Here is your juice!");
+    } else {
+        print!("We don't have that here.");
+    }
+}
+
+pub fn give_gift(toys_in_stock: bool) {
+    let gift: &str = if toys_in_stock {
+        "trucks"
+    } else {
+        "candy"
+    };
+
+    print!("Happy Birthday! I got you {}", gift);
+}
+
+pub fn hunting_rifle(magazine: Option<u8>) {
+    if let Some(mag) = magazine {
+        print!("My gun has {} bullets left", mag);
+    } else {
+        print!("My gun has no bullets left");
+    }
+}

@@ -1653,7 +1653,7 @@ make_test_info!(
 
 make_test_info!(
     task7_2_info, "Third Collection",
-    describe_type("Hashmaps",
+    describe_type("HashMaps",
         "
         A HashMap is like this chest of labeled drawers:
 
@@ -1669,7 +1669,7 @@ make_test_info!(
         &[
             (
             "Example",
-            "let mut monkeys: Hashmap<&str, &str> = HashMap::new();
+            "let mut monkeys: HashMap<&str, &str> = HashMap::new();
 
             monkeys.insert(\"Terence\", \"Capuchin\");
             monkeys.insert(\"Alex\", \"Proboscis\");
@@ -1679,7 +1679,7 @@ make_test_info!(
             "Explanation",
             "let mut monkeys: - the start of a mutable variable
             
-            Hashmap<&str, &str> - the type will be a Hashmap where the key and value are &str
+            HashMap<&str, &str> - the type will be a HashMap where the key and value are &str
             
             HashMap::new() - creates an new, empty hashmap
             
@@ -1690,14 +1690,14 @@ make_test_info!(
             ),
             (
                 "Help",
-                "Hashmaps are not a type that comes by default. 
+                "HashMaps are not a type that comes by default. 
             Add ' use std::collections::HashMap; ' to the top of your tasks.rs file"
             )
         ],
     ),
-    describe_function("soccer_player", &[], Some("Hashmap<u8, u8>"),
-        "Create a mutable variable called 'players' with type Hashmap<u8, u8>
-        Set 'players' to a new Hashmap
+    describe_function("soccer_player", &[], Some("HashMap<u8, u8>"),
+        "Create a mutable variable called 'players' with type HashMap<u8, u8>
+        Set 'players' to a new HashMap
         Insert the key 12 with value 3 (12 being player's number, 3 being goals)
         Return players"
     ).replace("\n", "\n    "),
@@ -1706,7 +1706,7 @@ make_test_info!(
 );
 
 make_test_info!(
-    task7_3_info, "Getting Hashmap Values",
+    task7_3_info, "Getting HashMap Values",
     describe_type(".get() method",
         "
         To get a value from a hashmap using a key, 
@@ -1733,22 +1733,386 @@ make_test_info!(
             )
         ],
     ),
-    describe_function("salmon_count", &["todays_catch: Hashmap<&str, u8>"], None,
+    describe_function("salmon_count", &["todays_catch: HashMap<&str, u8>"], None,
         "todays_catch is a hashmap of fish species (the &str) and amount caught (the u8) 
         
         Create a variable called 'salmon' containing value associated with the key \"Salmon\"
         Print it like this: \"Today we caught _ salmon!\""
     ).replace("\n", "\n    "),
     None,
-    Some("** THIS IS THE LAST TASK **")
+    None
 );
 
+make_test_info!(
+    task7_4_info, "More Operators",
+    describe_type("Efficient Adding, Subtracting",
+        "
+        Instead of subtracting from a variable like this:
+
+        let mut cookies = 2;
+        cookies = cookies - 1;
+        
+        We can use the -= operator
+
+        let mut cookies = 2;
+        cookies -= 1;
 
 
-// <=
-// >=
-// -=
-// +=
+        Instead of adding to a variable like this:
+
+        let mut pencils = 2;
+        pencils = pencils + 1;
+        
+        We can use the += operator
+
+        let mut pencils = 2;
+        pencils += 1;
+        ",
+        (true, &[]),
+        &[],
+    ),
+    describe_function("make_n_drink", &["mut oranges: u8", "mut orange_juice: u8"], Some("(u8, u8)"),
+        "Subtract 1 from oranges
+        Add 1 to orange_juice
+        
+        Return a tuple containing oranges and orange_juice"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task7_5_info, "Your First Loop",
+    describe_type("loop {}",
+        "
+        To run the same chunk of code over and over again, 
+        ou can wrap the code in a loop {}",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "loop {
+                print!(\"Hey, how's it going?\")
+            }"
+            ),
+            (
+            "Explanation",
+            "This will print \"Hey, how's it going?\" over and over again,
+            until you quit the program"
+            )
+        ],
+    ),
+    describe_function("car_horn", &[], None,
+        "Use a loop to print \"BEEP!\" constantly"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task7_6_info, "Second Loop Style",
+    describe_type("For In Loops",
+        "
+        This is the most popular form of loop, and is used to run code a specific number of times",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let cookies = 5;
+            
+            for cookie in 0..=cookies {
+                print!(\"Mmmm... Yummy cookies!\");
+            }"
+            ),
+            (
+            "Explanation",
+            "let cookies = 5; - Created a variable with value 5
+
+            for cookie in 0..=cookies - This is like saying
+                \"For each cookie in cookies, starting at zero - run this code\"
+
+            0..=cookies - Loop will run from 0 until the count of cookies
+
+            for cookie in - Creates a variable called cookie that contains 
+            the number representing which round of the loop we are currently in
+
+            (The first loop, cookie will be 0. Second loop, cookie will be 1. Etc.)
+
+            print!(\"Mmmm... Yummy cookies!\"); - Print statement
+
+            This loop will run 6 times
+            "
+            )
+        ],
+    ),
+    describe_function("throw_snowballs", &["snowballs: u8"], None,
+        "For each snowball in snowballs, print \"Snowball!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task7_7_info, "For Loops",
+    describe_type("For In Variables",
+        "
+        We can use the variable containing the number representing which round of the
+        loop we are currently in, inside our loop",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let cookies = 5;
+            
+            for cookie in 0..=cookies {
+                print!(\"I have eaten {} cookies!\", cookie);
+            }"
+            ),
+            (
+            "Explanation",
+            "print!(\"I have eaten {} cookies!\", cookie); - Uses cookie variable
+
+            This will print:
+            
+            \"I have eaten 0 cookies!\" on the first loop
+            \"I have eaten 1 cookies!\" on the second loop
+            \"I have eaten 2 cookies!\" on the third loop
+            \"I have eaten 3 cookies!\" on the fourth loop
+            \"I have eaten 4 cookies!\" on the fifth loop
+            \"I have eaten 5 cookies!\" on the sixth loop
+            "
+            )
+        ],
+    ),
+    describe_function("feed_capybara", &["capybaras: u8"], None,
+        "For each capybara in capybaras, print \"I have fed {} capybaras!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task7_8_info, "For Loops",
+    describe_type("0, 1 Indexing",
+        "
+        Since Rust uses 0 indexing, our loops will start at 0
+        
+        Which means when our snowballs variable is 4, \"Snowball!\" will get printed 5 times
+        
+        To fix this, we can change the start number to 1.
+        
+        1..=snowballs instead of 0..=snowballs
+        
+        This will print \"Snowball!\" 4 times (which is what we want)",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let cookies = 5;
+            
+            for cookie in 1..cookies {
+                print!(\"I have eaten {} cookies!\", cookie);
+            }"
+            ),
+            (
+            "This will print",
+            "
+            \"I have eaten 1 cookies!\" on the first loop
+            \"I have eaten 2 cookies!\" on the second loop
+            \"I have eaten 3 cookies!\" on the third loop
+            \"I have eaten 4 cookies!\" on the fourth loop
+            \"I have eaten 5 cookies!\" on the fifth loop
+            "
+            )
+        ],
+    ),
+    describe_function("feed_penguin", &["penguins: u8"], None,
+        "Start at 1 and for each penguin in penguins, print \"I have fed {} penguins!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_1_info, "If Statements",
+    describe_type("If",
+        "If Statements are like match statements, but specifically for booleans
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "if 5 > 5 {
+                print!(\"5 is greater than 5!\");
+            } else {
+                print!(\"5 is not greater than 5!\");
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "This is like the true arm of a match statement:
+            
+            if 5 > 5 {
+                print!(\"5 is greater than 5!\");
+            }
+            
+            This is like the false arm of a match statement:
+            
+            else {
+                print!(\"5 is not greater than 5!\");
+            }"
+            )
+        ],
+    ),
+    describe_function("if_west", &["west: bool"], None,
+        "If west, print \"Going west!\" else print \"Not going west!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_2_info, "If Statements",
+    describe_type("If Else",
+        "We can 'chain' if statements to check multiple booleans
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "if west {
+                print!(\"Going west!\");
+            } else if east{
+                print!(\"Going east!\");
+            } else {
+                print!(\"Not going east or west!\");
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "This checks if we are going west:
+            
+            if west {
+                print!(\"Going west!\");
+            }
+
+            If we are not going west, check if we are going east:
+
+            else if east{
+                print!(\"Going east!\");
+            }
+
+            Otherwise:
+
+            else {
+                print!(\"Not going east or west!\");
+            }
+                
+            "
+            )
+        ],
+    ),
+    describe_function("take_order", &["request: &str"], None,
+        "Use chained if else statements to check:
+        
+        if request == \"water\" - print \"Here is your water\"
+        otherwise, check if request == \"soda\" - print \"Here is your soda\"
+        otherwise, check if request == \"juice\" - print \"Here is your juice\"
+        otherwise, print \"We don't have that here.\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_3_info, "If Statements",
+    describe_type("let if",
+        "We can use if statements to set the value of a variable
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let cheese: &str = if cheddar_in_stock {
+                \"Cheddar Cheese\"
+            } else {
+                \"Swiss Cheese\"
+            };
+            "
+            ),
+            (
+            "Explanation",
+            "let cheese: &str = - Creating a variable called cheese
+            
+            if cheddar_in_stock {} - If cheddar_in_stock is true, set cheese to equal \"Cheddar Cheese\"
+            
+            else {}; - Otherwise, set cheese to equal \"Swiss Cheese\""
+            )
+        ],
+    ),
+    describe_function("give_gift", &["toys_in_stock: bool"], None,
+        "create a variable called gift, with type &str
+        
+        if toys_in_stock, set the value to \"trucks\"
+        otherwise, set the value to \"candy\"
+        
+        print gift like this: \"Happy Birthday! I got you _\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_4_info, "If Statements",
+    describe_type("if let Some()",
+        "We can use if statements to use an Option<> value if it's Some
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "let mystery_box: Option<&str> = Some(\"Golden Ticket\");
+            
+            if let Some(prize) = mystery_box {
+                print!(\"You got a {}!\", prize);
+            } else {
+                print!(\"Sorry, the box was empty.\")
+            }"
+            ),
+            (
+            "Explanation",
+            "let mystery_box: Option<&str> - Created variable that will hold optional text (&str)
+
+            if let Some(prize) = mystery_box 
+
+                - If mystery_box contains a Some() value, unwrap the Some() from around the value
+                Then, put the value inside a variable called prize
+
+                print!(\"You got a {}!\", prize); - print the prize variable
+
+            Otherwise, mystery_box contained None - print!(\"Sorry, the box was empty.\")
+            "
+            )
+        ],
+    ),
+    describe_function("hunting_rifle", &["magazine: Option<u8>"], None,
+        "Check if magazine contains a value using Some(). 
+        
+        If it does, print the number of bullets 
+        left in this format: \"My gun has _ bullets left\".
+         
+        Otherwise, print: \"My gun has no ammo left\"."
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+// <= 
+// >= 
+// -= x 
+// += x 
 
 // Unnamed struct/enum fields
 
@@ -1756,15 +2120,14 @@ make_test_info!(
 // Vectors x
 // Tuples x
 
-// If Else
-// If Let
+// If Else x
+// If Let x
 
 // Some x
 // None x
 
-// Loop
-// While loop
-// For in loop
+// Loop x
+// For in loop x
 
 // Generic types
 // Traits
@@ -1781,3 +2144,68 @@ make_test_info!(
 
 // Async
 // Await
+
+
+// make_test_info!(
+//     task7_6_info, "Second Loop",
+//     describe_type("While Loops",
+//         "
+//         If you only want a chunck of code to repeat until a boolean is true,
+//         you can use a while loop",
+//         (true, &[]),
+//         &[
+//             (
+//             "Example",
+//             "let cookies = 5;
+            
+//             while cookies != 0 {
+//                 print!(\"Mmmm... Yummy cookies!\");
+//                 cookies -= 1;
+//             }"
+//             ),
+//             (
+//             "Explanation",
+//             "let cookies = 5; - Created a variable with value 5
+
+//             while cookies != 0 - This loop will run while cookies is not 0
+
+//             print!(\"Mmmm... Yummy cookies!\"); - Print statement
+
+//             cookies -= 1; - Subtract 1 from cookies, so this will loop 5 times
+//             "
+//             )
+//         ],
+//     ),
+//     describe_function("throw_snowballs", &["snowballs: u8"], None,
+//         "Use a while look to print \"Snowball!\" while snowballs is not 0
+//         Subtract 1 from snowballs each loop - to keep the loop from running infinitely"
+//     ).replace("\n", "\n    "),
+//     None,
+//     None
+// );
+
+
+// make_test_info!(
+//     task7_8_info, "More Operators",
+//     describe_type("Less than, Greater than or equal too",
+//         "
+//         a > b (This checks if a is greater than b)
+//         a < b (This chesk if a is less than b)
+        
+//         We can use >=  to check if the first number is greater than or equal to the second
+//         a >= b
+        
+//         We can use <=  to check if the first number is less than or equal to the second
+//         a <= b",
+//         (true, &[]),
+//         &[],
+//     ),
+//     describe_function("enough_pianos", &["pianos: u8"], None,
+//         "Match pianos >= 5
+        
+//         true, print \"There are plenty of pianos\",
+//         false, print \"There are not enough pianos!\""
+//     ).replace("\n", "\n    "),
+//     None,
+//     None
+// );
