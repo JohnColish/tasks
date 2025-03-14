@@ -88,6 +88,7 @@ pub fn describe_structure(name: &str, fields: &[&str], _constructors: &[String],
     Name: {name}
 
     Fields:
+
         {fields}")
 }
 
@@ -623,21 +624,6 @@ test_setup::make_test!(task5_7, {
 }, task5_8);
 
 
-// test_setup::make_test!(task5_8, {
-//     //----------------------------------------------------------------------
-//     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
-//     //	CHECK FOR TYPOS OR RUN 'cargo test features=task5_7_info'
-
-//     assert_eq!(tasks::gold_coins("Galapagos"), Some(50));
-//     assert_eq!(tasks::gold_coins("Madagascar"), Some(100));
-//     assert_eq!(tasks::gold_coins("Maldives"), Some(50));
-//     assert_eq!(tasks::gold_coins("Bahamas"), None);
-//     assert_eq!(tasks::gold_coins("Iceland"), None);
-//     assert_eq!(tasks::gold_coins("Fiji"), None);
-
-//     //----------------------------------------------------------------------
-// }, task6_1);
-
 test_setup::make_test!(task5_8, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
@@ -891,5 +877,249 @@ test_setup::make_test!(task8_5, {
     //----------------------------------------------------------------------
     //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_5_info'
+    assert_eq!(tasks::mission_log(), String::from("Log: Oxygen levels stable. Aliens unknown."));
     //----------------------------------------------------------------------
 }, task8_6);
+
+test_setup::make_test!(task8_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_6_info'
+    let a: u8 = 23;
+    assert_stdout_eq!(tasks::dogs_in_park(&a), "There are 23 dogs playing in the park!");
+    let a: u8 = 3;
+    assert_stdout_eq!(tasks::dogs_in_park(&a), "There are 3 dogs playing in the park!");
+    let a: u8 = 9;
+    assert_stdout_eq!(tasks::dogs_in_park(&a), "There are 9 dogs playing in the park!");
+    //----------------------------------------------------------------------
+}, task8_7);
+
+test_setup::make_test!(task8_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_7_info'
+    let mut a: u8 = 9;
+    assert_stdout_eq!(tasks::pop_balloon(&mut a), "POP! There are now 8 balloons left.");
+    let mut a: u8 = 30;
+    assert_stdout_eq!(tasks::pop_balloon(&mut a), "POP! There are now 29 balloons left.");
+    let mut a: u8 = 64;
+    assert_stdout_eq!(tasks::pop_balloon(&mut a), "POP! There are now 63 balloons left.");
+    //----------------------------------------------------------------------
+}, task8_8);
+
+test_setup::make_test!(task8_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task8_8_info'
+    assert_stdout_eq!(tasks::knight_move(), "K to C7!");
+    //----------------------------------------------------------------------
+}, task9_1);
+
+test_setup::make_test!(task9_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_1_info'
+    use rot13::rot13;
+    let a = rot13("John smells.");
+
+    assert_stdout_eq!(
+        tasks::encode_message("John smells."), 
+        format!("I have a secret to tell you. {a}")
+    );
+    let a = rot13("If you're reading this, send help.");
+    assert_stdout_eq!(
+        tasks::encode_message("If you're reading this, send help."), 
+        format!("I have a secret to tell you. {a}")
+    );
+    let a = rot13("Definitely not a bug, it's a feature.");
+    assert_stdout_eq!(
+        tasks::encode_message("Definitely not a bug, it's a feature."), 
+        format!("I have a secret to tell you. {a}")
+    );
+    //----------------------------------------------------------------------
+}, task9_1);
+
+test_setup::make_test!(task9_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_2_info'    
+    tasks::french_word();
+    //----------------------------------------------------------------------
+}, task9_2);
+
+
+test_setup::make_test!(task9_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_3_info'
+    assert_eq!(tasks::cook_chicken(114), Err(String::from("Gross! Chicken is raw.")));
+    assert_eq!(tasks::cook_chicken(140), Err(String::from("Gross! Chicken is raw.")));
+    assert_eq!(tasks::cook_chicken(68), Err(String::from("Gross! Chicken is raw.")));
+
+    assert_eq!(tasks::cook_chicken(165), Ok(String::from("Chicken is cooked!")));
+    assert_eq!(tasks::cook_chicken(170), Ok(String::from("Chicken is cooked!")));
+    assert_eq!(tasks::cook_chicken(188), Ok(String::from("Chicken is cooked!")));
+    //----------------------------------------------------------------------
+}, task9_4);
+
+test_setup::make_test!(task9_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_4_info'
+    assert_eq!(tasks::borrow_book("Dune"), Err(String::from("Book not available")));
+    assert_eq!(tasks::borrow_book("The Lord of the Rings"), Err(String::from("Book not available")));
+    assert_eq!(tasks::borrow_book("Stranger in a Strange Land"), Err(String::from("Book not available")));
+    assert_eq!(tasks::borrow_book("Pride and Prejudice"), Err(String::from("Book not available")));
+
+    assert_eq!(tasks::borrow_book("Starman Jones"), Ok(()));
+    //----------------------------------------------------------------------
+}, task9_5);
+
+
+test_setup::make_test!(task9_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_5_info'
+    assert_stdout_eq!(tasks::reserve_book(), "Error: Book not available");
+    //----------------------------------------------------------------------
+}, task9_6);
+
+test_setup::make_test!(task9_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_6_info'
+    assert_stdout_eq!(tasks::eat_chicken(), "Yummy, yummy! Chicken is cooked!");
+    //----------------------------------------------------------------------
+}, task9_7);
+
+test_setup::make_test!(task9_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_7_info'
+    assert_stdout_eq!(tasks::brew_coffee(), "");
+    //----------------------------------------------------------------------
+}, task9_8);
+
+test_setup::make_test!(task9_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_8_info'
+    assert_stdout_eq!(tasks::serve_customer(), "");
+    //----------------------------------------------------------------------
+}, task10_1);
+
+
+test_setup::make_test!(task10_1, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_1_info'
+    assert_stdout_eq!(tasks::tell_mark("indent your code"), "Hey Mark, I gotta tell you: indent your code.");
+    assert_stdout_eq!(tasks::tell_mark("Tuesday"), "Hey Mark, I gotta tell you: Tuesday.");
+    assert_stdout_eq!(tasks::tell_mark(104), "Hey Mark, I gotta tell you: 104.");
+    assert_stdout_eq!(tasks::tell_mark("you stink"), "Hey Mark, I gotta tell you: you stink.");
+    //----------------------------------------------------------------------
+}, task10_2);
+
+test_setup::make_test!(task10_2, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_2_info'
+
+    let reindeer = tasks::Reindeer::<&str>::new(String::from("Rudolph"), "three", String::from("Chocolates"));
+    assert_eq!(reindeer.name, String::from("Rudolph"));
+    assert_eq!(reindeer.age, "three");
+    assert_eq!(reindeer.favorite_candy, String::from("Chocolates"));
+
+    let reindeer = tasks::Reindeer::<u8>::new(String::from("Prancer"), 2, String::from("Lollipops"));
+    assert_eq!(reindeer.name, String::from("Prancer"));
+    assert_eq!(reindeer.age, 2);
+    assert_eq!(reindeer.favorite_candy, String::from("Lollipops"));
+    //----------------------------------------------------------------------
+}, task10_3);
+
+test_setup::make_test!(task10_3, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_3_info'
+
+    let a = tasks::MysteryBox::<String>::new(Some(String::from("Plastic Cups")));
+    let a = tasks::MysteryBox::<String>::new(Some(String::from("Gummy Bears")));
+    let a = tasks::MysteryBox::<String>::new(Some(String::from("Analog Clocks")));
+    let a = tasks::MysteryBox::<String>::new(Some(String::from("Swordfish Toes")));
+
+    let a = tasks::MysteryBox::<String>::new(None);
+    //----------------------------------------------------------------------
+}, task10_4);
+
+test_setup::make_test!(task10_4, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_4_info'
+
+    let w = tasks::WashingMachine;
+    let d = tasks::DryingMachine;
+
+    use crate::tasks::Machine;
+
+    assert_stdout_eq!(w.start(), "Starting machine....");
+    assert_stdout_eq!(d.start(), "Starting machine....");
+
+    //----------------------------------------------------------------------
+}, task10_5);
+
+test_setup::make_test!(task10_5, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_5_info'
+    let w = tasks::WashingMachine;
+    let d = tasks::DryingMachine;
+
+    assert_stdout_eq!(tasks::clean_laundry(w, d), "Starting machine....Starting machine....");
+
+    //----------------------------------------------------------------------
+}, task10_6);
+
+test_setup::make_test!(task10_6, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_6_info'
+
+    let w = tasks::WashingMachine;
+    let d = tasks::DryingMachine;
+    let o = tasks::Oven;
+
+    use crate::tasks::Machine;
+
+    assert_stdout_eq!(w.start(), "Starting machine....");
+    assert_stdout_eq!(d.start(), "Starting machine....");
+    assert_stdout_eq!(o.start(), "Preheating to 450f....");
+    //----------------------------------------------------------------------
+}, task10_7);
+
+test_setup::make_test!(task10_7, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_7_info'
+
+    let fishy = tasks::Fish{specie: String::from("Rainbow Trout"), scales: 100};
+
+    let (fishy, fishist) = tasks::fish_duplicater(fishy);
+    //----------------------------------------------------------------------
+}, task10_8);
+
+test_setup::make_test!(task10_8, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_8_info'
+    assert_stdout_eq!(tasks::double_values(vec![2, 4, 6, 8]), "481216");
+
+    //----------------------------------------------------------------------
+}, task10_9);
+
+test_setup::make_test!(task10_9, {
+    //----------------------------------------------------------------------
+    //	THIS ERROR MEANS THE TEST COULD NOT FIND YOUR FUNCTION:
+    //	CHECK FOR TYPOS OR RUN 'cargo test features=task10_9_info'
+    assert_eq!(tasks::increase_rations(vec![2, 4, 6, 8]), vec![4, 8, 12, 16]);
+    //----------------------------------------------------------------------
+}, task10_9);

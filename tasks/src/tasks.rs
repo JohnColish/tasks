@@ -376,3 +376,156 @@ pub fn hunting_rifle(magazine: Option<u8>) {
         print!("My gun has no bullets left");
     }
 }
+
+pub fn mission_log() -> String {
+    String::from("Log: Oxygen levels stable. Aliens unknown.")
+}
+
+pub fn dogs_in_park(dogs: &u8) {
+    print!("There are {dogs} dogs playing in the park!");
+}
+
+pub fn pop_balloon(balloons: &mut u8) {
+    *balloons -= 1;
+    print!("POP! There are now {balloons} balloons left.")
+}
+
+pub fn knight_move() {
+    let piece: char = 'K';
+    print!("{} to C7!", piece);
+}
+
+pub fn encode_message(message: &str) {
+    use rot13::rot13;
+    print!("I have a secret to tell you. {}", rot13(message));
+}
+
+use random_word::Lang;
+
+pub fn french_word() {
+    let my_word = random_word::gen(Lang::Fr);
+    print!("I'm so French. {}!", my_word);
+}
+
+use tokio::time::{sleep, Duration};
+
+pub async fn brew_coffee() {
+    print!("Brewing coffee...");
+    sleep(Duration::from_secs(3)).await;
+    print!("Coffee browed!");
+}
+
+pub async fn serve_customer() {
+    brew_coffee().await;
+    print!("Here's a fresh coffee!");
+}
+
+pub fn cook_chicken(temp: u8) -> Result<String, String> {
+    match temp >= 165 {
+        true => Ok(String::from("Chicken is cooked!")),
+        false => Err(String::from("Gross! Chicken is raw."))
+    }
+}
+
+pub fn borrow_book(title: &str) -> Result<(), String> {
+    match title == "Starman Jones" {
+        true => Ok(()),
+        false => Err(String::from("Book not available"))
+    }
+}
+
+pub fn reserve_book() {
+    let my_book = "The Hobbit";
+
+    match borrow_book(my_book) {
+        Ok(_) => print!("Successfully reserved {}", my_book),
+        Err(err) => print!("Error: {}", err)
+    }
+}
+
+pub fn eat_chicken() -> Result<(), String> {
+    let chicken = cook_chicken(170)?;
+
+    print!("Yummy, yummy! {}", chicken);
+
+    Ok(())
+}
+
+pub fn tell_mark<T: std::fmt::Display>(message: T) {
+    print!("Hey Mark, I gotta tell you: {}.", message);
+}
+
+pub struct Reindeer<T> {
+    pub name: String,
+    pub age: T,
+    pub favorite_candy: String
+}
+
+impl<T> Reindeer<T> {
+    pub fn new(name: String, age: T, favorite_candy: String) -> Reindeer<T> {
+        Reindeer {
+            name,
+            age,
+            favorite_candy
+        }
+    }
+}
+
+pub enum MysteryBox<T> {
+    Contains(T),
+    Empty
+}
+
+impl<T> MysteryBox<T> {
+    pub fn new(item: Option<T>) -> MysteryBox<T> {
+        match item {
+            Some(content) => MysteryBox::Contains(content),
+            None => MysteryBox::Empty
+        }
+    }
+}
+
+pub struct WashingMachine;
+pub struct DryingMachine;
+pub struct Oven;
+
+pub trait Machine {
+    fn start(&self) {
+        print!("Starting machine....");
+    }
+}
+
+impl Machine for WashingMachine {}
+impl Machine for DryingMachine {}
+
+impl Machine for Oven {
+    fn start(&self) {
+        print!("Preheating to 450f....");
+    }
+}
+
+pub fn clean_laundry(washer: WashingMachine, dryer: DryingMachine) {
+    washer.start();
+    dryer.start();
+}
+
+#[derive(Clone)]
+pub struct Fish {
+    pub specie: String,
+    pub scales: u8
+}
+
+pub fn fish_duplicater(fish: Fish) -> (Fish, Fish) {
+    let duplicate = fish.clone();
+    (fish, duplicate)
+}
+
+pub fn double_values(values: Vec<u8>) {
+    for val in values.iter() {
+        print!("{}", val * 2);
+    }
+}
+
+pub fn increase_rations(rations: Vec<u8>) -> Vec<u8> {
+    rations.into_iter().map(|x| x * 2).collect()
+}

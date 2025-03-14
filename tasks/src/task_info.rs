@@ -2017,9 +2017,9 @@ make_test_info!(
     describe_function("take_order", &["request: &str"], None,
         "Use chained if else statements to check:
         
-        if request == \"water\" - print \"Here is your water\"
-        otherwise, check if request == \"soda\" - print \"Here is your soda\"
-        otherwise, check if request == \"juice\" - print \"Here is your juice\"
+        if request == \"water\" - print \"Here is your water!\"
+        otherwise, check if request == \"soda\" - print \"Here is your soda!\"
+        otherwise, check if request == \"juice\" - print \"Here is your juice!\"
         otherwise, print \"We don't have that here.\""
     ).replace("\n", "\n    "),
     None,
@@ -2103,109 +2103,1109 @@ make_test_info!(
         If it does, print the number of bullets 
         left in this format: \"My gun has _ bullets left\".
          
-        Otherwise, print: \"My gun has no ammo left\"."
+        Otherwise, print: \"My gun has no bullets left\"."
     ).replace("\n", "\n    "),
     None,
     None
 );
 
-// <= 
-// >= 
-// -= x 
-// += x 
+make_test_info!(
+    task8_5_info, "Understanding Ownership",
+    describe_type("Ownership",
+        "
+        When a program runs, it stores all values in the computer's memory. 
+        But, once a value is no longer needed, Rust automatically 
+        cleans it up to free space for other data. 
 
-// Unnamed struct/enum fields
+        This process is called deallocating memory.
 
-// Hashmaps x
-// Vectors x
-// Tuples x
+        Every value has a single owner. 
+        When the owner goes out of scope, Rust automatically deallocates the memory.
 
-// If Else x
-// If Let x
+        So far, we’ve used the &str type to work with text. 
+        However, we cannot return a value of type &str from a 
+        function.
 
-// Some x
-// None x
+        An &str is not the actual text itself. 
+        It’s more like a label that points to where the text is stored in memory. 
+        
+        It's like writing on a sticky note, “The book is on the shelf.” 
+        This sticky note isn’t the book; it just tells you where to find it.
 
-// Loop x
-// For in loop x
+        Because &str only refers to a string rather than owning it, 
+        returning an &str from a function can be a problem. 
 
-// Generic types
-// Traits
-// Mut
+        To return a piece of text, we have to use the type String.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "fn get_joke() -> String {
+                String::from(\"Why don’t skeletons fight each other? They don’t have the guts.\")
+            }
+                "
+            ),
+            (
+            "Explanation",
+            "fn get_joke() -> String  - We create a function with the return type String
 
-// Borrowing and Ownership
-// Lifetimes
+            String::from() - Creates a string from the given piece of text"
+            )
+        ],
+    ),
+    describe_function("mission_log", &[], Some("String"),
+        "Use String::from() and return:
+        \"Log: Oxygen levels stable. Aliens unknown.\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
 
-// Const x
-// Macros
+make_test_info!(
+    task8_6_info, "Understanding Borrowing",
+    describe_type("Borrowing",
+        "
+        Sometimes, you want to use a value without taking ownership of it. 
+        You can let a function or another part of the program temporarily 
+        use a value without giving away ownership. This is called borrowing.
 
-// Break
-// Continue
+        References (or &) are how we borrow values in Rust. 
+        A reference is a way for the program to point to the 
+        value without taking ownership of it or moving it.
 
-// Async
-// Await
+        Think of it like giving someone a note that says \"The book is on my shelf\".
+        You’re not giving them the actual book, just the information they need to find it.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn print_temperature(temp: &u8) {
+                print!(\"The current temperature is: {}c\", temp);
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "pub fn print_temperature - creates a function
 
+            temp: &u8 - Temp is a reference to a u8 (number)
 
-// make_test_info!(
-//     task7_6_info, "Second Loop",
-//     describe_type("While Loops",
-//         "
-//         If you only want a chunck of code to repeat until a boolean is true,
-//         you can use a while loop",
-//         (true, &[]),
-//         &[
-//             (
-//             "Example",
-//             "let cookies = 5;
+            print!(\"The current temperature is: {}c\", temp); - We print the number"
+            )
+        ],
+    ),
+    describe_function("dogs_in_park", &["dogs: &u8"], None,
+        "Print dogs like this: \"There are _ dogs playing in the park!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_7_info, "Modifying a borrowed value",
+    describe_type("Dereferencing",
+        "
+        When borrowing a value, you might want to modify the value it points to.
+
+        This is done by \"following the reference\" to 
+        get to the actual data. This is called dereferencing.
+
+        To do this, we use the * operator. 
+        This tells Rust, \"Give me the actual value, not just the reference.\"
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn squish_bug(bugs: &mut u8) {
+                *bugs -= 1;
+                print!(\"SQUISH! {} bugs left.\", bugs);
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "pub fn squish_bug - creates a function
+
+            bugs: &mut u8 - We take in a mutable reference to a number
+
+            *bugs -= 1; - Dereference bugs and subtract 1
+
+            print!(\"SQUISH! {} bugs left.\", bugs); - We print the remaining bugs"
+            )
+        ],
+    ),
+    describe_function("pop_balloon", &["balloons: &mut u8"], None,
+        "Dereference balloons and subtract 1
+
+        Print balloons like this: \"POP! There are now _ balloons left.\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task8_8_info, "Char Type",
+    describe_type("char",
+        "
+        Char is a data type that only contains a single character
+
+        Characters are denotated by single quotes ''
+
+        Characters can be letters, numbers, symbols, emojis, or glyphs
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "fn first_letter() {
+                let my_first_letter: char = 'a';
+                print!(\"Hey Buddy, today we're learning {}\", my_first_letter);
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "let my_first_letter: char = 'a'; - A variable containing the character 'a'
+
+            print!(\"Hey Buddy, today we're learning {}\", my_first_letter);
+                - Printing the variable"
+            )
+        ],
+    ),
+    describe_function("knight_move", &[], None,
+        "Create a variable called piece.
+        Set the type to char and the value to 'K'
+        
+        Print piece like this: \"_ to C7!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task9_1_info, "Importing Crates",
+    describe_type("Crates",
+        "
+        Rust allows us to add extra functionality to our programs using crates. 
+        A crate is like a toolbox filled with useful code written by other developers.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example - Let's add the crate 'rand' to generate random numbers.",
+            "In the terminal, we will run the command 'cargo add rand'
+
+            Then, at the top of our tasks.rs file, we add the line 'use rand::Rng;
             
-//             while cookies != 0 {
-//                 print!(\"Mmmm... Yummy cookies!\");
-//                 cookies -= 1;
-//             }"
-//             ),
-//             (
-//             "Explanation",
-//             "let cookies = 5; - Created a variable with value 5
+            pub fn random_number() {
+                let mut rng = rand::thread_rng(); 
+                let number: u8 = rng.gen_range(1..=10);
+                println!(\"Your random number is: {}\", number);
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "Running the command 'cargo add rand' will add the 
+            latest version of rand to our dependencies.
 
-//             while cookies != 0 - This loop will run while cookies is not 0
+            You can see all your dependencies in the Cargo.toml file
 
-//             print!(\"Mmmm... Yummy cookies!\"); - Print statement
+            At the top of our file, we add 'use rand::Rng;' this tells 
+            the compiler that we want to use the Rng part of the rand crate in this file.
 
-//             cookies -= 1; - Subtract 1 from cookies, so this will loop 5 times
-//             "
-//             )
-//         ],
-//     ),
-//     describe_function("throw_snowballs", &["snowballs: u8"], None,
-//         "Use a while look to print \"Snowball!\" while snowballs is not 0
-//         Subtract 1 from snowballs each loop - to keep the loop from running infinitely"
-//     ).replace("\n", "\n    "),
-//     None,
-//     None
-// );
+            Rng let's us create a random number generator.
+            
+            let mut rng = rand::thread_rng(); - Create a random number generator
 
+            let number: u8 = rng.gen_range(1..=10); - Generate a number between 1 and 10
 
-// make_test_info!(
-//     task7_8_info, "More Operators",
-//     describe_type("Less than, Greater than or equal too",
-//         "
-//         a > b (This checks if a is greater than b)
-//         a < b (This chesk if a is less than b)
+            println!(\"Your random number is: {}\", number); - Print your random number
+            "
+            )
+        ],
+    ),
+    "We will use the rot13 crate to encode our message with the rot13 cipher.
+
+    In the terminal, run 'cargo add rot13'
+
+    Don't forget to add the import 'use rot13::rot13;' to the top of your file;
+    \n".to_owned()
+    +&describe_function("encode_message", &["message: &str"], None,
+        "Create a variable called encoded, and set it to rot13(message);
+            - encoded is now the message parameter in code
         
-//         We can use >=  to check if the first number is greater than or equal to the second
-//         a >= b
+        Print encoded like this: \"I have a secret to tell you. _\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task9_2_info, "Crate features",
+    describe_type("--features",
+        "
+        Some crates have optional features that can be enabled to add extra functionality. 
+        By default, these features are disabled to reduce unnecessary code.
+
+        To enable a feature in a crate, you use the --features flag when adding the crate.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "In the terminal, we run the command 'cargo add random-word --features de'
+
+
+            use random_word::Lang;
+            
+            pub fn a_german_word() {
+                let my_word = gen(Lang::De);
+                print!(\"Your random word is: {}\", my_word);
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "Running the command 'cargo add random-word --features de' 
+            will add the latest version of random-word crate with the de features
+            to our dependencies.
+
+            You can see all your dependencies in the Cargo.toml file
+
+            At the top of our file, we add 'use random_word::Lang;' 
+            this tells the compiler that we want to use the Lang and 
+            parts of the crate in this file.
+
+
+            pub fn a_german_word() - creates a function
+
+            let my_word = gen(Lang::De);
+                - Grabs a random word in the German language
+
+            print!(\"Your random word is: {}\", my_word); - Print your random word
+            "
+            )
+        ],
+    ),
+    "We will use the random-word crate to generate a random french word.
+
+    In the terminal, run 'cargo add random-word --features fr'
+
+    Don't forget to add the import 'use random_word::Lang;'
+    \n".to_owned()
+    +&describe_function("french_word", &[], None,
+        "Create a variable called my_word and set it to random french word
         
-//         We can use <=  to check if the first number is less than or equal to the second
-//         a <= b",
-//         (true, &[]),
-//         &[],
-//     ),
-//     describe_function("enough_pianos", &["pianos: u8"], None,
-//         "Match pianos >= 5
+        Print my_word like this: \"I'm so french. _!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task9_3_info, "The Result Type",
+    describe_type("Result",
+        "
+        The Result type is used for error handling. 
+
+        It is an enum that represents either a successful outcome (Ok) 
+        or an error (Err). 
+
+        The Result type is used by functions to return either a value on success 
+        or an error on failure.
+
+        Result type is defined in this format: Result<u8, String>
+
+        The first type represents which type the Ok value will be
+        The second type represents which type the Err value will be
+
+        The example shows u8 and String, but these can be any type.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn buy_bread(count: u8, in_stock: u8) -> Result<u8, String> {
+                match count <= in_stock {
+                    true => Ok(count),
+                    false => Err(String::from(\"Not enough loaves for sale.\"))
+                }
+            }"
+            ),
+            (
+            "Explanation",
+            "pub fn buy_bread(count: u8, in_stock: u8) - Creating a function requiring two u8s
+
+            Result<u8, String> 
+                - Returns a Result where the Ok value will be a u8 
+                  and the Err value will be a String
+
+            match count <= in_stock - Match count is less than or equal to in_stock
+
+            true => Ok(count) - true returns the Ok() Result variant, with count as the value
+
+            false => Err(String::from(\"Not enough loaves for sale.\")) 
+                - false returns the Err Result variant
+            "
+            )
+        ],
+    ),
+    describe_function("cook_chicken", &["temp: u8"], Some("Result<String, String>"),
+        "Use a match statment to check if temp >= 165
         
-//         true, print \"There are plenty of pianos\",
-//         false, print \"There are not enough pianos!\""
-//     ).replace("\n", "\n    "),
-//     None,
-//     None
-// );
+        true, return Ok(String::from(\"Chicken is cooked!\"))
+        false, return Err(String::from(\"Gross! Chicken is raw.\"))
+        "
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task9_4_info, "Empty Ok Type",
+    describe_type("Ok(())",
+        "
+        Err() is required to have a defined type and a value.
+
+        But Ok() does not need to have a defined type or a value.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn send_email(message: &str) -> Result<(), String> {
+                match message.is_empty() {
+                    false => Ok(()),
+                    true => Err(String::from(\"Invalid Email. Message is empty\"))
+                }
+            }"
+            ),
+            (
+            "Explanation",
+            "pub fn send_email(message: &str) - Creating a function requiring an &str
+
+            Result<(), String> 
+                - Returns a Result where the Ok doesn't have a value 
+                  and the Err value will be a String
+
+            match message.is_empty() - Check if message is an empty string
+
+            false => Ok(()) - false returns the Ok() Result variant, with no value - ()
+
+            true => Err(String::from(\"\")) - true returns an error message
+            "
+            )
+        ],
+    ),
+    describe_function("borrow_book", &["title: &str"], Some("Result<(), String>"),
+        "Use a match statment to check if title == \"Starman Jones\"
+        
+        true, return Ok(())
+        false, return Err(String::from(\"Book not available\"))
+        "
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task9_5_info, "Using Results",
+    describe_type("Result",
+        "",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn buy_bread(count: u8, in_stock: u8) -> Result<u8, String> {
+                match count <= in_stock {
+                    true => Ok(()),
+                    false => Err(\"Not enough loaves for sale\")
+                }
+            }
+                
+            pub fn shopping() {
+                let result = buy_bread(4, 12);
+
+                match result {
+                    Ok(_) => print!(\"I bought 4 bread loaves.\"),
+                    Err(error) => print!(\"I couldn't buy bread. {}, error),
+                }
+            }
+            
+            "
+            ),
+            (
+            "Explanation",
+            "pub fn shopping() - Creating a new function
+
+            let result = buy_bread(4, 12); - Run buy_bread and store the result in a variable
+
+            match result - Creating a match statement for the result variable
+
+            Ok(_) - If the variant was Ok, we print \"I bought 4 bread loaves.\"
+
+            Err(error) - If the variant was Err, we catch the value in a variable called error and print
+            "
+            )
+        ],
+    ),
+    describe_function("reserve_book", &[], None,
+        "Create a variable called my_book with type &str
+        and set the value to the title of your favorite book
+        
+        Run your borrow_book function pass in my_book as the parameter,
+        and store the result in a variable called 'result'
+
+        match on result
+        
+        Ok(_), print my_book: \"Successfully reserved _\"
+        Err(error), print error: \"Error: _\"
+        "
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task9_6_info, "? Operator",
+    describe_type("The ?",
+        "The ? operator is used to handle errors in Rust, specifically with Result types. 
+        
+        When applied to a Result, the ? operator automatically propagates errors if the result is an Err, 
+        and it lets you continue with the value inside the Ok variant if it’s successful. 
+        
+        It helps simplify error handling without the need for explicit match statements.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "fn check_ingredient(ingredient: &str) -> Result<String, String> {
+                match ingredient {
+                    \"coffee\" => Ok(\"freshly ground coffee\".to_string()),
+                    \"milk\" => Ok(\"whole milk\".to_string()),
+                    \"sugar\" => Ok(\"cane sugar\".to_string()),
+                    _ => Err(\"Ingredient out of stock!\".to_string()),
+                }
+            }
+
+            fn prepare_coffee() -> Result<String, String> {
+                let coffee = check_ingredient(\"coffee\")?;
+                let milk = check_ingredient(\"milk\")?;
+                let sugar = check_ingredient(\"sugar\")?;
+                
+                Ok(\"Your coffee is ready!\".to_string())
+            }
+            "
+            ),
+            (
+                "Explanation",
+            " 
+                let coffee = check_ingredient(\"coffee\")?; 
+                    - If coffee returns the Ok variant, set this variable to the content of Ok
+                    - If coffee returns the Err variant, this function will return the Err
+
+                .to_string() this is a method that will convert an &str to a String
+            "
+            )
+        ],
+    ),
+    describe_function("eat_chicken", &[], Some("Result<(), String>"),
+        "Declare a variable named chicken.
+
+        Set the value to the result of calling cook_chicken, 
+        passing 170 as the temp parameter.
+        
+        Use the ? operator to handle errors instead of 
+        manually matching the result with a match statement.
+
+        Print chicken: \"Yummy, yummy! _\"
+        
+        Return Ok(())"
+
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task9_7_info, "Asyncronous (Async) Functions",
+    describe_type("Async",
+        "
+        Async functions let our program wait for something to finish without stopping everything else.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "use tokio::time::{sleep, Duration};
+
+            pub async fn boil_water() {
+                print!(\"Boiling water...\");
+                sleep(Duration::from_secs(3)).await;
+                print!(\"Water is 212F\");
+            }"
+            ),
+            (
+            "Explanation",
+            "
+            use tokio::time::{sleep, Duration};
+                - We import sleep and Duration, tokio is not a default crate. 
+                  We must run 'cargo add tokio --features time'
+
+            pub async fn boil_water() - We create an async function called boil_water
+
+            print!(\"Boiling water...\"); - Create a print
+
+            sleep(Duration::from_secs(3)).await; - Uses tokio and duration to wait for 3 seconds
+
+            print!(\"Water is 212F\"); - Prints after the 3 second wait
+            "
+            )
+        ],
+    ),
+    "Add tokio as a dependency (cargo add tokio)
+
+    Add imports for Duration and sleep to the top of tasks.rs
+    \n".to_owned()
+    +&describe_function("brew_coffee", &[], None,
+        "print \"Brewing coffee...\".
+
+        run sleep to wait for 5 seconds
+
+        then, print \"Coffee brewed!\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task9_8_info, "The Await Method",
+    describe_type(".await",
+        "
+        To pause and wait for an async function to finish 
+        before moving on, we use the .await method.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub async fn boil_water() {
+                print!(\"Boiling water...\");
+                sleep(Duration::from_secs(3)).await;
+                print!(\"Water is 212F\");
+            }
+
+            pub fn make_tea() {
+                boil_water().await;
+                print!(\"Steep tea...\");
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "pub fn make_tea - Creating a function called make_tea
+
+            boil_water().await; - We call our boil_water function and wait for it to finish
+
+            print!(\"Steep tea...\"); - After the water is boiling, we can steep our tea"
+            )
+        ],
+    ),
+    describe_function("serve_customer", &[], None,
+        "Run brew_coffee and wait for it to finish
+        
+        Then, print \"Here's fresh coffee!\'"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_1_info, "Type Parameters",
+    describe_type("Type Parameters",
+        "
+        Type parameters allow functions and structs to work with multiple types 
+        instead of a single, fixed type. 
+        
+        This makes code more flexible and reusable.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub fn announce_message<T: std::fmt::Display>(message: T) {
+                print!(\"Attention: {:?}\", message);
+            }
+
+            pub fn yell() {
+                announce_message::<&str>(\"The event is starting soon!\");
+            }"
+            ),
+            (
+            "Explanation",
+            "pub fn announce_message - The start of a new function
+
+            <T: std::fmt::Display> 
+                - This tells the compiler that we will define the type, when calling the function  
+                - But, it must implement Display (can be printed)
+                - T can be any type. u8, &str, etc. as long as it can be printed
+
+            (message: T) - This function requires a parameter with the defined type
+
+            print!(\"Attention: {}\", message); - Printing the parameter
+
+            announce_message::<&str>()
+                - In our yell function, we run announce_message and define the T type as &str
+            "
+            )
+        ],
+    ),
+    describe_function("tell_mark<T>", &["message: T"], None,
+        "print the message parameter: \"Hey Mark, I gotta tell you: _.\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_2_info, "Type Parameters with Structs",
+    describe_type("Type Parameters",
+        "
+        We can use type parameters for struct fields aswell.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub struct Pet<T> {
+                pub name: String,
+                pub age: T,
+                pub breed: String,
+            }
+
+            impl<T> Pet<T> {
+                pub fn new(name: String, age: T, breed: String) -> Self {
+                    Pet { name, age, breed }
+                }
+
+                pub fn get_age(&self) -> T {
+                    self.age
+                }
+            }"
+            ),
+            (
+            "Explanation",
+            "pub struct Pet<T> - We create a structure called Pet with a type parameter
+
+            age: T - The age field has the T type
+
+            impl<T> Pet<T> - The T type must be specified here as well"
+            )
+        ],
+    ),
+    describe_structure(
+        "Reindeer<T>",
+        &["
+        pub name: String", "pub age: T", "pub favorite_candy: String"],
+        &[],
+        &[],
+    )+&"
+    \n\n\nCreate an impl block for Reindeer. Inside the Reindeer impl block:\n\n".replace("\n", "\n    ")
+    +&describe_function(
+        "new", &["name: String", "age: T", "favorite_candy: String"], Some("Reindeer"),
+        "Return an instance of Reindeer using the parameters for the field values"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_3_info, "Type Parameters with Enums",
+    describe_type("Type Parameters",
+        "
+        We can also use type parameters for enum fields.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "pub enum Transmission<T> {
+                Message(T),
+                SignalLost,
+                Coordinates(u8, u8),
+            }
+
+            impl<T> Transmission<T> {
+                fn send_message(message: T) -> Self {
+                    Transmission::Message(message)
+                }
+            }"
+            )
+        ],
+    ),
+    describe_enum(
+        "MysteryBox<T>",
+        &["
+        Contains(T),", "Empty"],
+        &[],
+        &[],
+    )+&"
+    \n\nCreate an impl block for MysteryBox. Inside the MysteryBox impl block:\n\n".replace("\n", "\n    ")
+    +&describe_function(
+        "new", &["item: Option<T>"], Some("MysteryBox<T>"),
+        "Create a match statement for item
+        
+        If Some(content), return MysteryBox::Contains(content)
+        If None, return MysteryBox::Empty"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_4_info, "Traits",
+    describe_type("Traits",
+        "
+        Instead of defining the same method or function for different types (Structs, Enums, etc)
+        Traits allow us to create and implement it for any type that needs it.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "
+            pub trait Noise {
+                fn yell(&self) {
+                    print!(\"Get off my lawn!\");
+                }
+            }
+
+            pub struct Neighbor;
+            pub struct OldMan;
+
+            impl Noise for Neighbor {}
+            impl Noise for OldMan {}
+
+            pub fn chaos() {
+                let gerald = OldMan;
+                let patricia = Neighbor;
+
+                gerald.yell();
+                patricia.yell();
+            }
+                "
+            ),
+            (
+            "Explanation",
+            "
+            pub trait Noise - We create a trait called Noise
+            
+            fn yell(&self) 
+                - We create a function called yell. Trait functions are not made public (pub)
+
+            print!(\"Get off my lawn!\"); - yell() prints \"Get off my lawn!\"
+            
+            pub struct Neighbor;
+            pub struct OldMan;
+                - We create two structs that don't have any fields
+
+            impl Noise for Neighbor {} - We implement the Noise trait for our structs
+            impl Noise for OldMan {}
+
+            pub fn chaos() - We create a function called chaos
+
+            let gerald = OldMan; - We create two variables set to oour two structs
+            let patricia = Neighbor;
+
+            gerald.yell();
+            patricia.yell();
+                - We can now run yell() on both of our structs, 
+                  without defining yell in each structs impl block
+            "
+            )
+        ],
+    ),
+    "\n".to_owned()
+    +&describe_structure("WashingMachine", &[], &[], &[])+&"\n\n"
+    +&describe_structure("DryingMachine", &[], &[], &[])+&"\n"
+    +&"
+    \nCreate a trait called Machine. Inside the Machine trait block:\n\n".replace("\n", "\n    ")
+    +&describe_function(
+        "start", &["&self"], None,
+        "print: \"Starting machine....\""
+    ).replace("\n", "\n    ")
+    +&"
+    \n\n Implement Machine for WashingMachine and DryingMachine".replace("\n", "\n    "),
+    None,
+    Some("Implement Machine for WashingMachine and DryingMachine")
+);
+
+
+make_test_info!(
+    task10_5_info, "Traits",
+    describe_type("Traits",
+        "
+        Now, let's run our start function on our new structs
+        ",
+        (true, &[]),
+        &[],
+    ),
+    describe_function(
+        "clean_laundry", &["washer: WashingMachine", "dryer: DryingMachine"], None,
+        "run start() on both washer and dryer"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+
+make_test_info!(
+    task10_6_info, "Traits",
+    describe_type("Traits",
+        "
+        We can write custom code for a specific implementation of a trait's function
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "
+            pub trait Noise {
+                fn yell(&self) {
+                    print!(\"Get off my lawn!\");
+                }
+            }
+
+            pub struct Neighbor;
+            pub struct OldMan;
+            pub struct Mother;
+
+            impl Noise for Neighbor {}
+            impl Noise for OldMan {}
+
+            impl Noise for Mother {
+                fn yell(&self) {
+                    print!(\"Dinner's ready!\");
+                }
+            }
+
+            "
+            ),
+            (
+            "Explanation",
+            "
+            pub struct Mother; - We create a third struct, Mother
+
+            impl Noise for Mother - This impl block can only contain functions defined in Noise
+
+            fn yell(&self) 
+                - Functions being implemented from a trait, 
+                  must have the same name, parameters, and return type 
+                  as the original definition
+            
+            print!(\"Dinner's ready!\"); - The function body, does not have to be the same."
+            )
+        ],
+    ),
+    "\n".to_owned()
+    +&describe_structure("Oven", &[], &[], &[])+&"\n\n"
+    +&"
+    \nImplement Machine for Oven. Inside the impl block:\n\n".replace("\n", "\n    ")
+    +&describe_function(
+        "start", &["&self"], None,
+        "print: \"Preheating to 450f....\""
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_7_info, "Derived Traits",
+    describe_type("#[derive()]",
+        "
+        #[derive()] automatically implements 
+        common traits for a struct or enum. 
+        
+        This reduces boilerplate code when working with 
+        standard traits like Debug, Clone, and PartialEq.
+
+        We will cover these traits and other common ones soon.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "
+            #[derive(Clone)]
+            struct Creature {
+                name: String,
+                power: u8,
+            }
+
+            pub fn two_dragons() -> (Creature, Creature) {
+                let dragon = Creature {
+                    name: String::from(\"Dragon\"),
+                    power: 255,
+                };
+
+                let duplicate = dragon.clone();
+
+                (dragon, duplicate)
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "
+            #[derive(Clone)] - Here we 'derive' the Clone trait for our Creature struct
+
+            struct Creature - We create a struct with two fields
+
+            pub fn two_dragons - A function that will return a tuple of two Creature instances
+            
+            let dragon = Creature - A variable called dragon, set to a Creature instance
+
+            let duplicate = dragon.clone() - Because this struct implements Clone, we can make clones
+
+            (dragon, duplicate) - Returning a tuple of dragon and duplicate (two Creature instances)
+            "
+            )
+        ],
+    ),
+    "\n".to_owned()
+    +&describe_structure("Fish", &["pub specie: String", "pub scales: u8"], &[], &[])+&"\n"
+    +&"
+    \n    Derived Traits:
+
+        Clone\n\n\n"
+    +&describe_function(
+        "fish_duplicater", &["fish: Fish"], Some("(Fish, Fish)"),
+        "Create a variable called duplicate set to a 
+        clone of the fish parameter
+        
+        Return the original fish and the duplicate in a tuple"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_8_info, "Iterators",
+    describe_type(".iter()",
+        "
+        Iterators allow you to traverse elements in a collection, such as vectors, 
+        without needing to use indexing manually.
+        ",
+        (true, &[]),
+        &[
+            (
+            "Example",
+            "
+            pub fn print_numbers() {
+                let numbers = vec![1, 2, 3, 4, 5];
+
+                for num in numbers.iter() {
+                    print!(\"{}\", num);
+                }
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "
+            let numbers = vec![1, 2, 3, 4, 5]; - We create a vector of 5 numbers
+
+            for num in numbers.iter() - We loop through numbers
+
+            print!(\"{}\", num); - Printing each number
+            "
+            )
+        ],
+    ),
+    describe_function(
+        "double_values", &["values: Vec<u8>"], None,
+        "Create a for loop and interate through values
+        multiply each value by 2, then print it"
+    ).replace("\n", "\n    "),
+    None,
+    None
+);
+
+make_test_info!(
+    task10_9_info, "Iterators",
+    describe_type(".into_iter()",
+        "
+        The into_iter() method consumes the original collection and transforms 
+        it into an iterator that takes ownership of the data.
+        
+        This means the original collection is no longer accessible 
+        after calling into_iter(), but it can be used to process and 
+        consume the elements of the collection.
+
+        ",
+        (true, &[]),
+        &[],
+    )+"\n    "
+    +&describe_type(".map()",
+        "
+        The .map() method is an iterator method that allows you to apply a function 
+        to each element in a collection, transforming it into a new value. 
+        
+        It creates a new iterator where each item is the result of applying 
+        the given function to the corresponding item from the original collection.
+        
+        ",
+        (true, &[]),
+        &[],
+    )+"\n    "
+    +&describe_type(".collect()",
+        "
+        The collect() method is used to transform an iterator into a collection
+        (e.g., Vec, HashMap, etc.). 
+        
+        It gathers the results of an iterator into a new data structure.
+
+        ",
+        (true, &[]),
+        &[(
+            "Example",
+            "
+            pub fn double_numbers() {
+                let numbers = vec![1, 2, 3, 4, 5];
+                let doubled: Vec<u32> = numbers.into_iter().map(|x| x * 2).collect();
+            }
+            "
+            ),
+            (
+            "Explanation",
+            "
+            let numbers = vec![1, 2, 3, 4, 5]; - We create a vector of 5 numbers
+
+            numbers.into_iter() - This method turns the vector of numbers, into an interator
+
+            .map(|x| x * 2) 
+                - This is a function that will run on each value.
+                x is the variable holding the current item
+                we multiply x by 2
+            
+            .collect() - We collect the iterator items back into a vector
+            "
+        )],
+    ),
+    describe_function(
+        "increase_rations", &["rations: Vec<u8>"], Some("Vec<u8>"),
+        "use .into_iter(), .map(), and .collect()
+        on rations to multiply each item by 2 
+        and return the items as a vector"
+    ).replace("\n", "\n    "),
+    None,
+    Some("** THIS IS THE LAST TASK **")
+);

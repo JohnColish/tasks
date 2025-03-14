@@ -6,7 +6,10 @@ edition = "2021"
 [dependencies]
 crossterm = "0.28.1"
 gag = "1.0.0"
+random_word = { version = "0.4.0", features = ["fr"] }
+rot13 = "0.1.1"
 test_setup = {path="/home/shared/test_setup"}
+tokio = {version = "1.44.0", features = ["time", "rt"]}
 
 [lib]
 doctest = false
@@ -145,3 +148,41 @@ task8_7 = ["tasks"]
 task8_7_info = []
 task8_8 = ["tasks"]
 task8_8_info = []
+task8_9 = ["tasks"]
+task8_9_info = []
+
+task9_1 = ["tasks"]
+task9_1_info = []
+task9_2 = ["tasks"]
+task9_2_info = []
+task9_3 = ["tasks"]
+task9_3_info = []
+task9_4 = ["tasks"]
+task9_4_info = []
+task9_5 = ["tasks"]
+task9_5_info = []
+task9_6 = ["tasks"]
+task9_6_info = []
+task9_7 = ["tasks"]
+task9_7_info = []
+task9_8 = ["tasks"]
+task9_8_info = []
+
+task10_1 = ["tasks"]
+task10_1_info = []
+task10_2 = ["tasks"]
+task10_2_info = []
+task10_3 = ["tasks"]
+task10_3_info = []
+task10_4 = ["tasks"]
+task10_4_info = []
+task10_5 = ["tasks"]
+task10_5_info = []
+task10_6 = ["tasks"]
+task10_6_info = []
+task10_7 = ["tasks"]
+task10_7_info = []
+task10_8 = ["tasks"]
+task10_8_info = []
+task10_9 = ["tasks"]
+task10_9_info = []
