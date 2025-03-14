@@ -13,6 +13,7 @@ pub fn make_test(items: TokenStream) -> TokenStream {
 
     let mac = format!("
         #[cfg(feature = \"{feat}\")]
+        #[allow(unused_must_use)]
         #[test]
         fn {feat}() {{
         	task_info::{feat}_info();
