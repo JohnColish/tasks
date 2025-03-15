@@ -937,7 +937,7 @@ test_setup::make_test!(task9_1, {
         format!("I have a secret to tell you. {a}")
     );
     //----------------------------------------------------------------------
-}, task9_1);
+}, task9_2);
 
 test_setup::make_test!(task9_2, {
     //----------------------------------------------------------------------
@@ -945,7 +945,7 @@ test_setup::make_test!(task9_2, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task9_2_info'    
     tasks::french_word();
     //----------------------------------------------------------------------
-}, task9_2);
+}, task9_3);
 
 
 test_setup::make_test!(task9_3, {
