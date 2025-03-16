@@ -506,17 +506,17 @@ test_setup::make_test!(task4_8, {
     //	CHECK FOR TYPOS OR RUN 'cargo test features=task4_8_info'
 
     assert_stdout_eq!(
-        tasks::Warship{cannons: 5, torpedoes: 10, speed: 100}.torpedo_check(),
+        tasks::Warship{cannons: 5, torpedoes: 10, speed: 100}.examine(),
         "This ship is stocked up and ready to go"
     );
 
     assert_stdout_eq!(
-        tasks::Warship{cannons: 0, torpedoes: 1, speed: 25}.torpedo_check(),
+        tasks::Warship{cannons: 0, torpedoes: 1, speed: 24}.examine(),
         "This ship is low and slow"
     );
 
     assert_stdout_eq!(
-        tasks::Warship{cannons: 51, torpedoes: 12, speed: 90}.torpedo_check(),
+        tasks::Warship{cannons: 51, torpedoes: 12, speed: 90}.examine(),
         "This ship is a mystery"
     );
     //----------------------------------------------------------------------
